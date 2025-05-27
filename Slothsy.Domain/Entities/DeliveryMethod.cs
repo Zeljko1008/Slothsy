@@ -15,7 +15,7 @@ namespace Slothsy.Domain.Entities
         /// <summary>
         /// Primary key.
         /// </summary>
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// The name of the delivery method (e.g., "Standard Shipping", "Express").

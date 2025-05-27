@@ -1,0 +1,68 @@
+[
+  {
+    "id": "11111111-1111-1111-1111-111111111111",
+    "name": "Clothing",
+    "description": "Apparel and wearables"
+  },
+  {
+    "id": "22222222-2222-2222-2222-222222222222",
+    "name": "Toys",
+    "description": "Fun items for kids and adults"
+  },
+  {
+    "id": "33333333-3333-3333-3333-333333333333",
+    "name": "Accessories",
+    "description": "Style add-ons"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444444",
+    "name": "Shoes",
+    "description": "Footwear"
+  },
+  {
+    "id": "55555555-5555-5555-5555-555555555555",
+    "name": "Furniture",
+    "description": "Home and office furniture"
+  },
+  {
+    "id": "66666666-6666-6666-6666-666666666666",
+    "name": "Electronics",
+    "description": "Gadgets and devices"
+  },
+  {
+    "id": "77777777-7777-7777-7777-777777777777",
+    "name": "Books",
+    "description": "Literature and educational materials"
+  },
+  {
+    "id": "88888888-8888-8888-8888-888888888888",
+    "name": "Sports Equipment",
+    "description": "Gear for sports and fitness"
+  },
+  {
+    "id": "99999999-9999-9999-9999-999999999999",
+    "name": "Beauty Products",
+    "description": "Cosmetics and skincare items"
+  },
+  {
+    "id": "00000000-0000-0000-0000-232323232323",
+    "name": "Gardening Tools",
+    "description": "Tools and supplies for gardening"
+  },
+  {
+    "id": "10101010-1010-1010-1010-101010101010",
+    "name": "Pet Supplies",
+    "description": "Items for pets and animals"
+  },
+  {
+    "id": "12121212-1212-1212-1212-121212121212",
+    "name": "Kitchen Appliances",
+    "description": "Appliances for cooking and food preparation"
+  },
+  {
+    "id": "13131313-1313-1313-1313-131313131313",
+    "name": "Health Products",
+    "description": "Wellness and health-related items"
+  }
+]
+

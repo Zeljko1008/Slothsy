@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Slothsy.Domain.Enums;
+using Slothsy.Domain.ValueObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,9 +35,17 @@ namespace Slothsy.Domain.Entities
         public decimal TotalAmount { get; set; }
 
         /// <summary>
-        /// Order status (e.g., Pending, Paid, Shipped).
+        /// Current payment status.
         /// </summary>
-        public string Status { get; set; } = "Pending";
+        public PaymentStatus PaymentStatus { get; set; } = PaymentStatus.Pending;
+        /// <summary>
+        /// Current delivery status.
+        /// </summary>
+        public OrderStatus OrderStatus { get; set; } = OrderStatus.Pending;
+        /// <summary>
+        /// Shipping address for the order.
+        /// </summary>
+        public Address ShippingAddress { get; set; } = default!;
 
         /// <summary>
         /// Foreign key for selected delivery method.

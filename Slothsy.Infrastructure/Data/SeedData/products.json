@@ -1,0 +1,164 @@
+[
+  {
+    "id": "99999999-0000-0000-0000-000000000001",
+    "name": "Hat",
+    "description": "Cotton hat for hot days",
+    "price": 12.99,
+    "imageUrl": "https://example.com/images/bodysuit.jpg",
+    "categoryId": "11111111-1111-1111-1111-111111111111"
+  },
+  {
+    "id": "99999999-0000-0000-0000-000000000002",
+    "name": "Stuffed sloth",
+    "description": "Stuffed pinky sloth",
+    "price": 8.50,
+    "imageUrl": "https://example.com/images/stuffed-sloth.jpg",
+    "categoryId": "22222222-2222-2222-2222-222222222222"
+  },
+  {
+    "id": "99999999-0000-0000-0000-000000000003",
+    "name": "Golden watch",
+    "description": "Watch made from pure gold",
+    "price": 22.90,
+    "imageUrl": "https://example.com/images/golden-watch.jpg",
+    "categoryId": "33333333-3333-3333-3333-333333333333"
+  },
+  {
+    "id": "99999999-0000-0000-0000-000000000004",
+    "name": "Sneakers",
+    "description": "Comfortable sneakers for everyday wear",
+    "price": 49.99,
+    "imageUrl": "https://example.com/images/sneakers.jpg",
+    "categoryId": "44444444-4444-4444-4444-444444444444"
+  },
+  {
+    "id": "99999999-0000-0000-0000-000000000005",
+    "name": "Office chair",
+    "description": "Ergonomic office chair for comfort",
+    "price": 89.99,
+    "imageUrl": "https://example.com/images/office-chair.jpg",
+    "categoryId": "55555555-5555-5555-5555-555555555555"
+  },
+  {
+    "id": "99999999-0000-0000-0000-000000000006",
+    "name": "Smartphone",
+    "description": "Latest model smartphone with advanced features",
+    "price": 699.00,
+    "imageUrl": "https://example.com/images/smartphone.jpg",
+    "categoryId": "66666666-6666-6666-6666-666666666666"
+  },
+  {
+    "id": "99999999-0000-0000-0000-000000000007",
+    "name": "Novel book",
+    "description": "Bestselling novel by a famous author",
+    "price": 15.00,
+    "imageUrl": "https://example.com/images/novel-book.jpg",
+    "categoryId": "77777777-7777-7777-7777-777777777777"
+  },
+  {
+    "id": "99999999-0000-0000-0000-000000000008",
+    "name": "Tennis racket",
+    "description": "Professional tennis racket for sports enthusiasts",
+    "price": 120.00,
+    "imageUrl": "https://example.com/images/tennis-racket.jpg",
+    "categoryId": "88888888-8888-8888-8888-888888888888"
+  },
+  {
+    "id": "99999999-0000-0000-0000-000000000009",
+    "name": "Lipstick",
+    "description": "High-quality lipstick in various shades",
+    "price": 19.99,
+    "imageUrl": "https://example.com/images/lipstick.jpg",
+    "categoryId": "99999999-9999-9999-9999-999999999999"
+  },
+  {
+    "id": "99999999-0000-0000-0000-000000000010",
+    "name": "Gardening set",
+    "description": "Complete set of gardening tools",
+    "price": 45.00,
+    "imageUrl": "https://example.com/images/gardening-set.jpg",
+    "categoryId": "00000000-0000-0000-0000-232323232323"
+  },
+  {
+    "id": "99999999-0000-0000-0000-000000000011",
+    "name": "Dog food",
+    "description": "Premium quality dog food for all breeds",
+    "price": 30.00,
+    "imageUrl": "https://example.com/images/dog-food.jpg",
+    "categoryId": "10101010-1010-1010-1010-101010101010"
+  },
+  {
+    "id": "99999999-0000-0000-0000-000000000012",
+    "name": "Blender",
+    "description": "High-speed blender for smoothies and soups",
+    "price": 89.99,
+    "imageUrl": "https://example.com/images/blender.jpg",
+    "categoryId": "12121212-1212-1212-1212-121212121212"
+  },
+  {
+    "id": "99999999-0000-0000-0000-000000000013",
+    "name": "Yoga mat",
+    "description": "Non-slip yoga mat for comfortable practice",
+    "price": 25.00,
+    "imageUrl": "https://example.com/images/yoga-mat.jpg",
+    "categoryId": "11111111-1111-1111-1111-111111111111"
+  },
+  {
+    "id": "99999999-0000-0000-0000-000000000014",
+    "name": "Puzzle game",
+    "description": "Challenging puzzle game for all ages",
+    "price": 15.00,
+    "imageUrl": "https://example.com/images/puzzle-game.jpg",
+    "categoryId": "22222222-2222-2222-2222-222222222222"
+  },
+  {
+    "id": "99999999-0000-0000-0000-000000000015",
+    "name": "Leather wallet",
+    "description": "Stylish leather wallet with multiple compartments",
+    "price": 45.00,
+    "imageUrl": "https://example.com/images/leather-wallet.jpg",
+    "categoryId": "33333333-3333-3333-3333-333333333333"
+  },
+  {
+    "id": "99999999-0000-0000-0000-000000000016",
+    "name": "Running shoes",
+    "description": "Lightweight running shoes for athletes",
+    "price": 75.00,
+    "imageUrl": "https://example.com/images/running-shoes.jpg",
+    "categoryId": "44444444-4444-4444-4444-444444444444"
+  },
+  {
+    "id": "99999999-0000-0000-0000-000000000017",
+    "name": "Gaming chair",
+    "description": "Comfortable gaming chair with adjustable features",
+    "price": 199.99,
+    "imageUrl": "https://example.com/images/gaming-chair.jpg",
+    "categoryId": "55555555-5555-5555-5555-555555555555"
+  },
+  {
+    "id": "99999999-0000-0000-0000-000000000018",
+    "name": "Laptop",
+    "description": "High-performance laptop for work and play",
+    "price": 1299.00,
+    "imageUrl": "https://example.com/images/laptop.jpg",
+    "categoryId": "66666666-6666-6666-6666-666666666666"
+  },
+  {
+    "id": "99999999-0000-0000-0000-000000000019",
+    "name": "Cookbook",
+    "description": "Collection of delicious recipes from around the world",
+    "price": 25.00,
+    "imageUrl": "https://example.com/images/cookbook.jpg",
+    "categoryId": "12121212-1212-1212-1212-121212121212"
+  },
+  {
+    "id": "99999999-0000-0000-0000-000000000020",
+    "name": "Basketball",
+    "description": "Official size basketball for professional play",
+    "price": 29.99,
+    "imageUrl": "https://example.com/images/basketball.jpg",
+    "categoryId": "88888888-8888-8888-8888-888888888888"
+  }
+    
+]
+

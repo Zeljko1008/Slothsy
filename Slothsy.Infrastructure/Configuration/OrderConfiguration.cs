@@ -40,9 +40,13 @@ namespace Slothsy.Infrastructure.Configuration
                 .IsRequired();
 
             // Enum as string (optional - store OrderStatus as string instead of int)
-            builder.Property(o => o.Status)
-                .HasConversion<string>()
+            builder.Property(o => o.PaymentStatus)
+                .HasConversion<int>()
                 .IsRequired();
+
+            builder.Property(o => o.OrderStatus)
+                  .HasConversion<int>()
+                  .IsRequired();
 
             // One-to-many: Order → OrderItems
             builder.HasMany(o => o.OrderItems)
@@ -52,9 +56,27 @@ namespace Slothsy.Infrastructure.Configuration
 
             // Optional: If you use a separate DeliveryMethod entity
             builder.HasOne(o => o.DeliveryMethod)
-                .WithMany()
+                .WithMany(d => d.Orders)
                 .HasForeignKey(o => o.DeliveryMethodId)
                 .OnDelete(DeleteBehavior.Restrict); // Prevent deleting DeliveryMethod if used by orders
+
+            builder.OwnsOne(o => o.ShippingAddress, a =>
+            {
+                a.Property(p => p.FirstName).IsRequired();
+                a.Property(p => p.LastName).IsRequired();
+                a.Property(p => p.Street).IsRequired();
+                a.Property(p => p.City).IsRequired();
+                a.Property(p => p.ZipCode).IsRequired();
+                a.Property(p => p.Country).IsRequired();
+
+                //optional override column names
+                a.Property(p => p.FirstName).HasColumnName("ShippingFirstName");
+                a.Property(p => p.LastName).HasColumnName("ShippingLastName");
+                a.Property(p => p.Street).HasColumnName("ShippingStreet");
+                a.Property(p => p.City).HasColumnName("ShippingCity");
+                a.Property(p => p.ZipCode).HasColumnName("ShippingZipCode");
+                a.Property(p => p.Country).HasColumnName("ShippingCountry");
+            });
         }
     }
 }

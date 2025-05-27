@@ -1,0 +1,35 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Slothsy.Application.DTOs
+{
+    /// <summary>
+    /// Data Transfer Object (DTO) for creating a new product.
+    /// </summary>
+    public class CreateProductDto
+    {
+        /// <summary>
+        /// Name of the product.
+        /// </summary>
+        public string Name { get; set; } = null!;
+        /// <summary>
+        /// Optional description of the product.
+        /// </summary>
+        public string Description { get; set; } = null!;
+        /// <summary>
+        /// Price of the product.
+        /// </summary>
+        public decimal Price { get; set; }
+        /// <summary>
+        /// Image URL of the product.
+        /// </summary>
+        public string ImageUrl { get; set; } = null!;
+        /// <summary>
+        /// Unique identifier for the category to which the product belongs.
+        /// </summary>
+        public Guid CategoryId { get; set; }
+    }
+}
