@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Slothsy.Common\Slothsy.Common.csproj" />
     <ProjectReference Include="..\Slothsy.Domain\Slothsy.Domain.csproj" />
   </ItemGroup>
 	<ItemGroup>

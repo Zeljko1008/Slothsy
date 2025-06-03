@@ -1,5 +1,6 @@
 ﻿using Slothsy.Application.DTOs;
 using Slothsy.Application.Models;
+using Slothsy.Common.Pagination;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,21 +18,23 @@ namespace Slothsy.Application.Interfaces
         /// Retrieves all products.
         /// </summary>
         /// <returns>A list of all products as DTOs.</returns>
-        Task<IReadOnlyList<ProductDto>> GetAllAsync();
+        Task<PagedResult<ProductDto>> GetAllAsync(PaginationParams pagination);
 
         /// <summary>
-        /// Retrieves a product by its unique identifier.
+        /// Retrieves a product by its slug (unique identifier).
         /// </summary>
-        /// <param name="id">The unique identifier of the product.</param>
-        /// <returns>A product DTO if found; otherwise, null.</returns>
-        Task<ProductDto?> GetByIdAsync(Guid id);
+        /// <param name="slug">a unique identifier for the product, typically a URL-friendly string.</param>
+        /// <param name="includeInactive"></param>
+        /// <returns></returns>
+        Task<ProductDto?> GetProductBySlugAsync(string slug, bool includeInactive);
 
         /// <summary>
-        /// Retrieves all products that belong to a specific category.
+        /// Retrieves products that belong to a specific category by its slug.
         /// </summary>
-        /// <param name="categoryId">The unique identifier of the category.</param>
-        /// <returns>A list of products as DTOs that belong to the specified category.</returns>
-        Task<PagedResult<ProductDto>> GetByCategoryIdAsync(Guid categoryId , PaginationParams paginationParams);
+        /// <param name="slug"></param>
+        /// <param name="paginationParams"></param>
+        /// <returns></returns>
+        Task<PagedResult<ProductDto>> GetByCategorySlugAsync(string slug, PaginationParams paginationParams);
         /// <summary>
         /// Searches for products by their name.
         /// </summary>
@@ -44,7 +47,7 @@ namespace Slothsy.Application.Interfaces
         /// </summary>
         /// <param name="paginationParams"></param>
         /// <returns></returns>
-        Task<PagedResult<ProductDto>> GetPagedAsync(PaginationParams paginationParams);
+        //Task<PagedResult<ProductDto>> GetPagedAsync(PaginationParams paginationParams);
 
     }
 }

@@ -17,6 +17,10 @@ var builder = WebApplication.CreateBuilder(args);
 // ------------------------------------------------------------
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductReadService, ProductReadService>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ICategoryReadService, CategoryReadService>();
+
+
 
 
 // ------------------------------------------------------------
@@ -42,6 +46,18 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // ------------------------------------------------------------
+// Configure CORS policy to allow requests from any origin
+// ------------------------------------------------------------
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+    builder.WithOrigins("http://localhost:4200", "https://localhost:4200")
+           .AllowAnyHeader()
+           .AllowAnyMethod()
+           .AllowCredentials();
+    });
+});
 
 var app = builder.Build();
 
@@ -77,15 +93,31 @@ using (var scope = app.Services.CreateScope())
 }
 
 
-
+app.UseStaticFiles();
 // ------------------------------------------------------------
 // Enforce HTTPS redirection
 // ------------------------------------------------------------
 app.UseHttpsRedirection();
 
 // ------------------------------------------------------------
+// Use routing middleware to match incoming requests to endpoints
+// ------------------------------------------------------------
+app.UseRouting();
+
+// ------------------------------------------------------------
+// Use CORS middleware to apply the defined policy
+// ------------------------------------------------------------
+app.UseCors();
+
+// ------------------------------------------------------------
+// Use authentication middleware to validate user credentials
+// ------------------------------------------------------------
+app.UseAuthorization();
+
+// ------------------------------------------------------------
 // Map controller routes for incoming requests
 // ------------------------------------------------------------
+
 app.MapControllers();
 
 // ------------------------------------------------------------

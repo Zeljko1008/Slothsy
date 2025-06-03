@@ -21,10 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "frontend", "frontend", "{81A5C13E-7FF4-44D8-8C2C-848DC68143FB}"
-	ProjectSection(SolutionItems) = preProject
-		TextFile1.txt = TextFile1.txt
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Slothsy.Common", "Slothsy.Common\Slothsy.Common.csproj", "{89372F33-C6A2-46B2-B24D-FC3DDCFB04A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +45,10 @@ Global
 		{1A8FC422-3DF9-4250-AA2F-B27662F83D23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A8FC422-3DF9-4250-AA2F-B27662F83D23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A8FC422-3DF9-4250-AA2F-B27662F83D23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89372F33-C6A2-46B2-B24D-FC3DDCFB04A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89372F33-C6A2-46B2-B24D-FC3DDCFB04A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89372F33-C6A2-46B2-B24D-FC3DDCFB04A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89372F33-C6A2-46B2-B24D-FC3DDCFB04A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

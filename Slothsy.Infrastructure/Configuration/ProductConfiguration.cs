@@ -38,11 +38,37 @@ namespace Slothsy.Infrastructure.Configuration
                 .HasColumnType("decimal(18,2)")
                 .IsRequired();
 
+            builder.Property(p => p.DiscountPrice)
+                     .HasColumnType("decimal(18,2)")
+                     .IsRequired(false);
+
+            builder.Property(p => p.StockQuantity)
+                     .IsRequired();
+
+            builder.Property(p => p.Sku)
+                .IsRequired()
+                .HasMaxLength(50);
+
+            builder.Property(p => p.IsActive)
+                .IsRequired();
+
+            builder.Property(p => p.CreatedAt)
+                .IsRequired();
+
             builder.Property(p => p.ImageUrl)
                 .IsRequired()
                 .HasMaxLength(200);
 
-            // Configure the relationship with Category
+            builder.Property(e => e.SeoTitle)
+                .HasMaxLength(70);
+
+            builder.Property(e => e.SeoDescription)
+                .HasMaxLength(160);
+
+            builder.Property(e => e.Slug)
+                .HasMaxLength(100);
+
+            // Foreign key relationship with Category
             builder.HasOne(p => p.Category)
                 .WithMany(c => c.Products)
                 .HasForeignKey(p => p.CategoryId)

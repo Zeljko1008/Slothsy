@@ -1,1 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// ⬇️ Override za sve Angular Material gumbe
+.mdc-button,
+.mdc-raised-button,
+.mdc-stroked-button,
+.mdc-flat-button {
+  border-radius: 4px !important; // Promijeni broj po želji
+}
+
+.container{
+  margin-inline: auto;
+  max-width: 1500px;
+
+}

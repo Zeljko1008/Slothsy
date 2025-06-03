@@ -1,9 +1,5 @@
-﻿using Slothsy.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Slothsy.Common.Pagination;
+using Slothsy.Domain.Entities;
 
 namespace Slothsy.Domain.Interfaces.RepositoryContracts
 {
@@ -16,21 +12,24 @@ namespace Slothsy.Domain.Interfaces.RepositoryContracts
         /// Retrieves all products.
         /// </summary>
         /// <returns>A list of all products.</returns>
-        Task<IEnumerable<Product>> GetAllAsync();
+        Task<PagedResult<Product>> GetAllAsync(PaginationParams paginationParams);
+
 
         /// <summary>
-        /// Retrieves a product by its unique identifier.
+        /// Retrieves a product by its slug (unique identifier).
         /// </summary>
-        /// <param name="id">The unique identifier of the product.</param>
-        /// <returns>The product with the specified ID, or null if not found.</returns>
-        Task<Product?> GetByIdAsync(Guid id);
+        /// <param name="id"></param>
+        /// <param name="includeInactive"></param>
+        /// <returns></returns>
+        Task<Product?> GetByIdAsync(Guid id, bool includeInactive);
 
         /// <summary>
         /// Retrieves all products that belong to a specific category.
         /// </summary>
         /// <param name="categoryId">The unique identifier of the category.</param>
         /// <returns>A list of products in the specified category.</returns>
-        Task<IEnumerable<Product>> GetByCategoryIdAsync(Guid categoryId);
+        Task<PagedResult<Product>> GetByCategoryIdAsync(Guid categoryId, PaginationParams paginationParams);
+
         /// <summary>
         /// Searches for products by their name.
         /// </summary>
@@ -53,17 +52,33 @@ namespace Slothsy.Domain.Interfaces.RepositoryContracts
         Task UpdateAsync(Product product);
 
         /// <summary>
-        /// Deletes a product by its unique identifier.
+        /// Soft deletes a product by setting its IsActive property to false.
         /// </summary>
-        /// <param name="id">The unique identifier of the product to delete.</param>
+        /// <param name="id">The unique identifier of the product to soft delete.</param>
         /// <returns>A task representing the asynchronous operation.</returns>
-        Task DeleteAsync(Guid id);
+        Task SoftDeleteAsync(Guid id);
+
+        /// <summary>
+        /// Hard deletes a product from the data store.
+        /// </summary>
+        /// <param name="id">Unique identifier of the product to hard delete.</param>
+        /// <returns></returns>
+        Task HardDeleteAsync(Guid id);
+
+        /// <summary>
+        /// Retrieves the unique identifier of a product by its slug.
+        /// </summary>
+        /// <param name="slug"></param>
+        /// <param name="includeInactive"></param>
+        /// <returns></returns>
+        Task<Guid?> GetProductIdBySlugAsync(string slug, bool includeInactive = false);
+
 
         /// <summary>
         /// Retrieves a queryable collection of products.
         /// </summary>
         /// <returns>A task that represents the asynchronous operation, containing a queryable collection of products.</returns>
-     public IQueryable<Product> GetQueryable();
+        public IQueryable<Product> GetQueryable(PaginationParams paginationParams);
     }
 }
 

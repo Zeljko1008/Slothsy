@@ -14,6 +14,7 @@ using Slothsy.Application.Models;
 using Slothsy.Application.Extensions;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper.QueryableExtensions;
+using Slothsy.Common.Pagination;
 
 namespace Slothsy.Application.Services
 {
@@ -23,6 +24,7 @@ namespace Slothsy.Application.Services
     public class ProductReadService : IProductReadService
     {
         private readonly IProductRepository _productRepository;
+        private readonly ICategoryRepository _categoryRepository;
         private readonly IMapper _mapper;
         private readonly ILogger _logger;
 
@@ -36,64 +38,78 @@ namespace Slothsy.Application.Services
         /// </param>
         /// <param name="mapper">AutoMapper instance for entity-DTO projection.</param>
         /// <param name="logger">Logger instance for logging operations.</param>
-        public ProductReadService(IProductRepository productRepository, IMapper mapper, ILogger<ProductReadService> logger)
+        public ProductReadService(IProductRepository productRepository, IMapper mapper, ILogger<ProductReadService> logger, ICategoryRepository categoryRepository)
         {
             _productRepository = productRepository
                                  ?? throw new ArgumentNullException(nameof(productRepository));
+            _categoryRepository = categoryRepository
+                                  ?? throw new ArgumentNullException(nameof(categoryRepository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(productRepository)); 
             _logger = logger ?? throw new ArgumentNullException(nameof(productRepository));
         }
 
         /// <inheritdoc />
-        public async Task<IReadOnlyList<ProductDto>> GetAllAsync()
+        public async Task<PagedResult<ProductDto>> GetAllAsync(PaginationParams paginationParams)
         {
-            _logger.LogInformation("Getting all products");
-            // 1. Repository call - async, no business logic here.
-            //    The repository should internally Include(p => p.Category)
-            //    so the mapping to CategoryName works.
-            var  products =await _productRepository.GetAllAsync();
+            _logger.LogInformation("Getting paged products: Page {Page}, Size {Size}, IncludeInactive: {IncludeInactive}",
+        paginationParams.PageNumber, paginationParams.PageSize, paginationParams.IncludeInactive);
 
-            _logger.LogInformation("Retrieved {Count} products", products.Count());
+            var  paginatedResult =await _productRepository.GetAllAsync(paginationParams);
 
-            // 2. Map to DTOs.  AutoMapper handles the heavy lifting.
-            return _mapper.Map<IReadOnlyList<ProductDto>>(products);
-        }
-        /// <inheritdoc />
-        public async Task<PagedResult<ProductDto>> GetByCategoryIdAsync(Guid categoryId, PaginationParams paginationParams)
-        {
-            _logger.LogInformation("Fetching products by CategoryId: {CategoryId}", categoryId);
-            var query =  _productRepository.GetQueryable();
-         query = query.Where(p => p.CategoryId == categoryId);
-
-            var pagedResult = await query.ToPagedResultAsync(paginationParams);
-
-            var dtoItems = _mapper.Map<IEnumerable<ProductDto>>(pagedResult.Items).ToList();
+            var dtoItems = _mapper.Map<List<ProductDto>>(paginatedResult.Items);
 
             return new PagedResult<ProductDto>
             {
                 Items = dtoItems,
-                TotalCount = pagedResult.TotalCount,
-                PageNumber = pagedResult.PageNumber,
-                PageSize = pagedResult.PageSize
+                TotalCount = paginatedResult.TotalCount,
+                PageNumber = paginatedResult.PageNumber,
+                PageSize = paginatedResult.PageSize
+            };
+        }
+        /// <inheritdoc />
+        public async Task<PagedResult<ProductDto>> GetByCategorySlugAsync(string slug, PaginationParams paginationParams)
+        {
+           
+            var categoryId = await _categoryRepository.GetCategoryIdBySlugAsync(slug);
+
+            if (categoryId == null)
+            {
+                _logger.LogWarning("Category with slug '{Slug}' not found", slug);
+                throw new NotFoundException($"Category with slug '{slug}' was not found.");
+            }
+
+            var result = await _productRepository.GetByCategoryIdAsync(categoryId.Value, paginationParams);
+
+            var itemsDto = _mapper.Map<List<ProductDto>>(result.Items);
+
+            return new PagedResult<ProductDto>
+            {
+                Items = itemsDto,
+                TotalCount = result.TotalCount,
+                PageNumber = result.PageNumber,
+                PageSize = result.PageSize
             };
 
 
         }
         /// <inheritdoc />
-        public async Task<ProductDto?> GetByIdAsync(Guid id)
+        public async Task<ProductDto?> GetProductBySlugAsync(string slug, bool includeInactive)
         {
-            _logger.LogInformation("Getting product by ID {Id}", id);
+           
 
-            var product = await _productRepository.GetByIdAsync(id);
+            var categoryId = await _productRepository.GetProductIdBySlugAsync(slug);
 
-            if (product == null)
+
+            if (categoryId == null)
             {
-                _logger.LogWarning("Product with ID {Id} not found", id);
-                throw new NotFoundException($"Product with ID '{id}' was not found.");
+                _logger.LogWarning("Product with slug '{Slug}' not found", slug);
+                throw new NotFoundException($"Product with slug '{slug}' was not found.");
             }
-        
-            _logger.LogInformation("Retrieved product with ID {Id}", id);
-            return _mapper.Map<ProductDto>(product);
+
+            var result = await _productRepository.GetByIdAsync(categoryId.Value, includeInactive);
+
+
+            return _mapper.Map<ProductDto>(result);
 
         }
         /// <inheritdoc />
@@ -101,12 +117,13 @@ namespace Slothsy.Application.Services
         {
             _logger.LogInformation("Searching products by name: {Name}", name);
 
-            var query =  _productRepository.GetQueryable();
-                query = query.Where(p => p.Name.Contains(name));
+            var query = _productRepository.GetQueryable(paginationParams)
+                                   .Where(p => p.Name.Contains(name));
+
 
             var pagedResult = await query.ToPagedResultAsync(paginationParams);
 
-            var dtoItems = _mapper.Map<IEnumerable<ProductDto>>(pagedResult.Items).ToList();
+            var dtoItems = _mapper.Map<List<ProductDto>>(pagedResult.Items);
 
             return new PagedResult<ProductDto>
             {
@@ -117,25 +134,25 @@ namespace Slothsy.Application.Services
             };
         }
         ///<inheritdoc/>
-        public async Task<PagedResult<ProductDto>> GetPagedAsync(PaginationParams paginationParams)
-        {
-            var query =  _productRepository.GetQueryable(); 
+        //public async Task<PagedResult<ProductDto>> GetPagedAsync(PaginationParams paginationParams)
+        //{
+        //    var query =  _productRepository.GetQueryable(); 
 
-            var totalCount = await query.CountAsync();
-            var items = await query
-                .Skip(paginationParams.Skip)
-                .Take(paginationParams.ValidatedPageSize)
-                .ProjectTo<ProductDto>(_mapper.ConfigurationProvider)
-                .ToListAsync();
+        //    var totalCount = await query.CountAsync();
+        //    var items = await query
+        //        .Skip(paginationParams.Skip)
+        //        .Take(paginationParams.ValidatedPageSize)
+        //        .ProjectTo<ProductDto>(_mapper.ConfigurationProvider)
+        //        .ToListAsync();
 
-            return new PagedResult<ProductDto>
-            {
-                Items = items,
-                TotalCount = totalCount,
-                PageNumber = paginationParams.PageNumber,
-                PageSize = paginationParams.PageSize
-            };
-        }
+        //    return new PagedResult<ProductDto>
+        //    {
+        //        Items = items,
+        //        TotalCount = totalCount,
+        //        PageNumber = paginationParams.PageNumber,
+        //        PageSize = paginationParams.PageSize
+        //    };
+        //}
     }
 }
 

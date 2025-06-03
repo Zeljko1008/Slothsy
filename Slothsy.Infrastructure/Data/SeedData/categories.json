@@ -1,68 +1,414 @@
 [
   {
-    "id": "11111111-1111-1111-1111-111111111111",
-    "name": "Clothing",
-    "description": "Apparel and wearables"
+    "id": "10000000-0000-0000-0000-000000000001",
+    "name": "Home and Living",
+    "description": "Enhance your space with cozy, functional, and stylish home essentials — from decor to everyday must-haves.",
+    "shortDescription": "Shop Home and Living essentials.",
+    "isActive": true,
+    "bannerImageUrl": "/images/Categories/happy-home.jpg",
+    "order": 1,
+    "seoTitle": "Home and Living | Shop Now",
+    "seoDescription": "Discover a wide range of home and living products tailored to your needs.",
+    "slug": "home-and-living",
+    "parentCategoryId": null,
+    "subcategories": [],
+    "products": []
+
   },
   {
-    "id": "22222222-2222-2222-2222-222222222222",
-    "name": "Toys",
-    "description": "Fun items for kids and adults"
+
+    "id": "10000000-0000-0000-0000-000000000011",
+    "name": "Living Room",
+    "description": "This category includes all items related to living room.",
+    "shortDescription": "Shop Living Room essentials.",
+    "isActive": true,
+    "bannerImageUrl": "/images/Categories/living-room.jpg",
+    "order": 1,
+    "seoTitle": "Living Room | Shop Now",
+    "seoDescription": "Discover a wide range of living room products tailored to your needs.",
+    "slug": "living-room",
+    "parentCategoryId": "10000000-0000-0000-0000-000000000001"
   },
   {
-    "id": "33333333-3333-3333-3333-333333333333",
-    "name": "Accessories",
-    "description": "Style add-ons"
+    "id": "10000000-0000-0000-0000-000000000012",
+    "name": "Kitchen",
+    "description": "This category includes all items related to kitchen.",
+    "shortDescription": "Shop Kitchen essentials.",
+    "isActive": true,
+    "bannerImageUrl": null,
+    "order": 2,
+    "seoTitle": "Kitchen | Shop Now",
+    "seoDescription": "Discover a wide range of kitchen products tailored to your needs.",
+    "slug": "kitchen",
+    "parentCategoryId": "10000000-0000-0000-0000-000000000001"
   },
   {
-    "id": "44444444-4444-4444-4444-444444444444",
-    "name": "Shoes",
-    "description": "Footwear"
+    "id": "10000000-0000-0000-0000-000000000013",
+    "name": "Bathroom",
+    "description": "This category includes all items related to bathroom.",
+    "shortDescription": "Shop Bathroom essentials.",
+    "isActive": true,
+    "bannerImageUrl": null,
+    "order": 3,
+    "seoTitle": "Bathroom | Shop Now",
+    "seoDescription": "Discover a wide range of bathroom products tailored to your needs.",
+    "slug": "bathroom",
+    "parentCategoryId": "10000000-0000-0000-0000-000000000001"
   },
   {
-    "id": "55555555-5555-5555-5555-555555555555",
-    "name": "Furniture",
-    "description": "Home and office furniture"
+    "id": "10000000-0000-0000-0000-000000000014",
+    "name": "Bedroom",
+    "description": "This category includes all items related to bedroom.",
+    "shortDescription": "Shop Bedroom essentials.",
+    "isActive": true,
+    "bannerImageUrl": null,
+    "order": 4,
+    "seoTitle": "Bedroom | Shop Now",
+    "seoDescription": "Discover a wide range of bedroom products tailored to your needs.",
+    "slug": "bedroom",
+    "parentCategoryId": "10000000-0000-0000-0000-000000000001"
+
   },
   {
-    "id": "66666666-6666-6666-6666-666666666666",
+    "Id": "10000000-0000-0000-0000-000000000015",
+    "Name": "Office",
+    "Description": "Office furniture and supplies.",
+    "ShortDescription": "Equip your office with our products.",
+    "isActive": true,
+    "BannerImageUrl": null,
+    "Order": 5,
+    "SeoTitle": "Office Furniture and Supplies",
+    "SeoDescription": "Discover desks, chairs, and office accessories.",
+    "Slug": "office",
+    "ParentCategoryId": "10000000-0000-0000-0000-000000000001"
+  },
+  {
+    "Id": "10000000-0000-0000-0000-000000000016",
+    "Name": "Garden",
+    "Description": "Gardening tools, plants, and outdoor furniture.",
+    "ShortDescription": "Everything for your garden.",
+    "isActive": true,
+    "BannerImageUrl": null,
+    "Order": 6,
+    "SeoTitle": "Garden Tools and Outdoor Furniture",
+    "SeoDescription": "Find plants, tools, and furniture for your garden.",
+    "Slug": "garden",
+    "ParentCategoryId": "10000000-0000-0000-0000-000000000001"
+  },
+
+  {
+    "id": "10000000-0000-0000-0000-000000000002",
     "name": "Electronics",
-    "description": "Gadgets and devices"
+    "description": "Upgrade your home with smart and energy-efficient electric devices — convenience and innovation at your fingertips.",
+    "shortDescription": "Shop Electronics essentials.",
+    "isActive": true,
+    "bannerImageUrl": "/images/Categories/home-electric-devices.jpg",
+    "order": 1,
+    "seoTitle": "Electronics | Shop Now",
+    "seoDescription": "Discover a wide range of electronics products tailored to your needs.",
+    "slug": "electronics",
+    "parentCategoryId": null
   },
   {
-    "id": "77777777-7777-7777-7777-777777777777",
+    "id": "10000000-0000-0000-0000-000000000021",
+    "name": "Mobile Phones",
+    "description": "This category includes all items related to mobile phones.",
+    "shortDescription": "Shop Mobile Phones essentials.",
+    "isActive": true,
+    "bannerImageUrl": null,
+    "order": 2,
+    "seoTitle": "Mobile Phones | Shop Now",
+    "seoDescription": "Discover a wide range of mobile phones products tailored to your needs.",
+    "slug": "mobile-phones",
+    "parentCategoryId": "10000000-0000-0000-0000-000000000002"
+  },
+  {
+    "Id": "10000000-0000-0000-0000-000000000022",
+    "Name": "TV",
+    "Description": "Television sets and accessories.",
+    "ShortDescription": "Wide range of TVs available.",
+    "isActive": true,
+    "BannerImageUrl": null,
+    "Order": 9,
+    "SeoTitle": "TVs and Accessories",
+    "SeoDescription": "Find TVs, mounts, and related accessories.",
+    "Slug": "tv",
+    "ParentCategoryId": "10000000-0000-0000-0000-000000000002"
+  },
+  {
+    "Id": "10000000-0000-0000-0000-000000000023",
+    "Name": "Laptops",
+    "Description": "Laptops and laptop accessories.",
+    "ShortDescription": "Shop laptops from top brands.",
+    "isActive": true,
+    "BannerImageUrl": null,
+    "Order": 10,
+    "SeoTitle": "Laptops",
+    "SeoDescription": "Discover laptops, cases, and accessories.",
+    "Slug": "laptops",
+    "ParentCategoryId": "10000000-0000-0000-0000-000000000002"
+  },
+  {
+    "Id": "10000000-0000-0000-0000-000000000024",
+    "Name": "Vacuum Cleaners",
+    "Description": "Vacuum cleaners and accessories.",
+    "ShortDescription": "Keep your home clean with our vacuum cleaners.",
+    "isActive": true,
+    "BannerImageUrl": null,
+    "Order": 11,
+    "SeoTitle": "Vacuum Cleaners",
+    "SeoDescription": "Shop vacuum cleaners for every need.",
+    "Slug": "vacuum-cleaners",
+    "ParentCategoryId": "10000000-0000-0000-0000-000000000002"
+  },
+
+  {
+    "Id": "10000000-0000-0000-0000-000000000003",
+    "Name": "Clothing",
+    "Description": "Stay stylish and comfortable with our latest apparel for men, women, and kids — perfect for any occasion.",
+    "ShortDescription": "Shop clothing for men, women, and children.",
+    "isActive": true,
+    "BannerImageUrl": "/images/Categories/clothing.jpg",
+    "Order": 12,
+    "SeoTitle": "Clothing",
+    "SeoDescription": "Find clothes and accessories for everyone.",
+    "Slug": "clothing",
+    "ParentCategoryId": null
+  },
+  {
+    "Id": "10000000-0000-0000-0000-000000000031",
+    "Name": "Men",
+    "Description": "Clothing and accessories for men.",
+    "ShortDescription": "Men's apparel and accessories.",
+    "isActive": true,
+    "BannerImageUrl": null,
+    "Order": 13,
+    "SeoTitle": "Men's Clothing",
+    "SeoDescription": "Explore clothing options for men.",
+    "Slug": "men",
+    "ParentCategoryId": "10000000-0000-0000-0000-000000000003",
+    "ParentCategory": null
+  },
+  {
+    "Id": "10000000-0000-0000-0000-000000000032",
+    "Name": "Women",
+    "Description": "Clothing and accessories for women.",
+    "ShortDescription": "Women's fashion and accessories.",
+    "isActive": true,
+    "BannerImageUrl": null,
+    "Order": 14,
+    "SeoTitle": "Women's Clothing",
+    "SeoDescription": "Discover fashion trends for women.",
+    "Slug": "women",
+    "ParentCategoryId": "10000000-0000-0000-0000-000000000003"
+  },
+  {
+    "Id": "10000000-0000-0000-0000-000000000033",
+    "Name": "Children",
+    "Description": "Clothing for children of all ages.",
+    "ShortDescription": "Kids' clothing and accessories.",
+    "isActive": true,
+    "BannerImageUrl": null,
+    "Order": 15,
+    "SeoTitle": "Children's Clothing",
+    "SeoDescription": "Shop apparel for kids and toddlers.",
+    "Slug": "children",
+    "ParentCategoryId": "10000000-0000-0000-0000-000000000003"
+  },
+
+  {
+    "Id": "10000000-0000-0000-0000-000000000041",
+    "Name": "Suits",
+    "Description": "Formal suits and attire for men.",
+    "ShortDescription": "Shop men's suits and formalwear.",
+    "isActive": true,
+    "BannerImageUrl": null,
+    "Order": 16,
+    "SeoTitle": "Men's Suits",
+    "SeoDescription": "Find suits for business and formal occasions.",
+    "Slug": "suits",
+    "ParentCategoryId": "10000000-0000-0000-0000-000000000031"
+  },
+  {
+    "Id": "10000000-0000-0000-0000-000000000042",
+    "Name": "Jackets",
+    "Description": "Men's jackets and outerwear.",
+    "ShortDescription": "Stylish jackets for men.",
+    "isActive": true,
+    "BannerImageUrl": null,
+    "Order": 17,
+    "SeoTitle": "Men's Jackets",
+    "SeoDescription": "Browse men's jackets and coats.",
+    "Slug": "jackets",
+    "ParentCategoryId": "10000000-0000-0000-0000-000000000031"
+  },
+  {
+    "Id": "10000000-0000-0000-0000-000000000043",
+    "Name": "Pants",
+    "Description": "Men's pants and trousers.",
+    "ShortDescription": "Comfortable pants for men.",
+    "isActive": true,
+    "BannerImageUrl": null,
+    "Order": 18,
+    "SeoTitle": "Men's Pants",
+    "SeoDescription": "Shop men's pants and casual trousers.",
+    "Slug": "pants",
+    "ParentCategoryId": "10000000-0000-0000-0000-000000000031"
+  },
+
+  {
+    "Id": "10000000-0000-0000-0000-000000000051",
+    "Name": "Dresses",
+    "Description": "Women's dresses for all occasions.",
+    "ShortDescription": "Elegant and casual dresses.",
+    "isActive": true,
+    "BannerImageUrl": null,
+    "Order": 19,
+    "SeoTitle": "Women's Dresses",
+    "SeoDescription": "Shop elegant and casual dresses for women.",
+    "Slug": "dresses",
+    "ParentCategoryId": "10000000-0000-0000-0000-000000000032"
+  },
+  {
+    "Id": "10000000-0000-0000-0000-000000000052",
+    "Name": "Skirts",
+    "Description": "Variety of skirts for women.",
+    "ShortDescription": "Shop skirts for casual and formal wear.",
+    "isActive": true,
+    "BannerImageUrl": null,
+    "Order": 20,
+    "SeoTitle": "Women's Skirts",
+    "SeoDescription": "Find skirts for all occasions.",
+    "Slug": "skirts",
+    "ParentCategoryId": "10000000-0000-0000-0000-000000000032"
+  },
+
+  {
+    "Id": "10000000-0000-0000-0000-000000000061",
+    "Name": "Bodysuits",
+    "Description": "Children's bodysuits and onesies.",
+    "ShortDescription": "Comfortable bodysuits for kids.",
+    "isActive": true,
+    "BannerImageUrl": null,
+    "Order": 21,
+    "SeoTitle": "Children's Bodysuits",
+    "SeoDescription": "Shop bodysuits and onesies for children.",
+    "Slug": "bodysuits",
+    "ParentCategoryId": "10000000-0000-0000-0000-000000000033"
+  },
+  {
+    "id": "10000000-0000-0000-0000-000000000062",
+    "name": "Onesies",
+    "isActive": true,
+    "order": 5,
+    "parentCategoryId": "10000000-0000-0000-0000-000000000033"
+  },
+
+  {
+    "id": "10000000-0000-0000-0000-000000000004",
     "name": "Books",
-    "description": "Literature and educational materials"
+    "Description": "Discover a curated selection of books across genres — from fiction and self-help to technical manuals and more.",
+    "ShortDescription": "Books for everyone's taste",
+    "isActive": true,
+    "bannerImageUrl": "/images/Categories/books.jpg",
+    "order": 5,
+    "parentCategoryId": null
   },
   {
-    "id": "88888888-8888-8888-8888-888888888888",
-    "name": "Sports Equipment",
-    "description": "Gear for sports and fitness"
+    "id": "10000000-0000-0000-0000-000000000071",
+    "name": "Crime",
+    "isActive": true,
+    "order": 5,
+    "parentCategoryId": "10000000-0000-0000-0000-000000000004"
   },
   {
-    "id": "99999999-9999-9999-9999-999999999999",
-    "name": "Beauty Products",
-    "description": "Cosmetics and skincare items"
+    "id": "10000000-0000-0000-0000-000000000072",
+    "name": "Comedy",
+    "isActive": true,
+    "order": 5,
+    "parentCategoryId": "10000000-0000-0000-0000-000000000004"
   },
   {
-    "id": "00000000-0000-0000-0000-232323232323",
-    "name": "Gardening Tools",
-    "description": "Tools and supplies for gardening"
+    "id": "10000000-0000-0000-0000-000000000073",
+    "name": "Drama",
+    "isActive": true,
+    "order": 5,
+    "parentCategoryId": "10000000-0000-0000-0000-000000000004"
   },
   {
-    "id": "10101010-1010-1010-1010-101010101010",
-    "name": "Pet Supplies",
-    "description": "Items for pets and animals"
+    "id": "10000000-0000-0000-0000-000000000074",
+    "name": "Autobiography",
+    "isActive": true,
+    "order": 5,
+    "parentCategoryId": "10000000-0000-0000-0000-000000000004"
   },
   {
-    "id": "12121212-1212-1212-1212-121212121212",
-    "name": "Kitchen Appliances",
-    "description": "Appliances for cooking and food preparation"
+    "id": "10000000-0000-0000-0000-000000000075",
+    "name": "War",
+    "isActive": true,
+    "order": 5,
+    "parentCategoryId": "10000000-0000-0000-0000-000000000004"
   },
   {
-    "id": "13131313-1313-1313-1313-131313131313",
-    "name": "Health Products",
-    "description": "Wellness and health-related items"
+    "id": "10000000-0000-0000-0000-000000000076",
+    "name": "Romance",
+    "isActive": true,
+    "order": 5,
+    "parentCategoryId": "10000000-0000-0000-0000-000000000004"
+  },
+  {
+    "id": "10000000-0000-0000-0000-000000000077",
+    "name": "Picture Books",
+    "isActive": true,
+    "order": 5,
+    "parentCategoryId": "10000000-0000-0000-0000-000000000004"
+  },
+
+  {
+    "id": "10000000-0000-0000-0000-000000000005",
+    "name": "Tools",
+    "Description": "Explore reliable tools for DIY projects, repairs, and professional use — built to last and get the job done right.",
+    "ShortDescription": "Only fools without tools",
+    "isActive": true,
+    "bannerImageUrl": "/images/Categories/tools.jpg",
+    "order": 5,
+    "parentCategoryId": null
+  },
+  {
+    "id": "10000000-0000-0000-0000-000000000081",
+    "name": "Manual Tools",
+    "isActive": true,
+    "order": 5,
+    "parentCategoryId": "10000000-0000-0000-0000-000000000005"
+  },
+  {
+    "id": "10000000-0000-0000-0000-000000000082",
+    "name": "Power Tools",
+    "isActive": true,
+    "order": 5,
+    "parentCategoryId": "10000000-0000-0000-0000-000000000005"
+  },
+
+  {
+    "id": "10000000-0000-0000-0000-000000000091",
+    "name": "Drills",
+    "isActive": true,
+    "order": 5,
+    "parentCategoryId": "10000000-0000-0000-0000-000000000082",
+    "slug": "drills"
+  },
+  {
+    "id": "10000000-0000-0000-0000-000000000092",
+    "name": "Saws",
+    "isActive": true,
+    "order": 5,
+    "parentCategoryId": "10000000-0000-0000-0000-000000000082"
+  },
+  {
+    "id": "10000000-0000-0000-0000-000000000093",
+    "name": "Grinders",
+    "isActive": true,
+    "order": 5,
+    "parentCategoryId": "10000000-0000-0000-0000-000000000082"
   }
 ]
-

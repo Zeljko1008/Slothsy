@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Slothsy.Common.Pagination;
 using Slothsy.Domain.Entities;
 using Slothsy.Domain.Interfaces.RepositoryContracts;
 using Slothsy.Infrastructure.Data;
@@ -25,11 +26,11 @@ namespace Slothsy.Infrastructure.Persistance.Repositories
             _dbContext = dbContext;
         }
 
-       /// <inheritdoc/>
+        /// <inheritdoc/>
         public async Task<Product> AddAsync(Product product)
         {
             _logger.LogInformation("Adding a new product with name:{Name}", product.Name);
-           await _dbContext.Products.AddAsync(product);
+            await _dbContext.Products.AddAsync(product);
             await _dbContext.SaveChangesAsync();
             _logger.LogInformation("Product added successfully.");
             return product;
@@ -39,41 +40,90 @@ namespace Slothsy.Infrastructure.Persistance.Repositories
         }
 
         /// <inheritdoc/>
-        public async Task DeleteAsync(Guid id)
+        public async Task SoftDeleteAsync(Guid id)
         {
             _logger.LogInformation("Deleting product with ID:{Id}", id);
             var product = await _dbContext.Products.FindAsync(id);
             if (product != null)
             {
-                _dbContext.Products.Remove(product);
+                product.IsActive = false; // Soft delete
                 await _dbContext.SaveChangesAsync();
-                _logger.LogInformation("Product with ID:{Id} deleted successfully.", id);
+
 
             }
             _logger.LogWarning("Product with ID:{Id} not found.", id);
 
         }
         /// <inheritdoc/>
-        public async Task<IEnumerable<Product>> GetAllAsync()
+        public async Task<PagedResult<Product>> GetAllAsync(PaginationParams paginationParams)
         {
-            _logger.LogInformation("Retrieving all products.");
-            return await _dbContext.Products.ToListAsync();
+            var query = _dbContext.Products
+                .Include(p => p.Category)
+                .AsQueryable();
+
+            if (!paginationParams.IncludeInactive)
+            {
+                query = query.Where(p => p.IsActive);
+            }
+
+            var totalCount = await query.CountAsync();
+
+            var items = await query
+                .OrderBy(p => p.Name)
+                .Skip(paginationParams.Skip)
+                .Take(paginationParams.ValidatedPageSize)
+                .ToListAsync();
+
+            _logger.LogInformation("Retrieved {Count} products out of {TotalCount} total.", items.Count, totalCount);
+
+            return new PagedResult<Product>
+            {
+                Items = items,
+                TotalCount = totalCount,
+                PageNumber = paginationParams.PageNumber,
+                PageSize = paginationParams.ValidatedPageSize
+            };
+
 
         }
         /// <inheritdoc/>
-        public async Task<IEnumerable<Product>> GetByCategoryIdAsync(Guid categoryId)
+        public async Task<PagedResult<Product>> GetByCategoryIdAsync(Guid categoryId, PaginationParams paginationParams)
         {
-           _logger.LogInformation("Retrieving products for category ID:{CategoryId}", categoryId);
-            return await _dbContext.Products
-                .Where(p => p.CategoryId == categoryId)
+            _logger.LogInformation("Retrieving products for category ID:{CategoryId}", categoryId);
+            var query = _dbContext.Products
+                .Include(p => p.Category)
+                .Where(p => p.CategoryId == categoryId);
+
+            if (!paginationParams.IncludeInactive)
+            {
+                query = query.Where(p => p.IsActive);
+            }
+            var totalCount = await query.CountAsync();
+
+            var items = await query
+                .OrderBy(p => p.Name)
+                .Skip(paginationParams.Skip)
+                .Take(paginationParams.ValidatedPageSize)
                 .ToListAsync();
-           
+
+            return new PagedResult<Product>
+            {
+                Items = items,
+                TotalCount = totalCount,
+                PageNumber = paginationParams.PageNumber,
+                PageSize = paginationParams.ValidatedPageSize
+            };
+
+
         }
         /// <inheritdoc/>
-        public async Task<Product?> GetByIdAsync(Guid id)
+        public async Task<Product?> GetByIdAsync(Guid id, bool includeInactive)
         {
             _logger.LogInformation("Fetching product with ID: {ProductId}", id);
-            return await _dbContext.Products.FindAsync(id);
+            return await _dbContext.Products
+                 .Include(p => p.Category)
+                 .Where(p => p.Id == id && (includeInactive || p.IsActive))
+                 .FirstOrDefaultAsync();
 
         }
         /// <inheritdoc/>
@@ -92,15 +142,49 @@ namespace Slothsy.Infrastructure.Persistance.Repositories
         public async Task UpdateAsync(Product product)
         {
             _logger.LogInformation("Updating product with ID:{Id}", product.Id);
-          _dbContext.Products.Update(product);
+            _dbContext.Products.Update(product);
             await _dbContext.SaveChangesAsync();
             _logger.LogInformation("Product with ID:{Id} updated successfully.", product.Id);
 
         }
 
-        public IQueryable<Product> GetQueryable()
+        /// <inheritdoc/>
+        public IQueryable<Product> GetQueryable(PaginationParams paginationParams)
         {
-            return _dbContext.Products.AsNoTracking().OrderBy(p => p.Name); 
+            return _dbContext.Products
+        .AsNoTracking()
+        .Include(p => p.Category)
+        .Where(p => paginationParams.IncludeInactive || p.IsActive)
+        .OrderBy(p => p.Name);
+        }
+
+        /// <inheritdoc/>
+        public async Task HardDeleteAsync(Guid id)
+        {
+            _logger.LogInformation("Hard deleting product with ID:{Id}", id);
+            var product = await _dbContext.Products.FindAsync(id);
+            if (product != null)
+            {
+                _dbContext.Products.Remove(product);
+                await _dbContext.SaveChangesAsync();
+                _logger.LogInformation("Product with ID:{Id} hard deleted successfully.", id);
+            }
+            else
+            {
+                _logger.LogWarning("Product with ID:{Id} not found for hard delete.", id);
+            }
+        }
+
+        /// <inheritdoc/>
+        public async Task<Guid?> GetProductIdBySlugAsync(string slug, bool includeInactive = false)
+        {
+            _logger.LogInformation("Retrieving product ID by slug: {Slug}", slug);
+
+            return await _dbContext.Products
+                .Where(p => p.Slug == slug && (includeInactive || p.IsActive))
+                .Select(p => (Guid?)p.Id)
+                .FirstOrDefaultAsync();
+
         }
     }
 }

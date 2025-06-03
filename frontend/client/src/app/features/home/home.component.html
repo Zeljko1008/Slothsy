@@ -1,0 +1,14 @@
+<div class="relative w-full h-[400px] overflow-hidden">
+  <div
+    *ngFor="let cat of categories; let i = index"
+    [ngClass]="{
+      'opacity-100 z-10': currentIndex === i,
+      'opacity-0 z-0': currentIndex !== i
+    }"
+    class="absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out"
+  >
+    <app-carousel-item [category]="cat" class="w-full h-full" />
+  </div>
+</div>
+
+

@@ -1,4 +1,6 @@
-﻿using Slothsy.Application.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Slothsy.Application.Models;
+using Slothsy.Common.Pagination;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,13 +23,12 @@ namespace Slothsy.Application.Extensions
         /// <returns>A paginated result containing the items and metadata.</returns>
         public static async Task<PagedResult<T>> ToPagedResultAsync<T>(this IQueryable<T> query, PaginationParams paginationParams, CancellationToken cancellationToken = default)
         {
-            var totalCount = await Task.Run(() => query.Count(), cancellationToken);
+            var totalCount = await query.CountAsync(cancellationToken);
 
-            var items = await Task.Run(() =>
-                query
-                    .Skip((paginationParams.PageNumber - 1) * paginationParams.ValidatedPageSize)
-                    .Take(paginationParams.ValidatedPageSize)
-                    .ToList(), cancellationToken);
+            var items = await query
+                .Skip((paginationParams.PageNumber - 1) * paginationParams.ValidatedPageSize)
+                .Take(paginationParams.ValidatedPageSize)
+                .ToListAsync(cancellationToken);
 
             return new PagedResult<T>
             {
@@ -38,4 +39,5 @@ namespace Slothsy.Application.Extensions
             };
         }
     }
-}
+    }
+    
