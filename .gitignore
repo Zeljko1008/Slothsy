@@ -116,3 +116,4 @@ _pkginfo.txt
 
 # Ignore appsettings.Development.json
 appsettings.Development.json
+/frontend/client/ssl/
