@@ -1,3 +1,6 @@
+import { AgeGroup } from "../enums/age-group";
+import { Gender } from "../enums/gender";
+
 /**
  * Categories interface
  * Represents a collection of categories in the e-commerce platform.
@@ -6,6 +9,8 @@ export interface Categories{
 
   id: string;
   name: string;
+  gender: Gender;
+  ageGroup: AgeGroup;
   description?: string;
   shortDescription?: string;
   isActive: boolean;
@@ -15,4 +20,6 @@ export interface Categories{
   seoDescription?: string;
   slug?: string;
   parentCategoryId?: string;
+  subcategories: Categories[];
+
 }

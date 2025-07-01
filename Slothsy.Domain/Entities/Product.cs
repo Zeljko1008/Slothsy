@@ -1,66 +1,78 @@
-﻿using System;
+﻿using Slothsy.Domain.Enums;
+using System;
+using System.Reflection;
 
 namespace Slothsy.Domain.Entities
 {
     /// <summary>
-    /// Represents a product available in the store.
+    /// Represents a product listed in the shop.
     /// </summary>
     public class Product
     {
         /// <summary>
-        /// Unique identifier for the product.
+        /// Unique identifier of the product.
         /// </summary>
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Name of the product.
+        /// Display name of the product.
         /// </summary>
         public string Name { get; set; } = string.Empty;
 
         /// <summary>
+        /// Short description of the product, used for quick reference or display purposes.
+        /// </summary>
+        public string? ShortDescription { get; set; }
+
+        /// <summary>
         /// Detailed description of the product.
         /// </summary>
-        public string Description { get; set; } = string.Empty;
+        public string? Description { get; set; }
 
-        /// <summary>
-        /// The selling price of the product.
+           /// <summary>
+        /// Intended style or usage of the product (e.g., sport, casual).
         /// </summary>
-        public decimal Price { get; set; }
+        public ProductPurpose Purpose { get; set; }
 
         /// <summary>
-        /// Optional discounted price if product is on sale.
+        /// Product fit or cut (e.g., slim, regular).
         /// </summary>
-        public decimal? DiscountPrice { get; set; }
+        public FitType Fit { get; set; }
 
         /// <summary>
-        /// Quantity of the product currently in stock.
+        /// Brand or manufacturer of the product.
         /// </summary>
-        public int StockQuantity { get; set; }
+        public string Brand { get; set; } = string.Empty;
 
         /// <summary>
-        /// Unique SKU (Stock Keeping Unit) code to identify the product in inventory.
+        /// Target gender for the product.
         /// </summary>
-        public string Sku { get; set; } = string.Empty;
+        public Gender Gender { get; set; }
 
         /// <summary>
-        /// Indicates whether the product is active and available for sale.
+        /// Target age group for the product.
+        /// </summary>
+        public AgeGroup AgeGroup { get; set; }
+
+        /// <summary>
+        /// Material from which the product is made.
+        /// </summary>
+        public MaterialType Material { get; set; }
+
+        /// <summary>
+        /// Intended season for the product (e.g. summer/winter).
+        /// </summary>
+        public Season Season { get; set; }
+
+        /// <summary>
+        /// Indicates whether the product is visible in the shop.
         /// </summary>
         public bool IsActive { get; set; } = true;
 
         /// <summary>
-        /// Date and time when the product was created in the system.
+        /// Date when the product was added.
         /// </summary>
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-        /// <summary>
-        /// URL to the product's image.
-        /// </summary>
-        public string ImageUrl { get; set; } = string.Empty;
-
-        /// <summary>
-        /// Foreign key referencing the category this product belongs to.
-        /// </summary>
-        public Guid CategoryId { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         /// <summary>
         /// SEO title for the product, used in page metadata for better search engine visibility.
@@ -68,18 +80,28 @@ namespace Slothsy.Domain.Entities
         public string? SeoTitle { get; set; }
 
         /// <summary>
-        /// SEO description for the product, used in page metadata to summarize the product for search engines.
+        /// SEO description for the product, used in page metadata to improve search engine ranking.
         /// </summary>
         public string? SeoDescription { get; set; }
 
         /// <summary>
-        /// SEO slug for the product, used in URLs to make them more readable and SEO-friendly.
+        /// SEO-friendly URL slug for the product, used in links and page titles.
         /// </summary>
         public string? Slug { get; set; }
 
         /// <summary>
-        /// Navigation property for the product's category.
+        /// Timestamp of the last update to the product.
         /// </summary>
-        public Category Category { get; set; } = null!;
+        public DateTime? UpdatedAt { get; set; }
+
+        /// <summary>
+        /// Gets or sets the collection of product categories associated with the current entity.
+        /// </summary>
+        public ICollection<ProductCategory> ProductCategories { get; set; } = new List<ProductCategory>();
+
+        /// <summary>
+        /// List of all variants (e.g. different sizes or colors) of this product.
+        /// </summary>
+        public ICollection<ProductVariant> Variants { get; set; } = new List<ProductVariant>();
     }
 }

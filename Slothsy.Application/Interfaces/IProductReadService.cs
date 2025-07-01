@@ -48,6 +48,7 @@ namespace Slothsy.Application.Interfaces
         /// <param name="paginationParams"></param>
         /// <returns></returns>
         //Task<PagedResult<ProductDto>> GetPagedAsync(PaginationParams paginationParams);
+        Task<PagedResult<ProductDto>> GetByCategoryTreeSlugAsync(string slug, PaginationParams paginationParams);
 
     }
 }

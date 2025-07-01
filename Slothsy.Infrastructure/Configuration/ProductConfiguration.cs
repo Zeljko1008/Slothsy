@@ -26,53 +26,72 @@ namespace Slothsy.Infrastructure.Configuration
             // Primary key
             builder.HasKey(p => p.Id);
 
+            // Properties
             builder.Property(p => p.Name)
+               .IsRequired()
+               .HasMaxLength(200);
+
+            builder.Property(p => p.ShortDescription)
+               .HasMaxLength(500);
+
+            builder.Property(p => p.Description)
+                .HasMaxLength(2000);
+
+            builder.Property(p => p.Purpose)
+                .HasConversion<int>()
+                .IsRequired();
+
+            builder.Property(p => p.Fit)
+            .HasConversion<int>()
+            .IsRequired();
+
+            builder.Property(p => p.Brand)
                 .IsRequired()
                 .HasMaxLength(100);
 
-            builder.Property(p => p.Description)
-                .IsRequired()
-                .HasMaxLength(500);
+            builder.Property(p => p.Gender)
+                         .HasConversion<int>()
+                         .IsRequired();
 
-            builder.Property(p => p.Price)
-                .HasColumnType("decimal(18,2)")
+            builder.Property(p => p.AgeGroup)
+              .HasConversion<int>()
+              .IsRequired();
+
+            builder.Property(p => p.Material)
+             .HasConversion<int>()
+             .IsRequired();
+
+            builder.Property(p => p.Season)
+                .HasConversion<int>()
                 .IsRequired();
 
-            builder.Property(p => p.DiscountPrice)
-                     .HasColumnType("decimal(18,2)")
-                     .IsRequired(false);
-
-            builder.Property(p => p.StockQuantity)
-                     .IsRequired();
-
-            builder.Property(p => p.Sku)
-                .IsRequired()
-                .HasMaxLength(50);
 
             builder.Property(p => p.IsActive)
-                .IsRequired();
+                .IsRequired()
+                .HasDefaultValue(true);
 
             builder.Property(p => p.CreatedAt)
                 .IsRequired();
 
-            builder.Property(p => p.ImageUrl)
-                .IsRequired()
-                .HasMaxLength(200);
-
-            builder.Property(e => e.SeoTitle)
-                .HasMaxLength(70);
-
-            builder.Property(e => e.SeoDescription)
-                .HasMaxLength(160);
-
-            builder.Property(e => e.Slug)
+            builder.Property(p => p.SeoTitle)
                 .HasMaxLength(100);
 
-            // Foreign key relationship with Category
-            builder.HasOne(p => p.Category)
-                .WithMany(c => c.Products)
-                .HasForeignKey(p => p.CategoryId)
-                .OnDelete(DeleteBehavior.Restrict);
+            builder.Property(p => p.SeoDescription)
+                .HasMaxLength(500);
+
+            builder.Property(p => p.Slug)
+                .HasMaxLength(150);
+
+            // Relationships
+            builder
+            .HasMany(pc => pc.ProductCategories)
+            .WithOne(p => p.Product)
+            .HasForeignKey(pc => pc.ProductId);
+
+            builder.HasMany(p => p.Variants)
+              .WithOne(v => v.Product)
+              .HasForeignKey(v => v.ProductId)
+              .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

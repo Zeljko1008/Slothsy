@@ -82,6 +82,11 @@ namespace Slothsy.Application.Services
 
             var itemsDto = _mapper.Map<List<ProductDto>>(result.Items);
 
+            if (result.TotalCount == 0)
+            {
+                _logger.LogInformation("No products found for category slug: {Slug}", slug);
+            }
+
             return new PagedResult<ProductDto>
             {
                 Items = itemsDto,
@@ -92,6 +97,30 @@ namespace Slothsy.Application.Services
 
 
         }
+        /// <inheritdoc />
+        public async Task<PagedResult<ProductDto>> GetByCategoryTreeSlugAsync(string slug, PaginationParams paginationParams)
+        {
+            var categoryIds = await _categoryRepository.GetCategoryAndSubcategoryIdsBySlugAsync(slug);
+
+            if (categoryIds == null || !categoryIds.Any())
+            {
+                _logger.LogWarning("Category and subcategories for slug '{Slug}' not found", slug);
+                throw new NotFoundException($"Category with slug '{slug}' and its subcategories were not found.");
+            }
+
+            var productsPaged = await _productRepository.GetByCategoryIdsAsync(categoryIds, paginationParams);
+
+            var itemsDto = _mapper.Map<List<ProductDto>>(productsPaged.Items);
+
+            return new PagedResult<ProductDto>
+            {
+                Items = itemsDto,
+                TotalCount = productsPaged.TotalCount,
+                PageNumber = productsPaged.PageNumber,
+                PageSize = productsPaged.PageSize
+            };
+        }
+
         /// <inheritdoc />
         public async Task<ProductDto?> GetProductBySlugAsync(string slug, bool includeInactive)
         {

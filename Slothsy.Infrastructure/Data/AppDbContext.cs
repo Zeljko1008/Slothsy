@@ -20,11 +20,22 @@ namespace Slothsy.Infrastructure.Data
 
         public DbSet<Product> Products => Set<Product>();
         public DbSet<Category> Categories => Set<Category>();
+        public DbSet<ProductCategory> ProductCategories => Set<ProductCategory>();
+
+
         public DbSet<Order> Orders => Set<Order>();
         public DbSet<OrderItem> OrderItems => Set<OrderItem>();
         public DbSet<Cart> Carts => Set<Cart>();
         public DbSet<CartItem> CartItems => Set<CartItem>();
         public DbSet<DeliveryMethod> DeliveryMethods => Set<DeliveryMethod>();
+        public DbSet<ProductVariant> ProductVariants => Set<ProductVariant>();
+        public DbSet<ProductVariantImage> ProductVariantImages => Set<ProductVariantImage>();
+        public DbSet<SizeOption> SizeOptions => Set<SizeOption>();
+        public DbSet<ColorOption> ColorOptions => Set<ColorOption>();
+
+
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

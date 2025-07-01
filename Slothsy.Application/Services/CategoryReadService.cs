@@ -1,7 +1,11 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Slothsy.Application.DTOs;
+using Slothsy.Application.Exceptions;
 using Slothsy.Application.Interfaces;
+using Slothsy.Domain.Entities;
+using Slothsy.Domain.Enums;
 using Slothsy.Domain.Interfaces.RepositoryContracts;
 using System;
 using System.Collections.Generic;
@@ -49,11 +53,54 @@ namespace Slothsy.Application.Services
 
         }
         ///<inheritdoc/>
-        public async Task<List<CategoryDto>> GetMainCategoriesAsync(bool includeInactive = false)
+        public async Task<CategoryDto?> GetCategoryBySlugAsync(string slug, bool includeInactive = false)
         {
-            _logger.LogInformation("Retrieving main categories with includeInactive={IncludeInactive}", includeInactive);
-            var categories = await _categoryRepository.GetMainCategoriesAsync(includeInactive);
-            return _mapper.Map<List<CategoryDto>>(categories);
+            _logger.LogInformation("Fetching category with slug: {Slug}", slug);
+
+            var category = await _categoryRepository.GetBySlugAsync(slug, includeInactive);
+
+            if (category == null)
+            {
+                _logger.LogWarning("Category with slug '{Slug}' not found", slug);
+                return null;  // ili možeš baciti NotFoundException, po dogovoru
+            }
+
+            var categoryDto = _mapper.Map<CategoryDto>(category);
+
+            return categoryDto;
+        }
+
+        ///<inheritdoc/>
+        public async Task<List<CategoryDto>> GetMainCategoriesAsync(bool includeInactive = false, string? type = null)
+        {
+            _logger.LogInformation("Retrieving main categories with includeInactive={IncludeInactive} and type={Type}", includeInactive, type);
+
+            Gender? gender = null;
+            AgeGroup? ageGroup = null;
+
+            if (!string.IsNullOrEmpty(type))
+            {
+                switch (type.ToLower())
+                {
+                    case "men":
+                        gender = Gender.Male;
+                        ageGroup = AgeGroup.Adult;
+                        break;
+                    case "women":
+                        gender = Gender.Female;
+                        ageGroup = AgeGroup.Adult;
+                        break;
+                    case "kids":
+                        gender = Gender.Unisex;
+                        ageGroup = AgeGroup.Child;
+                        break;
+                    default:
+                        throw new ArgumentException($"Invalid type value: {type}");
+                }
+            }
+
+            var categories = await _categoryRepository.GetMainCategoriesAsync(includeInactive, gender, ageGroup);
+            return _mapper.Map <List<CategoryDto>>(categories);
         }
         ///<inheritdoc/>
         public async Task<List<CategoryDto>> GetSubCategoriesAsync(Guid parentCategoryId, bool includeInactive = false)
@@ -62,6 +109,21 @@ namespace Slothsy.Application.Services
             var subcategories = await _categoryRepository.GetSubcategoriesAsync(parentCategoryId, includeInactive);
             return _mapper.Map<List<CategoryDto>>(subcategories);
 
+        }
+
+        public async Task<List<CategoryDto>> GetSubCategoriesBySlugAsync(string parentCategorySlug, bool includeInactive = false)
+        {
+           
+            var parentCategory = await GetCategoryBySlugAsync(parentCategorySlug, includeInactive);
+
+            if (parentCategory == null)
+            {
+                _logger.LogWarning("Parent category with slug '{Slug}' not found.", parentCategorySlug);
+                throw new NotFoundException($"Parent category with slug '{parentCategorySlug}' was not found.");
+            }
+
+           
+            return await GetSubCategoriesAsync(parentCategory.Id, includeInactive);
         }
     }
 }

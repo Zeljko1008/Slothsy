@@ -1,0 +1,65 @@
+[
+  {
+    "id":  "6DE64001-2C07-4E55-B1B5-6A72B2D62D54" ,
+    "name": "White",
+    "hexCode": "#FFFFFF",
+    "imageUrl": null,
+    "order": 1
+  },
+  {
+    "id": "15C69A80-FCD5-48ED-95E4-F67433D60928" ,
+    "name": "Black",
+    "hexCode": "#000000",
+    "imageUrl": null,
+    "order": 2
+  },
+  {
+    "id": "0CA56C31-4C69-4A83-9E66-2A157DC3E43B",
+    "name": "Red",
+    "hexCode": "#FF0000",
+    "imageUrl": null,
+    "order": 3
+  },
+  {
+    "id": "5AE772C1-E459-452C-B0F6-D3817B8F5AB7",
+    "name": "Blue",
+    "hexCode": "#0000FF",
+    "imageUrl": null,
+    "order": 4
+  },
+  {
+    "id": "ACFBBBFE-EF9B-45F6-982F-CC8CE469C4EF",
+    "name": "Green",
+    "hexCode": "#00FF00",
+    "imageUrl": null,
+    "order": 5
+  },
+  {
+    "id": "1AADAB4E-C81D-41E2-9EC4-B571AB9ECE73",
+    "name": "Yellow",
+    "hexCode": "#FFFF00",
+    "imageUrl": null,
+    "order": 6
+  },
+  {
+    "id": "14437322-B0A4-4ADC-B16A-5296A675C2F4",
+    "name": "Gray",
+    "hexCode": "#808080",
+    "imageUrl": null,
+    "order": 7
+  },
+  {
+    "id": "21D0D743-0016-49E8-AC2D-4BEDC70EEAB8",
+    "name": "Pink",
+    "hexCode": "#FFC0CB",
+    "imageUrl": null,
+    "order": 8
+  },
+  {
+    "id": "95F47A66-0775-45CA-B582-7B54A61C6AE9",
+    "name": "Purple",
+    "hexCode": "#800080",
+    "imageUrl": null,
+    "order": 9
+  }
+]

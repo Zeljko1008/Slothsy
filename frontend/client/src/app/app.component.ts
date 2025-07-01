@@ -4,14 +4,15 @@ import { HeaderComponent } from "./layout/header/header.component";
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { Product } from './shared/models/product';
-import { PaginationResult } from './shared/models/paginationResult';
+import { PaginationResult } from './shared/models/pagination-result';
 import { ShopService } from './core/services/shop.service';
 import { HomeComponent } from './features/home/home.component';
+import { FooterComponent } from './layout/footer/footer.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, CommonModule, HomeComponent],
+  imports: [RouterOutlet, HeaderComponent, CommonModule, HomeComponent, FooterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

@@ -19,12 +19,12 @@ namespace Slothsy.Common.Pagination
         /// <summary>
         /// Number of items to return per page.
         /// </summary>
-        public int PageSize { get; set; } = 50;
+        public int PageSize { get; set; } = 5;
 
         /// <summary>
         /// Maximum allowed page size to prevent excessive data retrieval.
         /// </summary>
-        private const int MaxPageSize = 50;
+        private const int MaxPageSize = 25;
 
         /// <summary>
         /// Indicates whether to include inactive items in the results.

@@ -58,7 +58,7 @@ namespace Slothsy.Infrastructure.Persistance.Repositories
         public async Task<PagedResult<Product>> GetAllAsync(PaginationParams paginationParams)
         {
             var query = _dbContext.Products
-                .Include(p => p.Category)
+                .Include(p => p.ProductCategories)
                 .AsQueryable();
 
             if (!paginationParams.IncludeInactive)
@@ -69,6 +69,12 @@ namespace Slothsy.Infrastructure.Persistance.Repositories
             var totalCount = await query.CountAsync();
 
             var items = await query
+                .Include(p => p.Variants)
+                .ThenInclude(v=> v.SizeOption)
+                .Include(p=>p.Variants)
+                .ThenInclude(v=> v.ColorOption)
+                .Include(p=> p.ProductCategories)
+                .ThenInclude(pc=> pc.Category)
                 .OrderBy(p => p.Name)
                 .Skip(paginationParams.Skip)
                 .Take(paginationParams.ValidatedPageSize)
@@ -91,8 +97,8 @@ namespace Slothsy.Infrastructure.Persistance.Repositories
         {
             _logger.LogInformation("Retrieving products for category ID:{CategoryId}", categoryId);
             var query = _dbContext.Products
-                .Include(p => p.Category)
-                .Where(p => p.CategoryId == categoryId);
+                .Include(p => p.ProductCategories)
+                .Where(p => p.ProductCategories.Any(pc => pc.CategoryId == categoryId));
 
             if (!paginationParams.IncludeInactive)
             {
@@ -121,7 +127,7 @@ namespace Slothsy.Infrastructure.Persistance.Repositories
         {
             _logger.LogInformation("Fetching product with ID: {ProductId}", id);
             return await _dbContext.Products
-                 .Include(p => p.Category)
+                 .Include(p => p.ProductCategories)
                  .Where(p => p.Id == id && (includeInactive || p.IsActive))
                  .FirstOrDefaultAsync();
 
@@ -133,7 +139,7 @@ namespace Slothsy.Infrastructure.Persistance.Repositories
             var lowered = name.ToLower();
 
             return await _dbContext.Products
-                .Include(p => p.Category)
+                .Include(p => p.ProductCategories)
                 .Where(p => EF.Functions.Like(p.Name.ToLower(), $"%{lowered}%"))
                 .ToListAsync();
         }
@@ -153,7 +159,7 @@ namespace Slothsy.Infrastructure.Persistance.Repositories
         {
             return _dbContext.Products
         .AsNoTracking()
-        .Include(p => p.Category)
+        .Include(p => p.ProductCategories)
         .Where(p => paginationParams.IncludeInactive || p.IsActive)
         .OrderBy(p => p.Name);
         }
@@ -185,6 +191,36 @@ namespace Slothsy.Infrastructure.Persistance.Repositories
                 .Select(p => (Guid?)p.Id)
                 .FirstOrDefaultAsync();
 
+        }
+
+        public async Task<PagedResult<Product>> GetByCategoryIdsAsync(IEnumerable<Guid> categoryIds, PaginationParams paginationParams)
+        {
+            var query = _dbContext.Products
+       .Include(p => p.ProductCategories)
+       .Include(p => p.Variants) 
+            .ThenInclude(v => v.Images)
+       .Where(p => p.ProductCategories.Any(pc => categoryIds.Contains(pc.CategoryId)));
+
+            if (!paginationParams.IncludeInactive)
+            {
+                query = query.Where(p => p.IsActive);
+            }
+
+            var totalCount = await query.CountAsync();
+
+            var items = await query
+                .OrderBy(p => p.Name)
+                .Skip(paginationParams.Skip)
+                .Take(paginationParams.ValidatedPageSize)
+                .ToListAsync();
+
+            return new PagedResult<Product>
+            {
+                Items = items,
+                TotalCount = totalCount,
+                PageNumber = paginationParams.PageNumber,
+                PageSize = paginationParams.ValidatedPageSize
+            };
         }
     }
 }

@@ -8,15 +8,14 @@ import { Categories } from '../../../shared/models/categories';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './carousel-item.component.html',
-  styleUrl: './carousel-item.component.scss'
+  styleUrl: './carousel-item.component.scss',
 })
 export class CarouselItemComponent {
-   @Input() imageUrl!: string;
+  @Input() imageUrl!: string;
   @Input() shortDescription!: string;
   @Input() fullDescription!: string;
   @Input() link!: string;
-   @Input() category!: Categories;
+  @Input() category!: Categories;
 
-   baseUrl = 'https://localhost:7053/'; // Base URL for images
-
+  baseImgUrl = 'https://localhost:7053/'; // Base URL for images
 }

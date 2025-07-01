@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Slothsy.Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,16 @@ namespace Slothsy.Application.DTOs
         /// Display name of the category.
         /// </summary>
         public string Name { get; set; } = null!;
+
+        /// <summary>
+        /// Gets or sets the gender associated with the category.
+        /// </summary>
+        public Gender Gender { get; set; }
+
+        /// <summary>
+        /// Gets or sets the age group classification for the category.
+        /// </summary>
+        public AgeGroup AgeGroup { get; set; } 
 
         /// <summary>
         /// Full description of the category.
@@ -66,6 +77,11 @@ namespace Slothsy.Application.DTOs
         /// </summary>
         public Guid? ParentCategoryId { get; set; }
 
-        
+        /// <summary>
+        /// Gets or sets the list of subcategories associated with this category.
+        /// </summary>
+        public List<CategoryDto> Subcategories { get; set; } = new();
+
+
     }
 }

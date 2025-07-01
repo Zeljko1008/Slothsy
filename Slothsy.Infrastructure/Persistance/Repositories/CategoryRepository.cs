@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Slothsy.Domain.Entities;
+using Slothsy.Domain.Enums;
 using Slothsy.Domain.Interfaces.RepositoryContracts;
 using Slothsy.Infrastructure.Data;
 using System;
@@ -73,14 +74,27 @@ namespace Slothsy.Infrastructure.Persistance.Repositories
 
         }
         /// <inheritdoc/>
-        public async Task<List<Category>> GetMainCategoriesAsync(bool includeInactive = false)
+        public async Task<List<Category>> GetMainCategoriesAsync(
+     bool includeInactive = false,
+     Gender? gender = null,
+     AgeGroup? ageGroup = null)
         {
-            _logger.LogInformation("Retrieving main categories (those without a parent).");
-            return await _dbContext.Categories
-                .Where(c => c.ParentCategoryId == null&&
-                (includeInactive || c.IsActive))
-                .OrderBy(c =>c.Order)
-                .ToListAsync();
+            _logger.LogInformation("Retrieving main categories with filters: includeInactive={IncludeInactive}, gender={Gender}, ageGroup={AgeGroup}",
+                includeInactive, gender, ageGroup);
+
+            var query = _dbContext.Categories
+                .Where(c => c.ParentCategoryId == null);
+
+            if (!includeInactive)
+                query = query.Where(c => c.IsActive);
+
+            if (gender.HasValue)
+                query = query.Where(c => c.Gender == gender.Value);
+
+            if (ageGroup.HasValue)
+                query = query.Where(c => c.AgeGroup == ageGroup.Value);
+
+            return await query.OrderBy(c => c.Order).ToListAsync();
         }
         /// <inheritdoc/>
         public async Task<List<Category>> GetSubcategoriesAsync(Guid parentCategoryId, bool includeInactive = false)
@@ -125,6 +139,48 @@ namespace Slothsy.Infrastructure.Persistance.Repositories
        .Where(c => c.Slug == slug && c.IsActive)
        .Select(c => (Guid?)c.Id)
        .FirstOrDefaultAsync();
+        }
+
+        ///<inheritdoc/>
+        public async Task<Category?> GetBySlugAsync(string slug, bool includeInactive = false)
+        {
+            var query = _dbContext.Categories.AsQueryable();
+
+            if (!includeInactive)
+            {
+                query = query.Where(c => c.IsActive);
+            }
+
+            return await query.FirstOrDefaultAsync(c => c.Slug == slug);
+        }
+
+        public async Task<List<Guid>> GetCategoryAndSubcategoryIdsBySlugAsync(string slug)
+        {
+            var rootCategory = await _dbContext.Categories
+        .FirstOrDefaultAsync(c => c.Slug == slug);
+
+            if (rootCategory == null)
+                return new List<Guid>();
+
+            var allCategoryIds = new List<Guid> { rootCategory.Id };
+
+            // recursive function to get all subcategories
+            async Task GetSubcategories(Guid parentId)
+            {
+                var children = await _dbContext.Categories
+                    .Where(c => c.ParentCategoryId == parentId)
+                    .ToListAsync();
+
+                foreach (var child in children)
+                {
+                    allCategoryIds.Add(child.Id);
+                    await GetSubcategories(child.Id);
+                }
+            }
+
+            await GetSubcategories(rootCategory.Id);
+
+            return allCategoryIds;
         }
     }
 }

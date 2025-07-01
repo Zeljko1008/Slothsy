@@ -1,0 +1,27 @@
+<ul>
+  <li *ngFor="let main of filteredCategories">
+    <div class="font-medium">
+      <a [routerLink]="['/category', main.slug]" class="hover:underline">
+        {{ main.name }}
+      </a>
+    </div>
+
+    <!-- Category view -->
+    <ul class="ml-4 text-sm text-gray-700" *ngIf="main.subcategories?.length">
+      <li *ngFor="let sub of main.subcategories" class="mb-1">
+        <a [routerLink]="['/category', sub.slug]" class="hover:underline hover:text-rose-800">
+          • {{ sub.name }}
+        </a>
+
+        <!-- Subcategory view -->
+        <ul class="ml-4 text-xs text-gray-500" *ngIf="sub.subcategories?.length">
+          <li *ngFor="let subsub of sub.subcategories">
+            <a [routerLink]="['/category', subsub.slug]" class="hover:underline hover:text-rose-700">
+              - {{ subsub.name }}
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>

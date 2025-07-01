@@ -117,3 +117,26 @@ _pkginfo.txt
 # Ignore appsettings.Development.json
 appsettings.Development.json
 /frontend/client/ssl/
+
+# Extra safety for SSL and secrets
+*.key
+*.pem
+*.crt
+*.pfx
+*.p12
+.env
+.env.*
+
+# Angular build and cache
+/.angular/
+/.angular/cache/
+
+# Editor & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+
+
+

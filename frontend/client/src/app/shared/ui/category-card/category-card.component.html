@@ -1,0 +1,14 @@
+<a
+  [routerLink]="['/shop', category.slug]"
+  class="block w-[180px] border rounded-lg overflow-hidden hover:shadow-lg transition"
+>
+  <img
+    [src]="getFullImageUrl()"
+    alt="{{ category.name }}"
+    class="w-full h-24 object-cover"
+  />
+  <div class="p-3 text-center">
+    <span class="block text-sm font-medium">{{ category.name }}</span>
+  </div>
+</a>
+

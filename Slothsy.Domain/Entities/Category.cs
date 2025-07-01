@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Slothsy.Domain.Enums;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,81 +9,97 @@ using System.Threading.Tasks;
 namespace Slothsy.Domain.Entities
 {
     /// <summary>
-    /// Represents a product category, which can have subcategories (e.g. "Electronics" > "Mobile Phones").
+    /// Represents a product category with hierarchical structure.
     /// </summary>
-
-
     public class Category
     {
         /// <summary>
-        /// Unique identifier for the category.
+        /// Primary key for the category.
         /// </summary>
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Name of the category.
+        /// Display name.
         /// </summary>
-        public string Name { get; set; } = default!;
+        [Required]
+        [MaxLength(100)]
+        public string Name { get; set; } = null!;
 
         /// <summary>
-        /// Optional description of the category.
+        /// Gets or sets the gender for the category.
         /// </summary>
-        public string? Description { get; set; }
+        public Gender? Gender { get; set; } 
 
         /// <summary>
-        /// Short description or summary of the category, used for display purposes.
+        /// Gets or sets the age group classification for the category.
         /// </summary>
+        public AgeGroup? AgeGroup { get; set; } 
+
+        /// <summary>
+        /// Full description.
+        /// </summary>
+        [MaxLength(500)]
+        public string Description { get; set; } = null!;
+
+        /// <summary>
+        /// Optional short description.
+        /// </summary>
+        [MaxLength(300)]
         public string? ShortDescription { get; set; }
 
         /// <summary>
-        /// Indicates whether the category is currently active and available for use.
+        /// Flag whether category is active.
         /// </summary>
         public bool IsActive { get; set; } = true;
 
         /// <summary>
-        /// URL or path to the category banner image.
+        /// Banner image URL for homepage or category listing.
         /// </summary>
+        [MaxLength(500)]
         public string? BannerImageUrl { get; set; }
 
         /// <summary>
-        /// Display order of the category in lists or menus.
+        /// SEO slug used in URLs.
+        /// </summary>
+        [MaxLength(100)]
+        public string? Slug { get; set; }
+
+        /// <summary>
+        /// SEO title.
+        /// </summary>
+        [MaxLength(70)]
+        public string? SeoTitle { get; set; }
+
+        /// <summary>
+        /// SEO description.
+        /// </summary>
+        [MaxLength(160)]
+        public string? SeoDescription { get; set; }
+
+        /// <summary>
+        /// Order of the category in listings.
         /// </summary>
         public int Order { get; set; } = 0;
 
         /// <summary>
-        /// SEO title for the category, used in page metadata.
-        /// </summary>
-        public string? SeoTitle { get; set; }
-
-        /// <summary>
-        /// SEO keywords for the category, used in page metadata.
-        /// </summary>
-        public string? SeoDescription { get; set; }
-
-        /// <summary>
-        /// SEO slug for the category, used in URLs to make them more readable and SEO-friendly.
-        /// </summary>
-        public string? Slug { get; set; }
-
-        /// <summary>
-        /// Navigation property for the parent category, if this is a subcategory.
+        /// Foreign key to parent category (nullable for root categories).
         /// </summary>
         public Guid? ParentCategoryId { get; set; }
 
         /// <summary>
-        /// Reference to the parent category entity.
+        /// Navigation property to parent category.
         /// </summary>
         public Category? ParentCategory { get; set; }
 
         /// <summary>
-        /// Collection of subcategories that belong to this category.
+        /// Navigation property to child categories.
         /// </summary>
-        public ICollection<Category>? Subcategories { get; set; }
+        public List<Category> Subcategories { get; set; } = new();
 
         /// <summary>
-        /// Collection of products assigned to this category.
+        /// Gets or sets the collection of product categories associated with the product.
         /// </summary>
-        public ICollection<Product>? Products { get; set; }
+        public ICollection<ProductCategory> ProductCategories { get; set; } = new List<ProductCategory>();
     }
 }
 

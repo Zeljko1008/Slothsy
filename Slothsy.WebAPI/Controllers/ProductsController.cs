@@ -43,19 +43,19 @@ namespace Slothsy.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Retrieves products by category with pagination support.
+        /// Retrieves products that belong to a specific category by its slug.
         /// </summary>
-        /// <param name="slug">The category ID to filter products by.</param>
-        /// <param name="paginationParams">Pagination parameters (page number & size).</param>
-        /// <returns>Paged list of products for the specified category.</returns>
-        [HttpGet("category/{slug}")]
-        public async Task<ActionResult<PagedResult<ProductDto>>> GetByCategoryAsync(
-            string slug,
-            [FromQuery] PaginationParams paginationParams)
-        {
-            var result = await _productReadService.GetByCategorySlugAsync(slug, paginationParams);
-            return Ok(result);
-        }
+        /// <param name="slug"></param>
+        /// <param name="paginationParams"></param>
+        /// <returns></returns>
+        [HttpGet("categorytree/{slug}")]
+public async Task<ActionResult<PagedResult<ProductDto>>> GetByCategoryTreeSlugAsync(
+    string slug,
+    [FromQuery] PaginationParams paginationParams)
+{
+    var result = await _productReadService.GetByCategoryTreeSlugAsync(slug, paginationParams);
+    return Ok(result);
+}
 
         /// <summary>
         /// Searches products by name with pagination support.

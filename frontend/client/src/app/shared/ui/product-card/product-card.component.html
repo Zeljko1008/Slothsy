@@ -1,0 +1,15 @@
+<div class="bg-white border rounded-lg shadow p-4 hover:shadow-md transition duration-200 ease-in-out">
+  <img
+  [src]="getProductImageUrl()"
+  [alt]="product.name"
+  class="w-full h-40 object-cover rounded mb-2"
+/>
+
+  <h3 class="text-lg font-semibold mb-1">{{ product.name }}</h3>
+  <p class="text-sm text-gray-600 mb-2">{{ product.shortDescription }}</p>
+  <p class="text-blue-600 font-bold">
+
+    {{ getLowestPrice() | currency: 'EUR' }}
+  </p>
+</div>
+

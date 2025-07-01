@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Slothsy.Domain.Entities;
+using Slothsy.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,15 @@ namespace Slothsy.Infrastructure.Configuration
                 .IsRequired()
                 .HasMaxLength(100);
 
+            builder.Property(c => c.Gender)
+                 .HasConversion<int>()
+                   .IsRequired(false);
+
+
+            builder.Property(c => c.AgeGroup)
+                     .HasConversion<int>()
+                         .IsRequired(false);
+
             builder.Property(c => c.Description)
                 .HasMaxLength(500);
 
@@ -44,29 +54,29 @@ namespace Slothsy.Infrastructure.Configuration
 
             builder.Property(c => c.Order)
                 .IsRequired()
-                .HasDefaultValue(0); 
+                .HasDefaultValue(0);
 
             builder.Property(e => e.SeoTitle)
-                .HasMaxLength(70);
-
-            builder.Property(e => e.SeoDescription)
-                .HasMaxLength(160);
-
-            builder.Property(e => e.Slug)
                 .HasMaxLength(100);
 
+            builder.Property(e => e.SeoDescription)
+                .HasMaxLength(500);
 
-            // One-to-many relationship with Product
-            builder.HasMany(c => c.Products)
-                   .WithOne(p => p.Category)
-                   .HasForeignKey(p => p.CategoryId)
-                   .OnDelete(DeleteBehavior.Restrict); // Prevent cascading deletes
+            builder.Property(e => e.Slug)
+                .HasMaxLength(150);
+
+
+            //relationship with Product
+            builder.HasMany(pc => pc.ProductCategories)
+                     .WithOne(c => c.Category)
+                        .HasForeignKey(pc => pc.CategoryId)
+                         .OnDelete(DeleteBehavior.Restrict); // Prevent cascading deletes
 
             // Self-referencing relationship: one category can have many subcategories
             builder.HasOne(c => c.ParentCategory)
                    .WithMany(c => c.Subcategories)
                    .HasForeignKey(c => c.ParentCategoryId)
-                   .OnDelete(DeleteBehavior.Restrict); 
+                   .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

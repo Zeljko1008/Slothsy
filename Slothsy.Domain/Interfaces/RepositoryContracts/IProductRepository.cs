@@ -79,6 +79,14 @@ namespace Slothsy.Domain.Interfaces.RepositoryContracts
         /// </summary>
         /// <returns>A task that represents the asynchronous operation, containing a queryable collection of products.</returns>
         public IQueryable<Product> GetQueryable(PaginationParams paginationParams);
+        /// <summary>
+        /// Retrieves products that belong to multiple categories.
+        /// </summary>
+        /// <param name="categoryIds">IEnumerable of category IDs to filter products by.</param>
+        /// <param name="paginationParams">Pagination parameters for the result set.</param>
+        /// <returns></returns>
+        Task<PagedResult<Product>> GetByCategoryIdsAsync(IEnumerable<Guid> categoryIds, PaginationParams paginationParams);
+
     }
 }
 

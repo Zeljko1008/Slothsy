@@ -1,0 +1,124 @@
+[
+  {
+    "id": "2F46263E-1E2D-40EE-A125-17BE0CE7F81E",
+    "label": "S",
+    "sizeType": 0,
+    "order": 1
+  },
+  {
+    "id": "8AF2BD15-3773-4B29-A107-7B1FA54439B5",
+    "label": "M",
+    "sizeType": 0,
+    "order": 2
+  },
+  {
+    "id": "9BB9702F-B385-49C5-A0C8-3B8155C57A00",
+    "label": "L",
+    "sizeType": 0,
+    "order": 3
+  },
+  {
+    "id": "7CFC3A64-DE02-4B7E-AF71-48D6C228BF41",
+    "label": "XL",
+    "sizeType": 0,
+    "order": 4
+  },
+  {
+    "id": "453C1799-1C13-4D1A-8B1A-CBFA41E8CCDD",
+    "label": "XXL",
+    "sizeType": 0,
+    "order": 5
+  },
+  {
+    "id": "EE20C140-94A4-4B5D-9189-0B34A86E8F67",
+    "label": "40",
+    "sizeType": 1,
+    "order": 6
+  },
+  {
+    "id": "813E6C9A-6F47-4ADB-A38F-8C015265FD79",
+    "label": "40.5",
+    "sizeType": 1,
+    "order": 7
+  },
+  {
+    "id": "E09CF336-A251-43C7-8B7A-CF46B40E540D",
+    "label": "41",
+    "sizeType": 1,
+    "order": 8
+  },
+  {
+    "id": "8CCB8748-5401-4247-8697-C7243B4095CC",
+    "label": "41.5",
+    "sizeType": 1,
+    "order": 9
+  },
+  {
+    "id": "36C5D540-9FF4-4184-B3D1-081DAF8F05FF",
+    "label": "42",
+    "sizeType": 1,
+    "order": 10
+  },
+  {
+    "id": "7F263B36-1240-4913-A793-023AC2184104",
+    "label": "42.5",
+    "sizeType": 1,
+    "order": 11
+  },
+  {
+    "id": "40BEA3C4-7705-4F8E-A69E-32497B10EF0A",
+    "label": "43",
+    "sizeType": 1,
+    "order": 12
+  },
+  {
+    "id": "B07D24CE-88DB-4593-9F3D-9DB96F3456C9",
+    "label": "43.5",
+    "sizeType": 1,
+    "order": 13
+  },
+  {
+    "id": "48B3403F-DC4C-4EA6-AAB8-B45C48FC649B",
+    "label": "44",
+    "sizeType": 1,
+    "order": 14
+  },
+  {
+    "id": "ABE8E354-3899-4BAD-949C-F837F7DE17D7",
+    "label": "44.5",
+    "sizeType": 1,
+    "order": 15
+  },
+  {
+    "id": "FBCA38E0-17C6-49EB-8BF9-35C6B73293B2",
+    "label": "45",
+    "sizeType": 1,
+    "order": 16
+  },
+  {
+    "id": "ADFE7480-748C-43A3-97F0-681A5AFB0893",
+    "label": "33/34",
+    "sizeType": 2,
+    "order": 17
+  },
+  {
+    "id": "3D3A49CF-C6E3-404C-BCFC-79322E24269D",
+    "label": "34/35",
+    "sizeType": 2,
+    "order": 18
+  },
+  {
+    "id": "76EEFAC0-4259-4292-904D-9B58758B4809",
+    "label": "36/37",
+    "sizeType": 2,
+    "order": 19
+  },
+  {
+    "id": "4E8B3F93-3A61-4B31-A358-C79FA6456A1C",
+    "label": "38/39",
+    "sizeType": 2,
+    "order": 20
+  }
+  
+  
+]

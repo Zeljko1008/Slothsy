@@ -14,13 +14,20 @@ namespace Slothsy.Application.Mappings
     {
        public ProductProfile()
         {
+            // Map from Product entity to ProductDto
             CreateMap<Product, ProductDto>()
-            .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name));
+                 .ForMember(dest => dest.Categories, opt => opt.MapFrom(src => src.ProductCategories.Select(pc => pc.Category)))
+                .ForMember(dest => dest.Variants, opt => opt.MapFrom(src => src.Variants));
+               
 
+
+            // Map from CreateProductDto to Product entity (for creation)
             CreateMap<CreateProductDto, Product>();
 
-            CreateMap<UpdateProductDto, Product>()
-          .ForAllMembers(opt => opt.Condition((src, dest, srcMember) => srcMember != null));
+            CreateMap<Category, CategorySummaryDto>();
+
+
+
         }
     }
 }

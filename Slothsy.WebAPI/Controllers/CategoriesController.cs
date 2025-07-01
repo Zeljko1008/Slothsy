@@ -35,9 +35,11 @@ namespace Slothsy.WebAPI.Controllers
         /// </summary>
         /// <param name="includeInactive">Whether to include inactive categories.</param>
         [HttpGet("main")]
-        public async Task<ActionResult<List<CategoryDto>>> GetMainCategories([FromQuery] bool includeInactive = false)
+        public async Task<ActionResult<List<CategoryDto>>> GetMainCategories(
+     [FromQuery] bool includeInactive = false,
+     [FromQuery] string? type = null)
         {
-            var categories = await _categoryReadService.GetMainCategoriesAsync(includeInactive);
+            var categories = await _categoryReadService.GetMainCategoriesAsync(includeInactive, type);
             return Ok(categories);
         }
 
@@ -66,6 +68,38 @@ namespace Slothsy.WebAPI.Controllers
                 return NotFound();
 
             return Ok(categories);
+        }
+
+        /// <summary>
+        /// Returns a category by slug.
+        /// </summary>
+        /// <param name="slug">Category slug.</param>
+        /// <param name="includeInactive">Whether to return an inactive category.</param>
+        [HttpGet("slug/{slug}")]
+        public async Task<ActionResult<CategoryDto>> GetCategoryBySlug(string slug, [FromQuery] bool includeInactive = false)
+        {
+            var category = await _categoryReadService.GetCategoryBySlugAsync(slug, includeInactive);
+
+            if (category == null)
+                return NotFound();
+
+            return Ok(category);
+        }
+
+        /// <summary>
+        /// Returns subcategories of a category identified by slug.
+        /// </summary>
+        /// <param name="parentCategorySlug">Slug of the parent category.</param>
+        /// <param name="includeInactive">Whether to include inactive subcategories.</param>
+        [HttpGet("slug/{parentCategorySlug}/subcategories")]
+        public async Task<ActionResult<List<CategoryDto>>> GetSubCategoriesBySlug(string parentCategorySlug, [FromQuery] bool includeInactive = false)
+        {
+            var subCategories = await _categoryReadService.GetSubCategoriesBySlugAsync(parentCategorySlug, includeInactive);
+
+            if (subCategories == null || !subCategories.Any())
+                return NotFound();
+
+            return Ok(subCategories);
         }
     }
 }

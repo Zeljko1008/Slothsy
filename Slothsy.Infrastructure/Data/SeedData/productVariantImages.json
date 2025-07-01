@@ -1,0 +1,16 @@
+[
+  {
+    "id": "4444dddd-5555-6666-7777-888888888888",
+    "productVariantId": "2222bbbb-3333-4444-5555-666666666666",
+    "imageUrl": "/images/Products/white-t.jpg",
+    "order": 1,
+    "isMain": true
+  },
+  {
+    "id": "5555eeee-6666-7777-8888-999999999999",
+    "productVariantId": "3333cccc-4444-5555-6666-777777777777",
+    "imageUrl": "https://example.com/images/black-shirt-front.jpg",
+    "order": 1,
+    "isMain": true
+  }
+]

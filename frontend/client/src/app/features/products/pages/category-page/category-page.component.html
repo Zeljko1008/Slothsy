@@ -1,0 +1,57 @@
+<!-- Wrapper for sidebar and main content -->
+<div class="flex flex-col md:flex-row gap-8 p-8 mb-10 max-w-screen-xl mx-auto">
+
+  <!-- 🟦 Sidebar: Category tree -->
+  <app-category-tree-sidebar
+   [genderFilter]="category?.gender"
+    [ageGroupFilter]="category?.ageGroup"
+    class="w-full md:w-64 shrink-0"></app-category-tree-sidebar>
+
+  <!-- 🟥 Main content -->
+  <main class="flex-1">
+
+    <!-- 🟦 Category header -->
+    <section class="text-center p-6">
+     <h1 class="text-3xl font-bold mb-2">
+  {{ selectedSubcategory?.name || category?.name }}
+</h1>
+      <p class="text-gray-600 max-w-xl mx-auto">{{ category?.shortDescription }}</p>
+    </section>
+
+    <!-- 🟨 Subcategory card -->
+    <section class="px-2 md:px-6 mb-10 text-center">
+      <h2 class="text-xl font-semibold mb-4">Subcategories</h2>
+      <div class="flex gap-4 overflow-x-auto pb-2 justify-center">
+       <div
+  *ngFor="let sub of subcategories"
+  (click)="onSubcategoryClick(sub.slug ?? '')"
+  class="transition-all duration-300 cursor-pointer rounded-xl"
+  [ngClass]="{
+    'opacity-100': sub.slug === selectedSubcategorySlug,
+    'opacity-50 hover:opacity-80': sub.slug !== selectedSubcategorySlug
+  }"
+>
+  <app-category-card [category]="sub"></app-category-card>
+</div>
+      </div>
+    </section>
+
+    <!-- 🟥 List Products -->
+    <section class="px-2 md:px-6">
+      <h2 class="text-xl font-semibold mb-4">Products</h2>
+
+      <div *ngIf="products.length === 0" class="text-center text-gray-500">
+        No products found in this category.
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <app-product-card
+          *ngFor="let product of products"
+          [product]="product"
+        ></app-product-card>
+      </div>
+    </section>
+
+  </main>
+</div>
+

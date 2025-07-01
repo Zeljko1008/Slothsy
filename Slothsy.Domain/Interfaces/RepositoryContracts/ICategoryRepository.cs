@@ -1,4 +1,5 @@
 ﻿using Slothsy.Domain.Entities;
+using Slothsy.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,10 @@ namespace Slothsy.Domain.Interfaces.RepositoryContracts
         ///  Retrieves all main categories (those without a parent), optionally including inactive.
         /// </summary>
         /// <returns>List of main categories.</returns>
-        Task<List<Category>> GetMainCategoriesAsync(bool includeInactive = false); // ParentCategoryId == null
+        Task<List<Category>> GetMainCategoriesAsync(
+     bool includeInactive = false,
+     Gender? gender = null,
+     AgeGroup? ageGroup = null); 
         /// <summary>
         ///  Retrieves all subcategories for a given parent category, optionally including inactive.
         /// </summary>
@@ -70,5 +74,20 @@ namespace Slothsy.Domain.Interfaces.RepositoryContracts
         /// <param name="id">Unique identifier of the category to hard delete</param>
         /// <returns></returns>
         Task HardDeleteAsync(Guid id);
+
+        /// <summary>
+        /// Gets a category by its slug, optionally including inactive categories.    
+        /// </summary>
+        /// <param name="slug">A SEO-friendly identifier of the category.</param>
+        /// <param name="includeInactive">Boolean flag indicating whether to include inactive categories in the result.</param>
+        /// <returns>Category entity if found, otherwise null.</returns>
+        Task<Category> GetBySlugAsync(string slug, bool includeInactive = false);
+        /// <summary>
+        /// Retrieves a list of category and subcategory IDs based on the provided slug.
+        /// </summary>
+        /// <param name="slug">Unique SEO-friendly identifier for the category.</param>
+        /// <returns>Collection of category and subcategory IDs.</returns>
+        Task<List<Guid>> GetCategoryAndSubcategoryIdsBySlugAsync(string slug);
+
     }
 }

@@ -6,6 +6,7 @@ using Slothsy.Application.Services;
 using Slothsy.Domain.Interfaces.RepositoryContracts;
 using Slothsy.Infrastructure.Data;
 using Slothsy.Infrastructure.Persistance.Repositories;
+using System.Text.Json.Serialization;
 
 
 
@@ -33,11 +34,21 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // Register AutoMapper profiles from the specified assembly
 // ------------------------------------------------------------
 builder.Services.AddAutoMapper(typeof(ProductProfile).Assembly);
+builder.Services.AddAutoMapper(typeof(CategoryProfile).Assembly);
+builder.Services.AddAutoMapper(typeof(ProductCategoryProfile).Assembly);
+builder.Services.AddAutoMapper(typeof(ProductVariantProfile).Assembly);
+builder.Services.AddAutoMapper(typeof(ProductVariantImageProfile).Assembly);
+builder.Services.AddAutoMapper(typeof(ColorOptionProfile).Assembly);
+builder.Services.AddAutoMapper(typeof(SizeOptionProfile).Assembly);
 
 // ------------------------------------------------------------
 // Add controllers (API endpoints)
 // ------------------------------------------------------------
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
 
 // ------------------------------------------------------------
 // Add Swagger/OpenAPI support for API documentation
