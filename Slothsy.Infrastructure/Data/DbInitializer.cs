@@ -100,27 +100,78 @@ namespace Slothsy.Infrastructure.Data
                 context.ColorOptions.AddRange(colorOptions);
                 await context.SaveChangesAsync();
             }
+            // Seed ProductColorVariants
+            try
+            {
+                if (!context.ProductColorVariants.Any())
+                {
+                    var productColorVariantsPath = Path.Combine(basePath, "productColorVariants.json");
+
+                    if (File.Exists(productColorVariantsPath))
+                    {
+                        var productColorVariantsData = File.ReadAllText(productColorVariantsPath);
+                        var productColorVariants = JsonSerializer.Deserialize<List<ProductColorVariant>>(productColorVariantsData, options)!;
+
+                        context.ProductColorVariants.AddRange(productColorVariants);
+                        await context.SaveChangesAsync();
+                        Console.WriteLine("[SEED DEBUG] ProductColorVariants seeded successfully.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("[SEED WARNING] productColorVariants.json not found.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"[SEED ERROR] Failed to seed ProductColorVariants: {ex.Message}");
+                Console.WriteLine($"[SEED ERROR - INNER] {ex.InnerException?.Message}");
+                Console.ResetColor();
+            }
 
             // Seed ProductVariants
-
-            if (!context.ProductVariants.Any())
+            try
             {
-                var productVariantsPath = Path.Combine(basePath, "productVariants.json");
-                var productVariantsData = File.ReadAllText(productVariantsPath);
-                var productVariants = JsonSerializer.Deserialize<List<ProductVariant>>(productVariantsData, options)!;
-                context.ProductVariants.AddRange(productVariants);
-                await context.SaveChangesAsync();
+                if (!context.ProductVariants.Any())
+                {
+                    var productVariantsPath = Path.Combine(basePath, "productVariants.json");
+                    var productVariantsData = File.ReadAllText(productVariantsPath);
+                    var productVariants = JsonSerializer.Deserialize<List<ProductVariant>>(productVariantsData, options)!;
+                    context.ProductVariants.AddRange(productVariants);
+                    await context.SaveChangesAsync();
+                    Console.WriteLine("[SEED DEBUG] ProductVariants seeded successfully.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"[SEED ERROR] Failed to seed ProductVariants: {ex.Message}");
+                Console.WriteLine($"[SEED ERROR - INNER] {ex.InnerException?.Message}");
+                Console.ResetColor();
             }
 
             // Seed ProductVariantImages
 
             if (!context.ProductVariantImages.Any())
             {
-                var productVariantImagesPath = Path.Combine(basePath, "productVariantImages.json");
-                var productVariantImagesData = File.ReadAllText(productVariantImagesPath);
-                var productVariantImages = JsonSerializer.Deserialize<List<ProductVariantImage>>(productVariantImagesData, options)!;
-                context.ProductVariantImages.AddRange(productVariantImages);
-                await context.SaveChangesAsync();
+                try
+                {
+                    var productVariantImagesPath = Path.Combine(basePath, "productVariantImages.json");
+                    var productVariantImagesData = File.ReadAllText(productVariantImagesPath);
+                    var productVariantImages = JsonSerializer.Deserialize<List<ProductVariantImage>>(productVariantImagesData, options)!;
+
+                    context.ProductVariantImages.AddRange(productVariantImages);
+                    await context.SaveChangesAsync();
+                    Console.WriteLine("[SEED DEBUG] ProductVariantImages seeded successfully.");
+                }
+                catch (Exception ex)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"[SEED ERROR] Failed to seed ProductVariantImages: {ex.Message}");
+                    Console.WriteLine($"[SEED ERROR - INNER] {ex.InnerException?.Message}");
+                    Console.ResetColor();
+                }
             }
 
             Console.WriteLine("[SEED DEBUG] Database seeding complete.");

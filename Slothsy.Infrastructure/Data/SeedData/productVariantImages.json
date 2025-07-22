@@ -1,16 +1,119 @@
 [
   {
-    "id": "4444dddd-5555-6666-7777-888888888888",
-    "productVariantId": "2222bbbb-3333-4444-5555-666666666666",
+
+    "id": "de29a49d-4ac7-416b-be7e-8f6829cf20e7",
+    "productColorVariantId": "83e149e7-3640-49c2-9705-e6c374b4ab5a",
     "imageUrl": "/images/Products/white-t.jpg",
     "order": 1,
     "isMain": true
+
   },
   {
-    "id": "5555eeee-6666-7777-8888-999999999999",
-    "productVariantId": "3333cccc-4444-5555-6666-777777777777",
-    "imageUrl": "https://example.com/images/black-shirt-front.jpg",
+
+    "id": "8F3ABAFE-A287-45A1-ACAF-3CDABF87945F",
+    "productColorVariantId": "2FFC03FB-57B0-4537-960C-42D1B4B17108",
+    "imageUrl": "/images/Products/black-polo.jpg",
     "order": 1,
     "isMain": true
+
+  },
+  {
+
+    "id": "23079519-8801-4C54-8067-6D5C24882D45",
+    "productColorVariantId": "2FFC03FB-57B0-4537-960C-42D1B4B17108",
+    "imageUrl": "/images/Products/black-polo1.jpg",
+    "order": 2,
+    "isMain": false
+
+  },
+  {
+
+    "id": "6CC8F012-AD3D-4957-9DD1-9C4E10A3BC6B",
+    "productColorVariantId": "2FFC03FB-57B0-4537-960C-42D1B4B17108",
+    "imageUrl": "/images/Products/black-polo2.jpg",
+    "order": 3,
+    "isMain": false
+
+  },
+  {
+
+    "id": "AFCD9552-A25C-4E0A-A65B-13FDC749D449",
+    "productColorVariantId": "2FFC03FB-57B0-4537-960C-42D1B4B17108",
+    "imageUrl": "/images/Products/black-polo3.jpg",
+    "order": 4,
+    "isMain": false
+
+  },
+  {
+
+    "id": "F9521C1F-57BC-4FBD-A023-F939F531A2D8",
+    "productColorVariantId": "7E90B6C6-B03B-4D2C-8961-4E04F3385F27",
+    "imageUrl": "/images/Products/blue-polo.jpg",
+    "order": 1,
+    "isMain": true
+
+  },
+  {
+
+    "id": "88A257A1-377F-4F64-BD5C-48C9B83F0E7B",
+    "productColorVariantId": "7E90B6C6-B03B-4D2C-8961-4E04F3385F27",
+    "imageUrl": "/images/Products/blue-polo1.jpg",
+    "order": 2,
+    "isMain": false
+
+  },
+  {
+
+    "id": "5073DF32-609A-4925-B6D5-FB92A935FB92",
+    "productColorVariantId": "7E90B6C6-B03B-4D2C-8961-4E04F3385F27",
+    "imageUrl": "/images/Products/blue-polo2.jpg",
+    "order": 3,
+    "isMain": false
+
+  },
+  {
+
+    "id": "96B3E737-B792-4F40-ACB1-5ECA0D7B72F4",
+    "productColorVariantId": "6542FF6A-ACDD-47DF-8360-B87B00A7F3C5",
+    "imageUrl": "/images/Products/green-polo.jpg",
+    "order": 1,
+    "isMain": true
+
+  },
+  {
+
+    "id": "8788301B-83BD-4E8B-A1D8-2ED7B00D3E80",
+    "productColorVariantId": "33167123-7D38-4CC8-8E02-D19535F535F0",
+    "imageUrl": "/images/Products/yellow-polo.jpg",
+    "order": 1,
+    "isMain": true
+
+  },
+  {
+
+    "id": "02752406-0B3B-4D30-B7F2-F29D49062395",
+    "productColorVariantId": "33167123-7D38-4CC8-8E02-D19535F535F0",
+    "imageUrl": "/images/Products/yellow-polo1.jpg",
+    "order": 2,
+    "isMain": false
+
+  },
+  {
+
+    "id": "064350A0-3AD8-4512-A821-EED724582135",
+    "productColorVariantId": "33167123-7D38-4CC8-8E02-D19535F535F0",
+    "imageUrl": "/images/Products/yellow-polo2.jpg",
+    "order": 3,
+    "isMain": false
+
+  },
+  {
+
+    "id": "4BBC7CE6-F3C9-4969-BD22-D7F1D92775D5",
+    "productColorVariantId": "33167123-7D38-4CC8-8E02-D19535F535F0",
+    "imageUrl": "/images/Products/yellow-polo3.jpg",
+    "order": 4,
+    "isMain": false
+
   }
 ]

@@ -31,6 +31,28 @@ export class CategoryTreeSidebarComponent implements OnInit {
   ngOnInit(): void {
     this.loadCategories();
   }
+    ngOnChanges(): void {
+    if (this.categories.length > 0) {
+      this.applyFilter();
+    }
+  }
+   applyFilter(): void {
+    const filtered = this.categories.filter(cat => {
+      let genderMatch = true;
+      let ageGroupMatch = true;
+
+      if (this.genderFilter != null) {
+        genderMatch = cat.gender === this.genderFilter;
+      }
+      if (this.ageGroupFilter != null) {
+        ageGroupMatch = cat.ageGroup === this.ageGroupFilter;
+      }
+
+      return genderMatch && ageGroupMatch;
+    });
+
+    this.filteredCategories = this.removeDuplicateSubcategories(filtered);
+  }
 
   loadCategories():void{
     this.loading = true;

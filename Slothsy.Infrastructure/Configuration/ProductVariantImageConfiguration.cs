@@ -25,10 +25,10 @@ namespace Slothsy.Infrastructure.Configuration
             builder.Property(i => i.IsMain)
                 .IsRequired();
 
-            builder.HasOne(i => i.ProductVariant)
-                .WithMany(v => v.Images)
-                .HasForeignKey(i => i.ProductVariantId)
-                .OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(i => i.ProductColorVariant)
+            .WithMany(pc => pc.Images)
+            .HasForeignKey(i => i.ProductColorVariantId)
+            .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

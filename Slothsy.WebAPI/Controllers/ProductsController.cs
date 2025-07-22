@@ -29,11 +29,12 @@ namespace Slothsy.WebAPI.Controllers
             var pagedProducts = await _productReadService.GetAllAsync(paginationParams);
             return Ok(pagedProducts);
         }
+
         /// <summary>
-        /// Retrieves a product by its unique identifier.
+        /// Gets products by slug (unique identifier).
         /// </summary>
-        /// <param name="id">The unique identifier of the product to get.</param>
-        /// <returns>Product with the specified ID, or NotFound if it does not exist.</returns>
+        /// <param name="slug"></param>
+        /// <returns></returns>
         [HttpGet("{slug}")]
         public async Task<ActionResult<ProductDto>> GetProductBySlugAsync(string slug)
         {
@@ -41,6 +42,8 @@ namespace Slothsy.WebAPI.Controllers
 
             return Ok(product);
         }
+       
+
 
         /// <summary>
         /// Retrieves products that belong to a specific category by its slug.

@@ -14,11 +14,12 @@ namespace Slothsy.Domain.Entities
         // Unique identifier for the image
         public Guid Id { get; set; }
 
-        // Foreign key to ProductVariant
-        public Guid ProductVariantId { get; set; }
+        // Foreign key to ProductColorVariant
+        public Guid ProductColorVariantId { get; set; }
 
-        // Navigation property to ProductVariant
-        public ProductVariant ProductVariant { get; set; } = null!;
+        // Navigation property to ProductColorVariant
+
+        public ProductColorVariant ProductColorVariant { get; set; } = null!;
 
         // URL of the image
         public string ImageUrl { get; set; } = string.Empty;

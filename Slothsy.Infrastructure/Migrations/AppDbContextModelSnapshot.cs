@@ -131,14 +131,13 @@ namespace Slothsy.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("HexCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("Order")
                         .HasColumnType("int");
@@ -328,7 +327,7 @@ namespace Slothsy.Infrastructure.Migrations
                     b.ToTable("ProductCategories");
                 });
 
-            modelBuilder.Entity("Slothsy.Domain.Entities.ProductVariant", b =>
+            modelBuilder.Entity("Slothsy.Domain.Entities.ProductColorVariant", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -346,17 +345,51 @@ namespace Slothsy.Infrastructure.Migrations
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("SizeOptionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("StockQuantity")
-                        .HasColumnType("int");
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ColorOptionId");
 
                     b.HasIndex("ProductId");
+
+                    b.ToTable("ProductColorVariants");
+                });
+
+            modelBuilder.Entity("Slothsy.Domain.Entities.ProductVariant", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProductColorVariantId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ProductColorVariantSlug")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("SizeLabel")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<Guid>("SizeOptionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Slug")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("StockQuantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductColorVariantId");
 
                     b.HasIndex("SizeOptionId");
 
@@ -380,12 +413,12 @@ namespace Slothsy.Infrastructure.Migrations
                     b.Property<int>("Order")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("ProductVariantId")
+                    b.Property<Guid>("ProductColorVariantId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductVariantId");
+                    b.HasIndex("ProductColorVariantId");
 
                     b.ToTable("ProductVariantImages");
                 });
@@ -528,17 +561,30 @@ namespace Slothsy.Infrastructure.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Slothsy.Domain.Entities.ProductVariant", b =>
+            modelBuilder.Entity("Slothsy.Domain.Entities.ProductColorVariant", b =>
                 {
                     b.HasOne("Slothsy.Domain.Entities.ColorOption", "ColorOption")
-                        .WithMany("ProductVariants")
+                        .WithMany("ProductColorVariants")
                         .HasForeignKey("ColorOptionId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Slothsy.Domain.Entities.Product", "Product")
-                        .WithMany("Variants")
+                        .WithMany("ColorVariants")
                         .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ColorOption");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Slothsy.Domain.Entities.ProductVariant", b =>
+                {
+                    b.HasOne("Slothsy.Domain.Entities.ProductColorVariant", "ProductColorVariant")
+                        .WithMany("Variants")
+                        .HasForeignKey("ProductColorVariantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -548,22 +594,20 @@ namespace Slothsy.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("ColorOption");
-
-                    b.Navigation("Product");
+                    b.Navigation("ProductColorVariant");
 
                     b.Navigation("SizeOption");
                 });
 
             modelBuilder.Entity("Slothsy.Domain.Entities.ProductVariantImage", b =>
                 {
-                    b.HasOne("Slothsy.Domain.Entities.ProductVariant", "ProductVariant")
+                    b.HasOne("Slothsy.Domain.Entities.ProductColorVariant", "ProductColorVariant")
                         .WithMany("Images")
-                        .HasForeignKey("ProductVariantId")
+                        .HasForeignKey("ProductColorVariantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ProductVariant");
+                    b.Navigation("ProductColorVariant");
                 });
 
             modelBuilder.Entity("Slothsy.Domain.Entities.Cart", b =>
@@ -580,7 +624,7 @@ namespace Slothsy.Infrastructure.Migrations
 
             modelBuilder.Entity("Slothsy.Domain.Entities.ColorOption", b =>
                 {
-                    b.Navigation("ProductVariants");
+                    b.Navigation("ProductColorVariants");
                 });
 
             modelBuilder.Entity("Slothsy.Domain.Entities.DeliveryMethod", b =>
@@ -595,14 +639,16 @@ namespace Slothsy.Infrastructure.Migrations
 
             modelBuilder.Entity("Slothsy.Domain.Entities.Product", b =>
                 {
-                    b.Navigation("ProductCategories");
+                    b.Navigation("ColorVariants");
 
-                    b.Navigation("Variants");
+                    b.Navigation("ProductCategories");
                 });
 
-            modelBuilder.Entity("Slothsy.Domain.Entities.ProductVariant", b =>
+            modelBuilder.Entity("Slothsy.Domain.Entities.ProductColorVariant", b =>
                 {
                     b.Navigation("Images");
+
+                    b.Navigation("Variants");
                 });
 
             modelBuilder.Entity("Slothsy.Domain.Entities.SizeOption", b =>

@@ -1,0 +1,84 @@
+<div class="flex flex-col lg:flex-row gap-8 max-w-screen-xl mx-auto p-8">
+
+  <!-- Sidebar -->
+  <aside *ngIf="product" class="w-full lg:w-64 shrink-0">
+    <app-category-tree-sidebar
+      [genderFilter]="product.gender"
+      [ageGroupFilter]="product.ageGroup">
+    </app-category-tree-sidebar>
+  </aside>
+
+  <!-- Main content -->
+  <main class="flex-1">
+    <div class="flex flex-col lg:flex-row gap-8">
+
+      <!-- Left: Images -->
+      <div class="w-full lg:w-1/2">
+
+
+        <!-- Gallery -->
+        <div class="flex gap-2 overflow-x-auto">
+          <img
+            *ngFor="let img of colorVariant?.images"
+            [src]="getImageUrl(img)"
+            alt="Additional"
+            (click)="onThumbnailClick(img)"
+            class="w-20 h-20 object-cover rounded cursor-pointer border hover:border-blue-500"
+          />
+        </div>
+      </div>
+
+      <!-- Right: Info -->
+      <div class="w-full lg:w-1/2 space-y-4">
+        <h1 class="text-3xl font-bold">{{ product?.name }}</h1>
+        <p class="text-gray-600">{{ product?.shortDescription }}</p>
+
+        <div class="text-xl font-semibold">
+          <span *ngIf="colorVariant?.discountPrice" class="text-red-500">
+            {{ colorVariant?.discountPrice | currency: 'EUR' }}
+          </span>
+          <span
+            [class.line-through]="colorVariant?.discountPrice"
+            class="text-gray-700 ml-2"
+          >
+            {{ colorVariant?.price | currency: 'EUR' }}
+          </span>
+        </div>
+
+        <!-- Size Dropdown -->
+        <div>
+          <label for="size" class="block mb-1 text-sm font-medium">Size</label>
+          <select id="size" class="w-full border p-2 rounded" (change)="onSizeChange($event)">
+            <option *ngFor="let v of colorVariant?.variants" [value]="v.slug" [selected]="variant?.slug === v.slug">
+              {{ v.sizeLabel }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Add to cart -->
+        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
+          Dodaj u košaricu
+        </button>
+
+        <!-- Material -->
+        <div>
+          <p class="text-sm text-gray-600">
+            Materijal: <strong>{{ product?.material }}</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Other color variants -->
+    <section class="mt-12" *ngIf="(filteredOtherVariants?.length ?? 0) > 0">
+      <h2 class="text-xl font-semibold mb-4">Colors</h2>
+      <div class="flex gap-4 flex-wrap">
+        <app-product-card
+          *ngFor="let v of filteredOtherVariants"
+          [colorVariant]="v"
+          (click)="navigateToVariant(v.slug)">
+        </app-product-card>
+      </div>
+    </section>
+  </main>
+</div>

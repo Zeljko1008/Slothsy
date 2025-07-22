@@ -115,6 +115,7 @@ _pkginfo.txt
 .history/
 
 # Ignore appsettings.Development.json
+Slothsy.WebAPI/appsettings.json
 
 appsettings.json
 

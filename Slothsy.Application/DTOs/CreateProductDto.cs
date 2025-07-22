@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Slothsy.Domain.Enums;
+using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Slothsy.Application.DTOs
 {
@@ -10,48 +12,65 @@ namespace Slothsy.Application.DTOs
         /// <summary>
         /// Name of the product.
         /// </summary>
+        [Required]
         public string Name { get; set; } = null!;
+        /// <summary>
+        /// Gets or sets a brief description of the item.
+        /// </summary>
+        public string? ShortDescription { get; set; }
 
         /// <summary>
         /// Optional description of the product.
         /// </summary>
-        public string? Description { get; set; } 
+        public string? Description { get; set; }
 
         /// <summary>
-        /// Price of the product.
+        /// Gets or sets the brand name of the product.
         /// </summary>
-        public decimal Price { get; set; }
+        [Required]
+        public string Brand { get; set; } = null!;
 
         /// <summary>
-        /// Discounted price of the product, if any.
+        /// Gets or sets the purpose associated with the current instance.
         /// </summary>
-        public decimal? DiscountPrice { get; set; }
+        [Required] 
+        public ProductPurpose Purpose { get; set; } 
 
         /// <summary>
-        /// Image URL of the product.
+        /// Gets or sets the fit description for the item.
         /// </summary>
-        public string ImageUrl { get; set; } = null!;
+        [Required] 
+        public FitType Fit { get; set; }
 
         /// <summary>
-        /// Unique identifier for the category to which the product belongs.
+        /// Gets or sets the material associated with the object.
         /// </summary>
-        public Guid CategoryId { get; set; }
+        [Required] 
+        public MaterialType Material { get; set; }
 
         /// <summary>
-        /// Quantity of the product in stock.
+        /// Gets or sets the current season associated with the object.
         /// </summary>
-        public int StockQuantity { get; set; }
+        [Required] 
+        public Season Season { get; set; }
 
         /// <summary>
-        /// Stock Keeping Unit identifier.
+        /// Gets or sets the gender associated with the entity.
         /// </summary>
-        public string? Sku { get; set; } 
+        [Required] 
+        public Gender Gender { get; set; }
 
         /// <summary>
-        /// Indicates whether the product is active.
+        /// Gets or sets the age group classification for an individual or entity.
         /// </summary>
-        public bool IsActive { get; set; } = true;
+        [Required] 
+        public AgeGroup AgeGroup { get; set; } 
 
+        /// <summary>
+        /// Gets or sets the list of category identifiers.
+        /// </summary>
+        [Required] 
+        public List<Guid> CategoryIds { get; set; } = new();
 
         /// <summary>
         /// SEO title for the product, used for search engine optimization.
@@ -63,9 +82,6 @@ namespace Slothsy.Application.DTOs
         /// </summary>
         public string? SeoDescription { get; set; }
 
-        /// <summary>
-        /// Slug for the product, used in URLs for better SEO and readability.
-        /// </summary>
-        public string? Slug { get; set; }
+        
     }
 }

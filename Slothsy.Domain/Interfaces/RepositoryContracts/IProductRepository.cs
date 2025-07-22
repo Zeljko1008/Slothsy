@@ -13,6 +13,7 @@ namespace Slothsy.Domain.Interfaces.RepositoryContracts
         /// </summary>
         /// <returns>A list of all products.</returns>
         Task<PagedResult<Product>> GetAllAsync(PaginationParams paginationParams);
+       
 
 
         /// <summary>
@@ -72,6 +73,11 @@ namespace Slothsy.Domain.Interfaces.RepositoryContracts
         /// <param name="includeInactive"></param>
         /// <returns></returns>
         Task<Guid?> GetProductIdBySlugAsync(string slug, bool includeInactive = false);
+       
+
+        
+
+
 
 
         /// <summary>
@@ -86,6 +92,19 @@ namespace Slothsy.Domain.Interfaces.RepositoryContracts
         /// <param name="paginationParams">Pagination parameters for the result set.</param>
         /// <returns></returns>
         Task<PagedResult<Product>> GetByCategoryIdsAsync(IEnumerable<Guid> categoryIds, PaginationParams paginationParams);
+
+        /// <summary>
+        /// Asynchronously saves all changes made in the current context to the underlying database.
+        /// </summary>
+        /// <remarks>This method commits any pending changes tracked by the context to the database.  It
+        /// is typically used in scenarios where changes to entities need to be persisted. Ensure that the context is
+        /// properly configured and that any required validations  or preconditions are met before calling this
+        /// method.</remarks>
+        /// <returns>A task that represents the asynchronous save operation. The task completes when  all changes have been
+        /// successfully saved to the database.</returns>
+        Task SaveChangesAsync();
+
+        Task<bool> ExistsBySlugAsync(string slug);
 
     }
 }

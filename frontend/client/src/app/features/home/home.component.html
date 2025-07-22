@@ -12,18 +12,36 @@
 </div>
 
 <div class="mt-10 px-4 md:px-8 mb-20 max-w-screen-xl mx-auto">
-
   <div class="mt-8 mb-8 flex justify-center gap-4">
-  <button class="size-1/12 rounded-md overflow-hidden hover:shadow-lg" (click)="onFilterClick('Men')" [class.active]="currentFilter === 'Men'">Men</button>
-  <button class="size-1/12 rounded-md overflow-hidden hover:shadow-lg"(click)="onFilterClick('Women')" [class.active]="currentFilter === 'Women'">Women</button>
-  <button class="size-1/12 rounded-md overflow-hidden hover:shadow-lg"(click)="onFilterClick('Kids')" [class.active]="currentFilter === 'Kids'">Kids</button>
-</div>
+    <button
+      class="size-1/12 rounded-md overflow-hidden hover:shadow-lg"
+      (click)="onFilterClick('Men')"
+      [class.active]="currentFilter === 'Men'"
+    >
+      Men
+    </button>
+    <button
+      class="size-1/12 rounded-md overflow-hidden hover:shadow-lg"
+      (click)="onFilterClick('Women')"
+      [class.active]="currentFilter === 'Women'"
+    >
+      Women
+    </button>
+    <button
+      class="size-1/12 rounded-md overflow-hidden hover:shadow-lg"
+      (click)="onFilterClick('Kids')"
+      [class.active]="currentFilter === 'Kids'"
+    >
+      Kids
+    </button>
+  </div>
 
   <h3 class="text-xl text-center mb-4">Explore main categories</h3>
-   <div class="flex flex-wrap gap-4 justify-center">
-    <app-category-card *ngFor="let cat of filteredCategories" [category]="cat" />
+  <div class="flex flex-wrap gap-4 justify-center">
+    <app-category-card
+      *ngFor="let cat of filteredCategories"
+      [category]="cat"
+    />
   </div>
 </div>
 <app-what-is-slothsy></app-what-is-slothsy>
-
-

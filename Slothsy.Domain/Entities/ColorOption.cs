@@ -20,19 +20,16 @@ namespace Slothsy.Domain.Entities
         /// </summary>
         public string? HexCode { get; set; }
 
-        /// <summary>
-        /// Optional image URL for color swatch or pattern.
-        /// </summary>
-        public string? ImageUrl { get; set; }
 
         /// <summary>
         /// Order for UI sorting or display.
         /// </summary>
         public int Order { get; set; }
 
+
         /// <summary>
         /// Navigation property: list of product variants with this color.
         /// </summary>
-        public ICollection<ProductVariant> ProductVariants { get; set; } = new List<ProductVariant>();
+        public ICollection<ProductColorVariant> ProductColorVariants { get; set; } = new List<ProductColorVariant>();
     }
 }

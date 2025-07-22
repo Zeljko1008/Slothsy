@@ -88,10 +88,10 @@ namespace Slothsy.Infrastructure.Configuration
             .WithOne(p => p.Product)
             .HasForeignKey(pc => pc.ProductId);
 
-            builder.HasMany(p => p.Variants)
-              .WithOne(v => v.Product)
-              .HasForeignKey(v => v.ProductId)
-              .OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(p => p.ColorVariants)
+               .WithOne(cv => cv.Product)
+               .HasForeignKey(cv => cv.ProductId)
+               .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

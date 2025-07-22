@@ -5,7 +5,6 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { Product } from './shared/models/product';
 import { PaginationResult } from './shared/models/pagination-result';
-import { ShopService } from './core/services/shop.service';
 import { HomeComponent } from './features/home/home.component';
 import { FooterComponent } from './layout/footer/footer.component';
 
@@ -16,20 +15,12 @@ import { FooterComponent } from './layout/footer/footer.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnInit {
+export class AppComponent  {
 
-  private shopService = inject(ShopService)
-  title = 'Slothsy';
-  products: Product[] = [];
+
 
   ngOnInit(): void{
 
-    this.shopService.getProducts().subscribe({
-      next: response => this.products = response.items,
 
-      error: error => console.error('Error fetching products:', error),
-      complete: () =>console.log(this.products)
-      }
-    );
   }
 }

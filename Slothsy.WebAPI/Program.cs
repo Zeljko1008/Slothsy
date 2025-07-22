@@ -18,8 +18,23 @@ var builder = WebApplication.CreateBuilder(args);
 // ------------------------------------------------------------
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductReadService, ProductReadService>();
+builder.Services.AddScoped<IProductVariantRepository, ProductVariantRepository>();
+builder.Services.AddScoped<IProductVariantService, ProductVariantService>();
+builder.Services.AddScoped<IProductColorVariantRepository, ProductColorVariantRepository>();
+builder.Services.AddScoped<IProductColorVariantService, ProductColorVariantService>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryReadService, CategoryReadService>();
+builder.Services.AddScoped<IAdminProductService, AdminProductService>();
+builder.Services.AddScoped<IAdminProductColorVariantService, AdminProductColorVariantService>();
+builder.Services.AddScoped<IColorOptionRepository , ColorOptionRepository>();
+builder.Services.AddScoped<IProductColorVariantService, ProductColorVariantService>();
+builder.Services.AddScoped<IAdminProductVariantService, AdminProductVariantService>();
+builder.Services.AddScoped<ISizeOptionRepository, SizeOptionRepository>();
+builder.Services.AddScoped<IAdminSizeOptionService, AdminSizeOptionService>();
+builder.Services.AddScoped<IAdminEnumService, AdminEnumService>();
+builder.Services.AddScoped<IAdminCategoryService, AdminCategoryService>();
+
+
 
 
 
@@ -38,6 +53,7 @@ builder.Services.AddAutoMapper(typeof(CategoryProfile).Assembly);
 builder.Services.AddAutoMapper(typeof(ProductCategoryProfile).Assembly);
 builder.Services.AddAutoMapper(typeof(ProductVariantProfile).Assembly);
 builder.Services.AddAutoMapper(typeof(ProductVariantImageProfile).Assembly);
+builder.Services.AddAutoMapper(typeof(ProductColorVariantProfile).Assembly);
 builder.Services.AddAutoMapper(typeof(ColorOptionProfile).Assembly);
 builder.Services.AddAutoMapper(typeof(SizeOptionProfile).Assembly);
 

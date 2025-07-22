@@ -1,0 +1,21 @@
+<div *ngIf="loading">Loading variants...</div>
+<div *ngIf="!loading && productVariant.length === 0">
+  No size variants found.
+</div>
+
+<table *ngIf="productVariant.length > 0" class="w-full text-sm mt-2  text-left">
+  <thead>
+    <tr class="border-b">
+      <th class="py-2">Slug</th>
+      <th>Size Label</th>
+      <th>Stock Quantity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let variant of productVariant" class="border-b">
+      <td class="py-1">{{ variant.slug }}</td>
+      <td>{{ variant.sizeLabel }}</td>
+      <td>{{ variant.stockQuantity }}</td>
+    </tr>
+  </tbody>
+</table>

@@ -6,6 +6,7 @@ import { ProductPurpose } from "../enums/product-purpose";
 import { Season } from "../enums/season";
 import { ProductVariant } from "./product-variant";
 import { MaterialType } from "../enums/material-type";
+import { ProductColorVariant } from "./product-color-variant";
 
 /**
  * Product model representing an item in the e-commerce platform.
@@ -29,5 +30,5 @@ export interface Product {
   slug?: string;
   updatedAt?: string;
   categories: CategorySummary[];
-  variants: ProductVariant[];
+  colorVariants: ProductColorVariant[];
 }

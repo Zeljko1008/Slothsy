@@ -1,15 +1,31 @@
-<div class="bg-white border rounded-lg shadow p-4 hover:shadow-md transition duration-200 ease-in-out">
+
+<div  (click)="onClick()" class="bg-white border rounded-lg shadow p-4 hover:shadow-md transition duration-200 ease-in-out hover:cursor-pointer">
   <img
-  [src]="getProductImageUrl()"
-  [alt]="product.name"
-  class="w-full h-40 object-cover rounded mb-2"
-/>
+    [src]="getImageUrl()"
+    alt="{{ colorVariant.slug }}"
+    (error)="onImageError($event)"
+    class="w-full h-40 object-cover rounded mb-2"
+  />
 
-  <h3 class="text-lg font-semibold mb-1">{{ product.name }}</h3>
-  <p class="text-sm text-gray-600 mb-2">{{ product.shortDescription }}</p>
-  <p class="text-blue-600 font-bold">
+  <h3 class="text-lg font-semibold mb-1">
+    {{ colorVariant.slug || 'Loading...' }}
+  </h3>
 
-    {{ getLowestPrice() | currency: 'EUR' }}
+  <p class="text-sm text-gray-600 mb-2">
+    {{ colorVariant.slug || '' }}
+  </p>
+
+    <p class="font-bold">
+    <ng-container *ngIf="colorVariant.discountPrice && colorVariant.discountPrice < colorVariant.price; else noDiscount">
+      <span class="text-gray-400 line-through mr-2">{{ colorVariant.price | currency: 'EUR' }}</span>
+      <span class="text-red-600">{{ colorVariant.discountPrice | currency: 'EUR' }}</span>
+    </ng-container>
+    <ng-template #noDiscount>
+      <span class="text-blue-600">{{ colorVariant.price | currency: 'EUR' }}</span>
+    </ng-template>
   </p>
 </div>
+
+
+
 

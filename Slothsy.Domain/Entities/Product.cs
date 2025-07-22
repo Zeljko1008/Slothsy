@@ -100,8 +100,8 @@ namespace Slothsy.Domain.Entities
         public ICollection<ProductCategory> ProductCategories { get; set; } = new List<ProductCategory>();
 
         /// <summary>
-        /// List of all variants (e.g. different sizes or colors) of this product.
+        /// Gets or sets the collection of color variants available for the product.
         /// </summary>
-        public ICollection<ProductVariant> Variants { get; set; } = new List<ProductVariant>();
+        public ICollection<ProductColorVariant> ColorVariants { get; set; } = new List<ProductColorVariant>();
     }
 }

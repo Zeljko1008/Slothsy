@@ -1,115 +1,39 @@
 [
   {
-    "id": "2222bbbb-3333-4444-5555-666666666666",
-    "productId": "1111aaaa-2222-3333-4444-555555555555",
+    "id": "059f3936-d29d-471e-96bd-567881fd151f",
+    "slug": "classic-tshirt-white-m",
+    "productColorVariantSlug": "classic-tshirt-white",
+    "productColorVariantId": "83e149e7-3640-49c2-9705-e6c374b4ab5a",
+    "sizeOptionId": "8AF2BD15-3773-4B29-A107-7B1FA54439B5",
+    "sizeLabel": "M",
+    "stockQuantity": 30
+  },
+  {
+    "id": "8DF095D5-26EB-482A-8877-1BB2D0613D38",
+    "slug": "classic-tshirt-white-s",
+    "productColorVariantSlug": "classic-tshirt-white",
+    "productColorVariantId": "83e149e7-3640-49c2-9705-e6c374b4ab5a",
     "sizeOptionId": "2F46263E-1E2D-40EE-A125-17BE0CE7F81E",
-    "colorOptionId": "6DE64001-2C07-4E55-B1B5-6A72B2D62D54",
-    "price": 19.99,
-    "discountPrice": 14.99,
-    "stockQuantity": 50
-  },
-  {
-    "id": "3333cccc-4444-5555-6666-777777777777",
-    "productId": "1111aaaa-2222-3333-4444-555555555555",
-    "sizeOptionId": "8AF2BD15-3773-4B29-A107-7B1FA54439B5",
-    "colorOptionId": "6DE64001-2C07-4E55-B1B5-6A72B2D62D54",
-    "price": 19.99,
-    "discountPrice": null,
-    "stockQuantity": 30
-
-  },
-  {
-    "id": "4444cccc-4444-5555-6666-777777777777",
-    "productId": "1111aaaa-2222-3333-4444-555555555555",
-    "sizeOptionId": "8AF2BD15-3773-4B29-A107-7B1FA54439B5",
-    "colorOptionId": "95F47A66-0775-45CA-B582-7B54A61C6AE9",
-    "price": 19.99,
-    "discountPrice": null,
+    "sizeLabel": "S",
     "stockQuantity": 30
   },
   {
-    "id": "5555dddd-5555-6666-7777-888888888888",
-    "productId": "1111aaaa-2222-3333-4444-555555550001",
-    "sizeOptionId": "8AF2BD15-3773-4B29-A107-7B1FA54439B5",
-    "colorOptionId": "95F47A66-0775-45CA-B582-7B54A61C6AE9",
-    "price": 24.99,
-    "discountPrice": 19.99,
+    "id": "CFC464F1-0A7F-4FEC-9165-9AFF792196EF",
+    "slug": "classic-polo-yellow-s",
+    "productColorVariantSlug": "classic-polo-yellow",
+    "productColorVariantId": "33167123-7D38-4CC8-8E02-D19535F535F0",
+    "sizeOptionId": "2F46263E-1E2D-40EE-A125-17BE0CE7F81E",
+    "sizeLabel": "S",
+    "stockQuantity": 30
+  },
+  {
+    "id": "135A326E-A5C1-4736-A106-965C209FD2B7",
+    "slug": "classic-polo-yellow-l",
+    "productColorVariantSlug": "classic-polo-yellow",
+    "productColorVariantId": "33167123-7D38-4CC8-8E02-D19535F535F0",
+    "sizeOptionId": "9BB9702F-B385-49C5-A0C8-3B8155C57A00",
+    "sizeLabel": "L",
     "stockQuantity": 20
-  },
-  {
-    "id": "6666eeee-6666-7777-8888-999999999999",
-    "productId": "1111aaaa-2222-3333-4444-555555550002",
-    "sizeOptionId": "ADFE7480-748C-43A3-97F0-681A5AFB0893",
-    "colorOptionId": "5AE772C1-E459-452C-B0F6-D3817B8F5AB7",
-    "price": 39.99,
-    "discountPrice": null,
-    "stockQuantity": 15
-  },
-  {
-    "id": "7777ffff-7777-8888-9999-000000000000",
-    "productId": "1111aaaa-2222-3333-4444-555555550003",
-    "sizeOptionId": "9BB9702F-B385-49C5-A0C8-3B8155C57A00",
-    "colorOptionId": "1AADAB4E-C81D-41E2-9EC4-B571AB9ECE73",
-    "price": 89.99,
-    "discountPrice": null,
-    "stockQuantity": 10
-
-  },
-  {
-    "id": "EFFC2A75-7953-4865-A2FA-F17B7B96D29D",
-    "productId": "1111aaaa-2222-3333-4444-555555550004",
-    "sizeOptionId": "9BB9702F-B385-49C5-A0C8-3B8155C57A00",
-    "colorOptionId": "21D0D743-0016-49E8-AC2D-4BEDC70EEAB8",
-    "price": 49.99,
-    "discountPrice": 39.99,
-    "stockQuantity": 25
-  },
-  {
-    "id": "C5A3C187-3577-45E2-AA45-9AB5F4D6C48D",
-    "productId": "1111aaaa-2222-3333-4444-555555550005",
-    "sizeOptionId": "9BB9702F-B385-49C5-A0C8-3B8155C57A00",
-    "colorOptionId": "14437322-B0A4-4ADC-B16A-5296A675C2F4",
-    "price": 59.99,
-    "discountPrice": null,
-    "stockQuantity": 18
-  },
-  {
-    "id": "5E53D456-5C8D-4393-9855-55B47FE48ECE",
-    "productId": "1111aaaa-2222-3333-4444-555555550006",
-    "sizeOptionId": "7CFC3A64-DE02-4B7E-AF71-48D6C228BF41",
-    "colorOptionId": "1AADAB4E-C81D-41E2-9EC4-B571AB9ECE73",
-    "price": 69.99,
-    "discountPrice": 59.99,
-    "stockQuantity": 22
-
-  },
-  {
-    "id": "E6DB090A-8638-4C03-8509-F7951EAA722F",
-    "productId": "1111aaaa-2222-3333-4444-555555550007",
-    "sizeOptionId": "ABE8E354-3899-4BAD-949C-F837F7DE17D7",
-    "colorOptionId": "ACFBBBFE-EF9B-45F6-982F-CC8CE469C4EF",
-    "price": 79.99,
-    "discountPrice": null,
-    "stockQuantity": 12
-  },
-  {
-    "id": "3717F128-6790-4D4C-8E09-A4CA6290D79C",
-    "productId": "1111aaaa-2222-3333-4444-555555550008",
-    "sizeOptionId": "2F46263E-1E2D-40EE-A125-17BE0CE7F81E",
-    "colorOptionId": "ACFBBBFE-EF9B-45F6-982F-CC8CE469C4EF",
-    "price": 89.99,
-    "discountPrice": null,
-    "stockQuantity": 8
-  },
-  {
-    "id": "29281F8C-FD54-4FA7-9976-4E7D5FABDFE1",
-    "productId": "1111aaaa-2222-3333-4444-555555550009",
-    "sizeOptionId": "8AF2BD15-3773-4B29-A107-7B1FA54439B5",
-    "colorOptionId": "ACFBBBFE-EF9B-45F6-982F-CC8CE469C4EF",
-    "price": 99.99,
-    "discountPrice": 89.99,
-    "stockQuantity": 5
-
   }
-  
 ]
+

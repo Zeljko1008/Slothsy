@@ -121,6 +121,8 @@ namespace Slothsy.Application.Services
             };
         }
 
+      
+
         /// <inheritdoc />
         public async Task<ProductDto?> GetProductBySlugAsync(string slug, bool includeInactive)
         {

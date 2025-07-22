@@ -1,0 +1,305 @@
+<div class="max-w-4xl mx-auto p-6 bg-white shadow-xl rounded-xl mt-6">
+  <h2 class="text-2xl font-bold mb-6 text-gray-800">Add New Product</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-6">
+    <!-- Text fields -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Name -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+        <input
+          type="text"
+          formControlName="name"
+          class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-300"
+        />
+        <div
+          *ngIf="
+            form.controls['name']?.invalid && form.controls['name']?.touched
+          "
+          class="text-red-500 text-sm"
+        >
+          {{ getErrorMessage("name") }}
+        </div>
+      </div>
+
+      <!-- Brand -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1"
+          >Brand</label
+        >
+        <input
+          type="text"
+          formControlName="brand"
+          class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-300"
+        />
+        <div
+          *ngIf="
+            form.controls['brand']?.invalid && form.controls['brand']?.touched
+          "
+          class="text-red-500 text-sm"
+        >
+          {{ getErrorMessage("brand") }}
+        </div>
+      </div>
+
+      <!-- Short Description -->
+      <div class="md:col-span-2">
+        <label class="block text-sm font-medium text-gray-700 mb-1"
+          >Short Description</label
+        >
+        <input
+          type="text"
+          formControlName="shortDescription"
+          class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-300"
+        />
+        <div
+          *ngIf="
+            form.controls['shortDescription']?.invalid &&
+            form.controls['shortDescription']?.touched
+          "
+          class="text-red-500 text-sm"
+        >
+          {{ getErrorMessage("shortDescription") }}
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="md:col-span-2">
+        <label class="block text-sm font-medium text-gray-700 mb-1"
+          >Description</label
+        >
+        <textarea
+          rows="4"
+          formControlName="description"
+          class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-300"
+        ></textarea>
+        <div
+          *ngIf="
+            form.controls['description']?.invalid &&
+            form.controls['description']?.touched
+          "
+          class="text-red-500 text-sm"
+        >
+          {{ getErrorMessage("description") }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Select fields -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1"
+          >Purpose</label
+        >
+        <select
+          formControlName="purpose"
+          class="w-full p-2 border border-gray-300 rounded-md "
+        >
+          <option *ngFor="let p of enums?.purposes" [value]="p.id">
+            {{ p.name }}
+          </option>
+        </select>
+        <div
+          *ngIf="
+            form.controls['purpose']?.invalid &&
+            form.controls['purpose']?.touched
+          "
+          class="text-red-500 text-sm"
+        >
+          {{ getErrorMessage("purpose") }}
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Fit</label>
+        <select
+          formControlName="fit"
+          class="w-full p-2 border border-gray-300 rounded-md"
+        >
+          <option *ngFor="let f of enums?.fits" [value]="f.id">
+            {{ f.name }}
+          </option>
+        </select>
+        <div
+          *ngIf="form.controls['fit']?.invalid && form.controls['fit']?.touched"
+          class="text-red-500 text-sm"
+        >
+          {{ getErrorMessage("fit") }}
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1"
+          >Gender</label
+        >
+        <select
+          formControlName="gender"
+          class="w-full p-2 border border-gray-300 rounded-md"
+        >
+          <option *ngFor="let g of enums?.genders" [value]="g.id">
+            {{ g.name }}
+          </option>
+        </select>
+        <div
+          *ngIf="
+            form.controls['gender']?.invalid && form.controls['gender']?.touched
+          "
+          class="text-red-500 text-sm"
+        >
+          {{ getErrorMessage("gender") }}
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1"
+          >Age Group</label
+        >
+        <select
+          formControlName="ageGroup"
+          class="w-full p-2 border border-gray-300 rounded-md"
+        >
+          <option *ngFor="let a of enums?.ageGroups" [value]="a.id">
+            {{ a.name }}
+          </option>
+        </select>
+        <div
+          *ngIf="
+            form.controls['ageGroup']?.invalid &&
+            form.controls['ageGroup']?.touched
+          "
+          class="text-red-500 text-sm"
+        >
+          {{ getErrorMessage("ageGroup") }}
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1"
+          >Material</label
+        >
+        <select
+          formControlName="material"
+          class="w-full p-2 border border-gray-300 rounded-md"
+        >
+          <option *ngFor="let m of enums?.materials" [value]="m.id">
+            {{ m.name }}
+          </option>
+        </select>
+        <div
+          *ngIf="
+            form.controls['material']?.invalid &&
+            form.controls['material']?.touched
+          "
+          class="text-red-500 text-sm"
+        >
+          {{ getErrorMessage("material") }}
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1"
+          >Season</label
+        >
+        <select
+          formControlName="season"
+          class="w-full p-2 border border-gray-300 rounded-md"
+        >
+          <option *ngFor="let s of enums?.seasons" [value]="s.id">
+            {{ s.name }}
+          </option>
+        </select>
+        <div
+          *ngIf="
+            form.controls['season']?.invalid && form.controls['season']?.touched
+          "
+          class="text-red-500 text-sm"
+        >
+          {{ getErrorMessage("season") }}
+        </div>
+      </div>
+    </div>
+
+    <!-- SEO fields -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1"
+          >SEO Title</label
+        >
+        <input
+          type="text"
+          formControlName="seoTitle"
+          class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-300"
+        />
+        <div
+          *ngIf="
+            form.controls['seoTitle']?.invalid &&
+            form.controls['seoTitle']?.touched
+          "
+          class="text-red-500 text-sm"
+        >
+          {{ getErrorMessage("seoTitle") }}
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1"
+          >SEO Description</label
+        >
+        <input
+          type="text"
+          formControlName="seoDescription"
+          class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-300"
+        />
+        <div
+          *ngIf="
+            form.controls['seoDescription']?.invalid &&
+            form.controls['seoDescription']?.touched
+          "
+          class="text-red-500 text-sm"
+        >
+          {{ getErrorMessage("seoDescription") }}
+        </div>
+      </div>
+    </div>
+
+
+    <div *ngIf="categories.length > 0" class="mt-6">
+  <label class="block text-sm font-medium text-gray-700 mb-2">Select Categories</label>
+
+ <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+  <div
+    *ngFor="let category of categories"
+    class="relative flex items-center p-3 border border-gray-300 rounded-lg shadow-sm bg-gray-50 hover:bg-green-100 transition cursor-pointer h-16"
+    (click)="toggleCategory(category.id)"
+    [class.bg-green-100]="form.get('selectedCategoryIds')?.value.includes(category.id)"
+  >
+    <span class="truncate w-full pr-6" [title]="category.name">
+      {{ category.name }}
+    </span>
+
+    <!-- Ikonica kvačice -->
+    <svg
+      *ngIf="form.get('selectedCategoryIds')?.value.includes(category.id)"
+      class="absolute right-3 w-7 h-7 text-green-700"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      viewBox="0 0 24 24"
+    >
+      <path stroke-width="4" stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+    </svg>
+  </div>
+</div>
+
+</div>
+    <div class="pt-6">
+      <button
+        type="submit"
+        class="bg-rose-500 hover:bg-rose-700 text-white font-semibold py-2 px-6 rounded-lg shadow disabled:opacity-50 disabled:cursor-not-allowed"
+        [disabled]="form.invalid"
+      >
+        Save Product
+      </button>
+    </div>
+  </form>
+</div>

@@ -29,6 +29,8 @@ namespace Slothsy.Infrastructure.Data
         public DbSet<CartItem> CartItems => Set<CartItem>();
         public DbSet<DeliveryMethod> DeliveryMethods => Set<DeliveryMethod>();
         public DbSet<ProductVariant> ProductVariants => Set<ProductVariant>();
+        public DbSet<ProductColorVariant> ProductColorVariants => Set<ProductColorVariant>();
+
         public DbSet<ProductVariantImage> ProductVariantImages => Set<ProductVariantImage>();
         public DbSet<SizeOption> SizeOptions => Set<SizeOption>();
         public DbSet<ColorOption> ColorOptions => Set<ColorOption>();

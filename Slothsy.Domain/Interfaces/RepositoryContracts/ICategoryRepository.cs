@@ -89,5 +89,13 @@ namespace Slothsy.Domain.Interfaces.RepositoryContracts
         /// <returns>Collection of category and subcategory IDs.</returns>
         Task<List<Guid>> GetCategoryAndSubcategoryIdsBySlugAsync(string slug);
 
+        /// <summary>
+        /// Retrieves a list of categories based on the gender and age group.    
+        /// </summary>
+        /// <param name="gender"></param>
+        /// <param name="ageGroup"></param>
+        /// <returns></returns>
+        Task<List<Category>> GetByGenderAndAgeGroupAsync(Gender gender, AgeGroup ageGroup);
+
     }
 }

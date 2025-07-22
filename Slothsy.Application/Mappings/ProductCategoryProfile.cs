@@ -15,6 +15,7 @@ namespace Slothsy.Application.Mappings
         {
             CreateMap<ProductCategory, ProductCategoryDto>()
                 .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.Name))
+                .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.Category.Id))
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name));
 
             CreateMap<ProductCategoryDto, ProductCategory>();

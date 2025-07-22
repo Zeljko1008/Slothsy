@@ -1,0 +1,42 @@
+[
+  {
+    "id": "83e149e7-3640-49c2-9705-e6c374b4ab5a",
+    "productId": "1111aaaa-2222-3333-4444-555555555555",
+    "colorOptionId": "6DE64001-2C07-4E55-B1B5-6A72B2D62D54",
+    "slug": "classic-tshirt-white",
+    "price": 19.99,
+    "discountPrice": 14.99
+  },
+  {
+    "id": "2FFC03FB-57B0-4537-960C-42D1B4B17108",
+    "productId": "1111aaaa-2222-3333-4444-555555550001",
+    "colorOptionId": "15C69A80-FCD5-48ED-95E4-F67433D60928",
+    "slug": "classic-polo-black",
+    "price": 19.99,
+    "discountPrice": 14.99
+  },
+  {
+    "id": "7E90B6C6-B03B-4D2C-8961-4E04F3385F27",
+    "productId": "1111aaaa-2222-3333-4444-555555550001",
+    "colorOptionId": "5AE772C1-E459-452C-B0F6-D3817B8F5AB7",
+    "slug": "classic-polo-blue",
+    "price": 19.99,
+    "discountPrice": 14.99
+  },
+  {
+    "id": "6542FF6A-ACDD-47DF-8360-B87B00A7F3C5",
+    "productId": "1111aaaa-2222-3333-4444-555555550001",
+    "colorOptionId": "ACFBBBFE-EF9B-45F6-982F-CC8CE469C4EF",
+    "slug": "classic-polo-green",
+    "price": 19.99,
+    "discountPrice": 14.99
+  },
+  {
+    "id": "33167123-7D38-4CC8-8E02-D19535F535F0",
+    "productId": "1111aaaa-2222-3333-4444-555555550001",
+    "colorOptionId": "1AADAB4E-C81D-41E2-9EC4-B571AB9ECE73",
+    "slug": "classic-polo-yellow",
+    "price": 19.99,
+    "discountPrice": 14.99
+  }
+]

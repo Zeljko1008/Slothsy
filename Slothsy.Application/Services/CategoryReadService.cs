@@ -122,8 +122,10 @@ namespace Slothsy.Application.Services
                 throw new NotFoundException($"Parent category with slug '{parentCategorySlug}' was not found.");
             }
 
-           
-            return await GetSubCategoriesAsync(parentCategory.Id, includeInactive);
+            var subcategories = await GetSubCategoriesAsync(parentCategory.Id, includeInactive);
+
+          
+            return subcategories ?? new List<CategoryDto>();
         }
     }
 }

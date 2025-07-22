@@ -39,6 +39,11 @@ namespace Slothsy.Infrastructure.Persistance.Repositories
 
         }
 
+        public async Task<bool> ExistsBySlugAsync(string slug)
+        {
+            return await _dbContext.Products.AnyAsync(p => p.Slug == slug);
+        }
+
         /// <inheritdoc/>
         public async Task SoftDeleteAsync(Guid id)
         {
@@ -69,10 +74,9 @@ namespace Slothsy.Infrastructure.Persistance.Repositories
             var totalCount = await query.CountAsync();
 
             var items = await query
-                .Include(p => p.Variants)
-                .ThenInclude(v=> v.SizeOption)
-                .Include(p=>p.Variants)
-                .ThenInclude(v=> v.ColorOption)
+                
+                //.Include(p=>p.ColorVariants)
+                //.ThenInclude(v=> v.ColorOption)
                 .Include(p=> p.ProductCategories)
                 .ThenInclude(pc=> pc.Category)
                 .OrderBy(p => p.Name)
@@ -92,6 +96,7 @@ namespace Slothsy.Infrastructure.Persistance.Repositories
 
 
         }
+       
         /// <inheritdoc/>
         public async Task<PagedResult<Product>> GetByCategoryIdAsync(Guid categoryId, PaginationParams paginationParams)
         {
@@ -128,10 +133,14 @@ namespace Slothsy.Infrastructure.Persistance.Repositories
             _logger.LogInformation("Fetching product with ID: {ProductId}", id);
             return await _dbContext.Products
                  .Include(p => p.ProductCategories)
+                       .ThenInclude(pc=>pc.Category)
+                 .Include(p=>p.ColorVariants)
+                       .ThenInclude(v=>v.Images)
                  .Where(p => p.Id == id && (includeInactive || p.IsActive))
                  .FirstOrDefaultAsync();
 
         }
+
         /// <inheritdoc/>
         public async Task<List<Product>> SearchByNameAsync(string name)
         {
@@ -193,13 +202,18 @@ namespace Slothsy.Infrastructure.Persistance.Repositories
 
         }
 
+      
+
         public async Task<PagedResult<Product>> GetByCategoryIdsAsync(IEnumerable<Guid> categoryIds, PaginationParams paginationParams)
         {
             var query = _dbContext.Products
-       .Include(p => p.ProductCategories)
-       .Include(p => p.Variants) 
-            .ThenInclude(v => v.Images)
-       .Where(p => p.ProductCategories.Any(pc => categoryIds.Contains(pc.CategoryId)));
+        .Include(p => p.ColorVariants)
+            .ThenInclude(cv => cv.Variants)
+        .Include(p => p.ColorVariants)
+            .ThenInclude(cv => cv.Images)
+        .Include(p => p.ProductCategories)
+        .Where(p => p.ProductCategories.Any(pc => categoryIds.Contains(pc.CategoryId)))
+        .AsQueryable();
 
             if (!paginationParams.IncludeInactive)
             {
@@ -222,5 +236,12 @@ namespace Slothsy.Infrastructure.Persistance.Repositories
                 PageSize = paginationParams.ValidatedPageSize
             };
         }
-    }
+
+        public Task SaveChangesAsync()
+        {
+            _logger.LogInformation("Saving changes to the database.");
+
+            return _dbContext.SaveChangesAsync();
+        }
+    }   
 }

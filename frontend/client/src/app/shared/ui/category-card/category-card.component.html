@@ -4,6 +4,7 @@
 >
   <img
     [src]="getFullImageUrl()"
+    (error)="onImageError($event)"
     alt="{{ category.name }}"
     class="w-full h-24 object-cover"
   />

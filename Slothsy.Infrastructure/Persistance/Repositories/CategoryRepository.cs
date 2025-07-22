@@ -182,5 +182,13 @@ namespace Slothsy.Infrastructure.Persistance.Repositories
 
             return allCategoryIds;
         }
+
+        public async Task<List<Category>> GetByGenderAndAgeGroupAsync(Gender gender, AgeGroup ageGroup)
+        {
+           return await _dbContext.Categories
+                .Where(c=> c.Gender == gender && c.AgeGroup == ageGroup)
+                .ToListAsync();
+
+        }
     }
 }

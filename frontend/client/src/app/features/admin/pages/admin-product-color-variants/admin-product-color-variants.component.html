@@ -1,0 +1,113 @@
+<div *ngIf="colorVariants.length === 0">No color variants found.</div>
+<div class="flex justify-between items-center mb-2">
+  <h2 class="text-md font-semibold">
+    Color Variants For:
+    <span class="text-rose-600 font-bold">{{ productName }}</span>
+  </h2>
+  <button
+    class="bg-rose-500 hover:bg-rose-600 text-white px-3 py-1 rounded text-sm"
+    (click)="onAddColorVariant()"
+  >
+    + Add Color Variant
+  </button>
+</div>
+<ul *ngIf="colorVariants.length > 0" class="divide-y divide-gray-200 pt-4">
+  <li
+    *ngFor="let variant of colorVariants"
+    class="flex flex-col gap-2 p-4 bg-white rounded-lg"
+  >
+    <!-- Row: Image + Info + Actions -->
+    <div class="flex items-center gap-4">
+      <!-- Thumbnail -->
+      <div
+        class="w-16 h-16 flex-shrink-0 border overflow-hidden bg-gray-100 rounded-lg"
+      >
+        <ng-container *ngIf="getMainImageUrl(variant); else noImage">
+          <img
+            [src]="getMainImageUrl(variant)"
+            alt="Main Variant Image"
+            class="object-cover w-full h-full"
+          />
+        </ng-container>
+        <ng-template #noImage>
+          <div
+            class="flex items-center justify-center w-full h-full text-xs text-gray-400"
+          >
+            No image
+          </div>
+        </ng-template>
+      </div>
+
+      <!-- Info -->
+      <div class="flex flex-col text-sm flex-grow">
+        <span><strong>Product Name:</strong> {{ productName }}</span>
+        <span><strong>Color:</strong> {{ variant.colorName }}</span>
+        <span><strong>Slug:</strong> {{ variant.slug }}</span>
+        <span>
+          <strong>Price:</strong>
+          {{ variant.price | currency : "USD" }}
+          <span *ngIf="variant.discountPrice">
+            | <strong>Discount:</strong>
+            {{ variant.discountPrice | currency : "USD" }}
+          </span>
+        </span>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex flex-col items-start space-y-2">
+        <div class="flex items-center gap-2 justify-between w-full">
+          <button
+            class="text-sm text-rose-600 hover:underline"
+            (click)="toggleImages(variant.id)"
+          >
+            {{ expandedImageId === variant.id ? "Hide Images" : "View Images" }}
+          </button>
+          <button
+            class="bg-rose-500 hover:bg-rose-600 text-white text-xs px-3 py-1 rounded"
+            (click)="addVariant(variant.id)"
+          >
+            +Add Image
+          </button>
+        </div>
+        <div class="flex items-center gap-2 justify-between w-full">
+          <button
+            class="text-sm text-rose-600 hover:underline"
+            (click)="toggleVariants(variant.id)"
+          >
+            {{
+              expandedVariantId === variant.id ? "Hide Sizes" : "View Sizes  "
+            }}
+          </button>
+          <button
+            class="bg-rose-500 hover:bg-rose-600 text-white text-xs px-3 py-1 rounded"
+            (click)="addVariant(variant.id)"
+          >
+            +Add Sizes
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Expanded: Sizes -->
+      <div *ngIf="expandedImageId === variant.id" class="mt-3 ml-20">
+      <div class="flex flex-wrap gap-3">
+        <div
+          *ngFor="let img of variant.images"
+          class="w-24 h-24 border rounded overflow-hidden shadow-sm"
+        >
+          <img
+            [src]="getImageUrl(img)"
+            class="object-cover w-full h-full"
+            alt="Variant Image"
+          />
+        </div>
+      </div>
+    </div>
+    <div *ngIf="expandedVariantId === variant.id" class="mt-3 ml-20">
+      <app-admin-product-variant
+        [productColorVariantId]="variant.id"
+      ></app-admin-product-variant>
+    </div>
+
+  </li>
+</ul>

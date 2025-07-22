@@ -18,7 +18,12 @@ export class CategoryCardComponent {
      baseImgUrl = 'https://localhost:7053/'; // Base URL for images
 
  getFullImageUrl(): string {
-    if (!this.category?.bannerImageUrl) return 'assets/placeholder.jpg';
+    if (!this.category?.bannerImageUrl) return '/assets/no-item.jpg';
     return `${this.baseImgUrl}${this.category.bannerImageUrl.replace(/^\/+/, '')}`;
   }
+  onImageError(event: Event): void {
+  const imgElement = event.target as HTMLImageElement;
+  imgElement.src = '/assets/no-item.jpg';
+}
+
 }

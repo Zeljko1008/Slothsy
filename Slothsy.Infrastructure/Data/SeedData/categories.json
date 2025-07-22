@@ -1007,7 +1007,7 @@
   },
   {
     "id": "8a5e1de2-3111-4e61-abc1-111111111119",
-    "name": "T-Shirts-Long",
+    "name": "T-Shirts-Long-Men",
     "gender": 0,
     "ageGroup": 2,
     "description": "Browse our wide selection of long sleeve shirts for men – find the perfect long sleeve for layering or standing out on its own.",
@@ -1019,6 +1019,37 @@
     "seoDescription": "Shop high-quality Long sleeve shirts in all styles – plain, printed, oversized & more. Perfect everyday essentials. Free shipping & easy returns.",
     "order": 30,
     "parentCategoryId": "8a5e1de2-1111-4e61-abc1-111111111119"
+  },
+  {
+    "id": "9a5e1de2-3111-4e61-abc1-111111111119",
+    "name": "T-Shirts-Long-Women",
+    "gender": 1,
+    "ageGroup": 2,
+    "description": "Browse our wide selection of long sleeve shirts for women – find the perfect long sleeve for layering or standing out on its own.",
+    "shortDescription": "Essential long-sleeve-shirts for every women.",
+    "isActive": true,
+    "bannerImageUrl": "/images/Categories/long-sleeve-m.jpg",
+    "slug": "long-sleeve-women",
+    "seoTitle": "Long sleeve women | Long sleeve, Prints & Trendy Fits",
+    "seoDescription": "Shop high-quality Long sleeve shirts in all styles – plain, printed, oversized & more. Perfect everyday essentials. Free shipping & easy returns.",
+    "order": 35,
+    "parentCategoryId": "9a5e1de2-1111-4e61-abc1-111111111119"
+  },
+
+  {
+    "id": "7a5e1de2-3111-4e61-abc1-111111111119",
+    "name": "T-Shirts-Long-Kids",
+    "gender": 2,
+    "ageGroup": 1,
+    "description": "Browse our wide selection of long sleeve shirts for kids – find the perfect long sleeve for layering or standing out on its own.",
+    "shortDescription": "Essential long-sleeve-shirts for every kid.",
+    "isActive": true,
+    "bannerImageUrl": "/images/Categories/long-sleeve-m.jpg",
+    "slug": "long-sleeve-kids",
+    "seoTitle": "Long sleeve kids | Long sleeve, Prints & Trendy Fits",
+    "seoDescription": "Shop high-quality Long sleeve shirts in all styles – plain, printed, oversized & more. Perfect everyday essentials. Free shipping & easy returns.",
+    "order": 38,
+    "parentCategoryId": "7a5e1de2-1111-4e61-abc1-111111111119"
   }
 
 

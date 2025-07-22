@@ -11,20 +11,18 @@ namespace Slothsy.Domain.Entities
     {
         public Guid Id { get; set; }
 
-        public Guid ProductId { get; set; }
-        public Product Product { get; set; } = null!;
+        public string? Slug { get; set; }
+
+        public string? ProductColorVariantSlug { get; set; }
+
+        public Guid ProductColorVariantId { get; set; }
+        public ProductColorVariant ProductColorVariant { get; set; } = null!;
 
         public Guid SizeOptionId { get; set; }
         public SizeOption SizeOption { get; set; } = null!;
-
-        public Guid ColorOptionId { get; set; }
-        public ColorOption ColorOption { get; set; } = null!;
-
-        public decimal Price { get; set; }
-        public decimal? DiscountPrice { get; set; }
+        public string SizeLabel { get; set; } = string.Empty;
 
         public int StockQuantity { get; set; }
 
-        public ICollection<ProductVariantImage> Images { get; set; } = new List<ProductVariantImage>();
     }
 }

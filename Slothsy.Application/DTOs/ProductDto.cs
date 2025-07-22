@@ -45,6 +45,6 @@ namespace Slothsy.Application.DTOs
 
         public List<CategorySummaryDto> Categories { get; set; } = new();
 
-        public List<ProductVariantDto> Variants { get; set; } = new();
+        public ICollection<ProductColorVariantDto> ColorVariants { get; set; } = new List<ProductColorVariantDto>();
     }
 }

@@ -1,0 +1,50 @@
+<div class="flex justify-between items-center p-4 bg-white rounded-lg">
+  <h1 class="text-xl font-bold">Products</h1>
+  <button
+    class="bg-rose-500 hover:bg-rose-600 text-white px-4 py-2 rounded-md text-sm"
+    (click)="createProduct()"
+    [routerLink]="'/admin/admin-add-product'"
+  >
+    +Add Product
+  </button>
+</div>
+
+<div class="grid p-4 bg-white rounded-lg mt-4">
+  <table class="w-full table-auto">
+    <thead class="text-left border-b">
+      <tr>
+        <th class="p-2">Name</th>
+        <th>Brand</th>
+        <th>Age Group</th>
+        <th>Gender</th>
+        <th>Fit</th>
+        <th>Material</th>
+        <th>Purpose</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let product of products">
+        <!-- Glavni red -->
+        <tr
+          class="hover:bg-gray-100 transition cursor-pointer rounded-lg"
+          (click)="toggleExpanded(product.id)"
+        >
+          <td class="p-2 font-medium">{{ product.name }}</td>
+          <td>{{ product.brand }}</td>
+          <td>{{ product.ageGroup }}</td>
+          <td>{{ product.gender }}</td>
+          <td>{{ product.fit }}</td>
+          <td>{{ product.material }}</td>
+          <td>{{ product.purpose }}</td>
+        </tr>
+
+        <!-- Ekspanzivni red -->
+        <tr *ngIf="expandedProductId === product.id">
+          <td colspan="7" class="bg-gray-100 p-8 rounded-lg">
+            <app-admin-product-color-variants [productId]="product.id" [productName]="product.name"></app-admin-product-color-variants>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>

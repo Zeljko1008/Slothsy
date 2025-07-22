@@ -28,6 +28,8 @@ namespace Slothsy.Application.Interfaces
         /// <returns></returns>
         Task<ProductDto?> GetProductBySlugAsync(string slug, bool includeInactive);
 
+       
+
         /// <summary>
         /// Retrieves products that belong to a specific category by its slug.
         /// </summary>

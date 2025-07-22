@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Slothsy.Application.DTOs;
+using Slothsy.Application.Exceptions;
 using Slothsy.Application.Interfaces;
 
 namespace Slothsy.WebAPI.Controllers
@@ -12,10 +13,12 @@ namespace Slothsy.WebAPI.Controllers
     public class CategoriesController :ApiControllerBase
     {
         private readonly ICategoryReadService _categoryReadService;
+        private readonly ILogger<CategoriesController> _logger;
 
-        public CategoriesController(ICategoryReadService categoryReadService)
+        public CategoriesController(ICategoryReadService categoryReadService, ILogger<CategoriesController> logger)
         {
             _categoryReadService = categoryReadService ?? throw new ArgumentNullException(nameof(categoryReadService));
+            _logger = logger;
         }
 
 
@@ -52,6 +55,13 @@ namespace Slothsy.WebAPI.Controllers
         public async Task<ActionResult<List<CategoryDto>>> GetSubcategories(Guid parentCategoryId, [FromQuery] bool includeInactive = false)
         {
             var categories = await _categoryReadService.GetSubCategoriesAsync(parentCategoryId, includeInactive);
+
+            if (categories == null)
+            {
+                _logger.LogWarning("No subcategories found for parent category ID {ParentId}", parentCategoryId);
+                return Ok(new List<CategoryDto>());
+            }
+
             return Ok(categories);
         }
 
@@ -94,12 +104,16 @@ namespace Slothsy.WebAPI.Controllers
         [HttpGet("slug/{parentCategorySlug}/subcategories")]
         public async Task<ActionResult<List<CategoryDto>>> GetSubCategoriesBySlug(string parentCategorySlug, [FromQuery] bool includeInactive = false)
         {
-            var subCategories = await _categoryReadService.GetSubCategoriesBySlugAsync(parentCategorySlug, includeInactive);
-
-            if (subCategories == null || !subCategories.Any())
-                return NotFound();
-
-            return Ok(subCategories);
+            try
+            {
+                var subCategories = await _categoryReadService.GetSubCategoriesBySlugAsync(parentCategorySlug, includeInactive);
+                return Ok(subCategories);
+            }
+            catch (NotFoundException ex)
+            {
+                _logger.LogWarning(ex, "Parent category not found for slug: {Slug}", parentCategorySlug);
+                return NotFound(new { message = ex.Message });
+            }
         }
     }
 }
