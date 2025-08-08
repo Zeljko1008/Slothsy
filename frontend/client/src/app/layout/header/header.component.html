@@ -1,10 +1,13 @@
 <header class="border-b p-3 w-full shadow-md">
   <div class="flex align-middle items-center justify-between max-w-screen-2xl mx-auto">
     <div class="flex items-center gap-3">
-
-      <img src="/images/slothsy.png" alt="app logo" class="max-h-20">
-    <label class="sr-only">Search</label>
-    <input type="text" placeholder="Search products, categories..." class="border rounded-lg px-3 py-2 w-60 focus:outline-none focus:ring-2 focus:ring-rose-500 transition">
+      <img src="assets/logo.png" alt="app logo" class="max-h-20" />
+      <label class="sr-only">Search</label>
+      <input
+        type="text"
+        placeholder="Search products, categories..."
+        class="border rounded-lg px-3 py-2 w-60 focus:outline-none focus:ring-2 focus:ring-rose-500 transition"
+      />
     </div>
 
     <nav class="flex text-center gap-3 my-2 uppercase text-xl">
@@ -12,18 +15,51 @@
       <a href="/admin">Admin</a>
       <a href="">Contact</a>
     </nav>
-    <div class="flex gap-3 align-middle">
-      <a matBadge="5" matBadgeSize="large" class="custom-badge mt-2 mr-2">
+
+    <div class="flex gap-5 mr-4 align-middle relative">
+
+      <!-- User Icon + dropdown -->
+      <div class="relative group">
+        <button class="flex items-center focus:outline-none">
+          <mat-icon>person</mat-icon>
+        </button>
+        <div
+          class="absolute right-0 mt-2 w-40 bg-white border rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none group-hover:pointer-events-auto z-10"
+        >
+          <ng-container *ngIf="isLoggedIn; else loggedOutMenu">
+            <a routerLink="/orders" class="block px-4 py-2 hover:bg-gray-100">Orders</a>
+            <button (click)="logout()" class="w-full text-left px-4 py-2 hover:bg-gray-100">
+              Logout
+            </button>
+          </ng-container>
+          <ng-template #loggedOutMenu>
+            <a routerLink="/login" class="block px-4 py-2 hover:bg-gray-100">Login</a>
+            <a routerLink="/register" class="block px-4 py-2 hover:bg-gray-100">Register</a>
+          </ng-template>
+        </div>
+      </div>
+
+      <!-- Cart Icon -->
+      <button
+        matBadge="5"
+        matBadgeSize="large"
+        matBadgeColor="warn"
+        class="relative"
+        aria-label="Shopping cart"
+      >
         <mat-icon>shopping_cart</mat-icon>
-      </a>
-      <button mat-stroked-button>Login</button>
-      <button mat-stroked-button>Register</button>
+      </button>
 
-
+      <!-- Heart Icon -->
+      <button
+        matBadge="0"
+        matBadgeSize="large"
+        matBadgeColor="warn"
+        class="relative"
+        aria-label="Favorites"
+      >
+        <mat-icon>favorite</mat-icon>
+      </button>
     </div>
-
-
-
   </div>
-
 </header>

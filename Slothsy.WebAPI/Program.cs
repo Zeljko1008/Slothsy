@@ -1,18 +1,53 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Slothsy.Application.Interfaces;
 using Slothsy.Application.Mappings;
 using Slothsy.Application.Services;
 using Slothsy.Domain.Interfaces.RepositoryContracts;
 using Slothsy.Infrastructure.Data;
+using Slothsy.Infrastructure.Identity.Config;
+using Slothsy.Infrastructure.Identity.Entities;
+using Slothsy.Infrastructure.Identity.Interfaces;
+using Slothsy.Infrastructure.Identity.Seed;
+using Slothsy.Infrastructure.Identity.Services;
 using Slothsy.Infrastructure.Persistance.Repositories;
+using System.Text;
 using System.Text.Json.Serialization;
 
 
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.Configure<JwtSettings>(
+    builder.Configuration.GetSection("JwtSettings"));
 
+var jwtSettings = builder.Configuration
+    .GetSection("JwtSettings")
+    .Get<JwtSettings>();
+
+var key = Encoding.UTF8.GetBytes(jwtSettings.Secret);
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = jwtSettings.Issuer,
+        ValidAudience = jwtSettings.Audience,
+        IssuerSigningKey = new SymmetricSecurityKey(key)
+    };
+});
 // ------------------------------------------------------------
 // Register application services and repositories
 // ------------------------------------------------------------
@@ -34,6 +69,10 @@ builder.Services.AddScoped<IAdminSizeOptionService, AdminSizeOptionService>();
 builder.Services.AddScoped<IAdminEnumService, AdminEnumService>();
 builder.Services.AddScoped<IAdminCategoryService, AdminCategoryService>();
 
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IRefreshTokenCleanupService, RefreshTokenCleanupService>();
+builder.Services.AddHostedService<RefreshTokenCleanupBackgroundService>();
+
 
 
 
@@ -44,6 +83,17 @@ builder.Services.AddScoped<IAdminCategoryService, AdminCategoryService>();
 // ------------------------------------------------------------
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+{
+    options.Password.RequireDigit = true;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequiredLength = 6;
+})
+.AddEntityFrameworkStores<AppDbContext>()
+.AddDefaultTokenProviders();
 
 // ------------------------------------------------------------
 // Register AutoMapper profiles from the specified assembly
@@ -72,6 +122,14 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+// ------------------------------------------------------------
+// Configure settings for refresh token cleanup
+// ------------------------------------------------------------
+builder.Services.Configure<RefreshTokenCleanupSettings>(
+    builder.Configuration.GetSection("RefreshTokenCleanup"));
+
+
 // ------------------------------------------------------------
 // Configure CORS policy to allow requests from any origin
 // ------------------------------------------------------------
@@ -86,7 +144,10 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.Services.AddTransient<IdentitySeeder>();
 var app = builder.Build();
+
+
 
 // ------------------------------------------------------------
 // Use centralized error handling endpoint (only in production)
@@ -112,6 +173,9 @@ using (var scope = app.Services.CreateScope())
     {
         var context = services.GetRequiredService<AppDbContext>();
         await DbInitializer.InitializeAsync(context);
+
+        var identitySeeder = services.GetRequiredService<IdentitySeeder>();
+        await identitySeeder.SeedAsync();
     }
     catch (Exception ex)
     {
@@ -138,6 +202,10 @@ app.UseCors();
 
 // ------------------------------------------------------------
 // Use authentication middleware to validate user credentials
+// ------------------------------------------------------------
+app.UseAuthentication();
+// ------------------------------------------------------------
+// Use authorization middleware to enforce access control
 // ------------------------------------------------------------
 app.UseAuthorization();
 

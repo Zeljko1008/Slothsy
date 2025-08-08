@@ -1,5 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Slothsy.Domain.Entities;
+using Slothsy.Infrastructure.Identity.Entities;
+using Slothsy.Infrastructure.Identity.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +14,13 @@ namespace Slothsy.Infrastructure.Data
     /// <summary>
     /// Database context for the application.
     /// </summary>
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<ApplicationUser>
     {
        
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
-
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
         public DbSet<Product> Products => Set<Product>();
         public DbSet<Category> Categories => Set<Category>();
         public DbSet<ProductCategory> ProductCategories => Set<ProductCategory>();
