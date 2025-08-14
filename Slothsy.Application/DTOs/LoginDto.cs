@@ -9,11 +9,13 @@ namespace Slothsy.Application.DTOs
 {
     public class LoginDto
     {
-        [Required]
+        [Required(ErrorMessage ="Username is required")]
         [EmailAddress]
         public string Email { get; set; } = string.Empty;
 
-        [Required]
+        [Required(ErrorMessage="Pasword is required")]
+        [StringLength(20, MinimumLength = 6, ErrorMessage = "Password must be at least {2}, and maximum {1} characters")]
+
         public string Password { get; set; } = string.Empty;
        
     }

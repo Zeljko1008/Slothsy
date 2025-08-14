@@ -46,8 +46,20 @@ builder.Services.AddAuthentication(options =>
         ValidIssuer = jwtSettings.Issuer,
         ValidAudience = jwtSettings.Audience,
         IssuerSigningKey = new SymmetricSecurityKey(key)
+    }; options.Events = new JwtBearerEvents
+    {
+        OnChallenge = context =>
+        {
+            
+            context.HandleResponse();
+            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+            return Task.CompletedTask;
+        }
     };
 });
+
+
+
 // ------------------------------------------------------------
 // Register application services and repositories
 // ------------------------------------------------------------
@@ -72,6 +84,7 @@ builder.Services.AddScoped<IAdminCategoryService, AdminCategoryService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IRefreshTokenCleanupService, RefreshTokenCleanupService>();
 builder.Services.AddHostedService<RefreshTokenCleanupBackgroundService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 
 
@@ -84,7 +97,12 @@ builder.Services.AddHostedService<RefreshTokenCleanupBackgroundService>();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+//--------------------------------------------------------------
+// Configure Identity services with custom user and role classes
+//--------------------------------------------------------------
+
+
+builder.Services.AddIdentityCore<ApplicationUser>(options =>
 {
     options.Password.RequireDigit = true;
     options.Password.RequireUppercase = false;
@@ -92,8 +110,11 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequiredLength = 6;
 })
+.AddRoles<IdentityRole>()
 .AddEntityFrameworkStores<AppDbContext>()
+.AddSignInManager<SignInManager<ApplicationUser>>()
 .AddDefaultTokenProviders();
+
 
 // ------------------------------------------------------------
 // Register AutoMapper profiles from the specified assembly

@@ -12,7 +12,9 @@
 
     <nav class="flex text-center gap-3 my-2 uppercase text-xl">
       <a href="">Home</a>
-      <a href="/admin">Admin</a>
+      <a *ngIf="(roles$ | async)?.includes('Admin')" routerLink="/admin">
+        Admin
+      </a>
       <a href="">Contact</a>
     </nav>
 
@@ -22,11 +24,12 @@
       <div class="relative group">
         <button class="flex items-center focus:outline-none">
           <mat-icon>person</mat-icon>
+           <span *ngIf="isLoggedIn$ | async" class="ml-2">  {{ currentUserName$ | async }}</span>
         </button>
         <div
-          class="absolute right-0 mt-2 w-40 bg-white border rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none group-hover:pointer-events-auto z-10"
+          class="absolute right-0 w-40 bg-white border rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none group-hover:pointer-events-auto z-10"
         >
-          <ng-container *ngIf="isLoggedIn; else loggedOutMenu">
+          <ng-container *ngIf="isLoggedIn$ | async; else loggedOutMenu">
             <a routerLink="/orders" class="block px-4 py-2 hover:bg-gray-100">Orders</a>
             <button (click)="logout()" class="w-full text-left px-4 py-2 hover:bg-gray-100">
               Logout
@@ -51,7 +54,7 @@
       </button>
 
       <!-- Heart Icon -->
-      <button
+      <button *ngIf="isLoggedIn$ | async"
         matBadge="0"
         matBadgeSize="large"
         matBadgeColor="warn"

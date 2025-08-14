@@ -122,66 +122,54 @@ namespace Slothsy.Infrastructure.Identity.Services
 
         public async Task<AuthenticationResponseDto?> RefreshToken(RefreshTokenRequest request)
         {
-            // 1.Check if the request contains valid tokens
-            if (string.IsNullOrEmpty(request.AccessToken) || string.IsNullOrEmpty(request.RefreshToken))
+            if (string.IsNullOrWhiteSpace(request.RefreshToken))
+            {
+                return null; 
+            }
+
+            string? userId = null;
+
+            // Try retrieve userId from access token if provided
+            if (!string.IsNullOrWhiteSpace(request.AccessToken))
+            {
+                var principal = GetPrincipalFromExpiredToken(request.AccessToken);
+                if (principal != null)
+                {
+                    userId = principal.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                }
+            }
+
+            // find refresh token in the database
+            var refreshTokenEntity = await _dbContext.RefreshTokens
+                .Include(rt => rt.User)
+                .FirstOrDefaultAsync(rt =>
+                    rt.Token == request.RefreshToken &&
+                    !rt.IsRevoked &&
+                    rt.ExpiresAt > DateTime.UtcNow);
+
+            if (refreshTokenEntity == null)
             {
                 return null;
             }
 
-            // 2.Retrieving ClaimsPrincipal from the expired access token
-            var principal = GetPrincipalFromExpiredToken(request.AccessToken);
-            if (principal == null)
+            // if userId is provided, check if it matches the refresh token's user
+            if (userId != null && refreshTokenEntity.UserId != userId)
             {
                 return null;
             }
 
-            // 3. retrieving user ID from the ClaimsPrincipal
-            var userId = principal.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (string.IsNullOrEmpty(userId))
-            {
-                return null;
-            }
-
-            // 4. Retrieving user from the database using UserManager
-            var user = await _userManager.Users
-                .Include(u => u.RefreshTokens)
-                .FirstOrDefaultAsync(u => u.Id == userId);
-
+            var user = refreshTokenEntity.User;
             if (user == null)
             {
                 return null;
             }
 
-            // 5.Retrieving the existing refresh token from the user's refresh tokens if not revoked and not expired
-            var refreshToken = user.RefreshTokens
-                .FirstOrDefault(rt => rt.Token == request.RefreshToken && !rt.IsRevoked && rt.ExpiresAt > DateTime.UtcNow);
+            // revoking the old refresh token
+            refreshTokenEntity.IsRevoked = true;
+            await _dbContext.SaveChangesAsync();
 
-            if (refreshToken == null)
-            {
-                return null;
-            }
-
-            // 6.revoking the existing refresh token
-            refreshToken.IsRevoked = true;
-            
-
-            try
-            {
-                await _dbContext.SaveChangesAsync();
-
-                // 7. Creating a new access token and refresh token
-                var authResponse = await CreateToken(user);
-
-               
-
-                return authResponse;
-            }
-            catch (Exception ex)
-            {
-                //logging the exception (you can use a logging framework here)
-                Console.WriteLine($"[RefreshToken] Exception: {ex.Message}");
-                return null;
-            }
+            // regenerate a new token
+            return await CreateToken(user);
         }
     }
     }

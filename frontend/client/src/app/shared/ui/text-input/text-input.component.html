@@ -1,0 +1,33 @@
+<div class="form-group mb-6 relative">
+  <input
+    [type]="type"
+    [value]="_value"
+    (input)="onInput($event)"
+    (blur)="onBlur()"
+    id="{{label}}"
+    placeholder="{{label}}"
+    class="peer block w-full appearance-none rounded-md border border-slate-300 bg-white px-3 pt-4 pb-2 text-sm text-gray-900 placeholder-transparent shadow-sm focus:border-pink-500 focus:outline-none focus:ring-1 focus:ring-pink-500"
+  />
+  <label
+    for="{{label}}"
+    class="absolute left-3 top-2 text-sm text-gray-500 transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:top-1 peer-focus:text-xs peer-focus:text-pink-600"
+  >
+    {{label}}
+  </label>
+
+  <!-- Prikaz grešaka -->
+  <div *ngIf="control.invalid && (control.dirty || control.touched)" class="text-red-500 text-xs mt-1">
+    <ng-container *ngIf="control.errors?.['required']">This field is required.</ng-container>
+    <ng-container *ngIf="control.errors?.['email']">Please enter a valid email address.</ng-container>
+    <ng-container *ngIf="control.errors?.['minlength']">
+      Minimum length is {{control.errors?.['minlength']?.requiredLength}} characters.
+    </ng-container>
+    <ng-container *ngIf="control.errors?.['maxlength']">
+      Maximum length is {{control.errors?.['maxlength']?.requiredLength}} characters.
+    </ng-container>
+  </div>
+
+   <div *ngIf="control.errors?.['serverError']" class="text-red-600 text-xs mt-1">
+    {{ control.errors?.['serverError'] }}
+  </div>
+</div>

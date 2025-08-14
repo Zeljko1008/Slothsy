@@ -5,6 +5,7 @@ import {MatBadge} from '@angular/material/badge';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -21,12 +22,19 @@ import { CommonModule } from '@angular/common';
 })
 export class HeaderComponent {
 
-  isLoggedIn: boolean = false;
+   isLoggedIn$: Observable<boolean>;
+  currentUserName$: Observable<string | null>;
+  roles$: Observable<string[]>;
+
 
   constructor(
     private authService: AuthService,
     private router: Router
-  ){}
+  ){
+    this.isLoggedIn$ = this.authService.loginStatus$;
+    this.currentUserName$ = this.authService.currentUserName$;
+    this.roles$ = this.authService.roles$;
+  }
 
    logout(): void {
     this.authService.logout();

@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { ProductDetailsComponent } from './features/products/pages/product-details/product-details.component';
 import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
 import { PublicLayoutComponent } from './layout/public-layout/public-layout.component';
+import { authGuard } from './core/guards/auth.guard';
 
 
 export const routes: Routes =  [
@@ -38,6 +39,12 @@ export const routes: Routes =  [
         path: 'register',
         loadComponent: () =>
           import('./features/auth/pages/register/register.component').then((m) => m.RegisterComponent),
+      },
+      {
+        path: 'orders',
+        loadComponent: () =>
+          import('./features/orders/order/order.component').then((m) => m.OrderComponent),
+        canActivate: [authGuard]
       }
     ],
   },
@@ -46,6 +53,7 @@ export const routes: Routes =  [
   {
     path: 'admin',
     component: AdminLayoutComponent,
+    canActivate: [authGuard],
     children: [
       {
         path: '',

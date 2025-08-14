@@ -14,7 +14,7 @@ export const appConfig: ApplicationConfig = {
      provideAnimationsAsync(),
      provideHttpClient(
       withInterceptors([jwtInterceptor])
-     )
+     ), provideAnimationsAsync()
 
   ]
 };
