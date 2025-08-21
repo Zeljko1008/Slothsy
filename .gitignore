@@ -119,6 +119,8 @@ Slothsy.WebAPI/appsettings.json
 
 appsettings.json
 
+
+
 appsettings.Development.json
 /frontend/client/ssl/
 
@@ -141,6 +143,12 @@ appsettings.Development.json
 .DS_Store
 Thumbs.db
 
+# .gitignore
+.env
 
+# Git
+!docker-compose.yml
+!Slothsy.WebAPI/Dockerfile
+!Slothsy.WebAPI/appsettings.Docker.json
 
 

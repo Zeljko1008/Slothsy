@@ -20,7 +20,7 @@ export class ProductCardComponent implements OnInit {
   @Input() variant!: ProductVariant;
   @Input() colorVariant!: ProductColorVariant;
   baseUrl = environment.apiBaseUrl;
-  baseImgUrl = 'https://localhost:7053/'; // Base URL for images
+  baseImgUrl = environment.baseImgUrl; // Base URL for images
   product: Product | null = null;
 
   constructor( private router:Router, private productService:ProductService, private productColorVariantService: ProductColorVariantService) {}

@@ -29,6 +29,14 @@ var jwtSettings = builder.Configuration
     .Get<JwtSettings>();
 
 var key = Encoding.UTF8.GetBytes(jwtSettings.Secret);
+if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Docker")
+{
+    var secretFromEnv = Environment.GetEnvironmentVariable("JWT_SECRET");
+    if (!string.IsNullOrEmpty(secretFromEnv))
+    {
+        jwtSettings.Secret = secretFromEnv;
+    }
+}
 
 builder.Services.AddAuthentication(options =>
 {
@@ -168,6 +176,12 @@ builder.Services.AddCors(options =>
 builder.Services.AddTransient<IdentitySeeder>();
 var app = builder.Build();
 
+if (Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true")
+{
+    app.Urls.Clear();
+    app.Urls.Add("http://+:80"); // Docker
+}
+
 
 
 // ------------------------------------------------------------
@@ -209,7 +223,10 @@ app.UseStaticFiles();
 // ------------------------------------------------------------
 // Enforce HTTPS redirection
 // ------------------------------------------------------------
-app.UseHttpsRedirection();
+if (app.Environment.IsDevelopment() && Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") != "true")
+{
+    app.UseHttpsRedirection();
+}
 
 // ------------------------------------------------------------
 // Use routing middleware to match incoming requests to endpoints

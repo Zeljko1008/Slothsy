@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Categories } from '../../../shared/models/categories';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-carousel-item',
@@ -17,5 +18,5 @@ export class CarouselItemComponent {
   @Input() link!: string;
   @Input() category!: Categories;
 
-  baseImgUrl = 'https://localhost:7053/'; // Base URL for images
+  baseImgUrl = environment.baseImgUrl;
 }

@@ -15,7 +15,7 @@ export class CategoryCardComponent {
  @Input() category!: Categories;
 
     baseUrl = environment.apiBaseUrl;
-     baseImgUrl = 'https://localhost:7053/'; // Base URL for images
+     baseImgUrl = environment.baseImgUrl; // Base URL for images
 
  getFullImageUrl(): string {
     if (!this.category?.bannerImageUrl) return '/assets/no-item.jpg';

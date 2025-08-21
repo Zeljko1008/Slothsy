@@ -4,6 +4,7 @@ import { ProductColorVariant } from '../../../../shared/models/product-color-var
 import { CommonModule } from '@angular/common';
 import { ProductVariantImage } from '../../../../shared/models/product-variant-image';
 import { AdminProductVariantComponent } from '../admin-product-variant/admin-product-variant.component';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-admin-product-color-variants',
@@ -17,7 +18,7 @@ export class AdminProductColorVariantsComponent implements OnInit {
    @Input() productId!: string;
   @Input() productName!: string;
   colorVariants: ProductColorVariant[] = [];
-  baseImgUrl = 'https://localhost:7053/'; // Base URL for images
+  baseImgUrl = environment.baseImgUrl;
   expandedVariantId: string | null = null;
   expandedImageId: string | null = null;
   activeColorVariantId: string | null = null;

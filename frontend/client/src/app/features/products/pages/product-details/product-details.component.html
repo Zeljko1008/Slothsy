@@ -10,24 +10,28 @@
 
   <!-- Main content -->
   <main class="flex-1">
-    <div class="flex flex-col lg:flex-row gap-8">
+   <div class="flex flex-col lg:flex-row gap-8">
 
-      <!-- Left: Images -->
-      <div class="w-full lg:w-1/2">
+  <!-- Left: Images -->
+  <div class="w-full lg:w-1/2 flex flex-col gap-4">
+    <!-- Main Image -->
+    <img
+      [src]="getImageUrl(mainImage ?? undefined)"
+      alt="Main"
+      class="w-full h-96 object-cover rounded"
+    />
 
-
-        <!-- Gallery -->
-        <div class="flex gap-2 overflow-x-auto">
-          <img
-            *ngFor="let img of colorVariant?.images"
-            [src]="getImageUrl(img)"
-            alt="Additional"
-            (click)="onThumbnailClick(img)"
-            class="w-20 h-20 object-cover rounded cursor-pointer border hover:border-blue-500"
-          />
-        </div>
-      </div>
-
+    <!-- Gallery -->
+    <div class="flex gap-2 overflow-x-auto">
+      <img
+        *ngFor="let img of colorVariant?.images"
+        [src]="getImageUrl(img)"
+        alt="Additional"
+        (click)="onThumbnailClick(img)"
+        class="w-20 h-20 object-cover rounded cursor-pointer border hover:border-blue-500"
+      />
+    </div>
+  </div>
       <!-- Right: Info -->
       <div class="w-full lg:w-1/2 space-y-4">
         <h1 class="text-3xl font-bold">{{ product?.name }}</h1>

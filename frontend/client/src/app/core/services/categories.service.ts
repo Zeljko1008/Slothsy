@@ -9,7 +9,7 @@ import { environment } from '../../../environments/environment';
 })
 export class CategoriesService {
   baseUrl = environment.apiBaseUrl;
-  baseImgUrl = 'https://localhost:7053/'; // Base URL for images
+  baseImgUrl = 'http://localhost:5000/'; // Base URL for images
   private http = inject(HttpClient);
   //Categories: Categories[] = [];
 

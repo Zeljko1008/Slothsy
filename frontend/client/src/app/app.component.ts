@@ -7,6 +7,7 @@ import { Product } from './shared/models/product';
 import { PaginationResult } from './shared/models/pagination-result';
 import { HomeComponent } from './features/home/home.component';
 import { FooterComponent } from './layout/footer/footer.component';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,8 @@ import { FooterComponent } from './layout/footer/footer.component';
   styleUrl: './app.component.scss'
 })
 export class AppComponent  {
+
+
 
 
 

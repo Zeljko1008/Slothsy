@@ -66,10 +66,23 @@ namespace Slothsy.Infrastructure.Identity.Services
             var refreshToken = new RefreshToken
             {
                 Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
-                ExpiresAt = DateTime.UtcNow.AddDays(7),
+                ExpiresAt = DateTime.UtcNow.AddDays(_jwtSettings.RefreshTokenExpiresInDays),
                 UserId = user.Id
             };
             _dbContext.RefreshTokens.Add(refreshToken);
+
+            // fetch all user's refresh tokens
+            var userTokens = await _dbContext.RefreshTokens
+                .Where(rt => rt.UserId == user.Id && !rt.IsRevoked && rt.ExpiresAt > DateTime.UtcNow)
+                .OrderByDescending(rt => rt.ExpiresAt)
+                .ToListAsync();
+
+            // if there are more than 3 valid tokens, remove the oldest ones
+            if (userTokens.Count >= 3)
+            {
+                var tokensToRemove = userTokens.Skip(3); // keep the most recent 3 tokens
+                _dbContext.RefreshTokens.RemoveRange(tokensToRemove);
+            }
             await _dbContext.SaveChangesAsync();
 
 

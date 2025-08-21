@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {  Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { LoginRequest } from '../../shared/models/login-request';
@@ -50,8 +50,13 @@ roles$ = this.roles.asObservable();
   logout() {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
+    localStorage.removeItem('currentUserName');
+    localStorage.removeItem('roles');
     this.loginStatus.next(false);
     this.currentUserName.next(null);
+    this.roles.next([]);
+
+    console.log('Roles after logout:', this.roles.getValue());
   }
   getAccessToken(): string | null {
     return localStorage.getItem('accessToken');

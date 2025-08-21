@@ -26,51 +26,7 @@ namespace Slothsy.WebAPI.Controllers
             _authService = authService ?? throw new ArgumentNullException(nameof(authService));
         }
 
-        //    [HttpPost("register")]
-        //    public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
-        //    {
-        //        var existingUser = await _userManager.FindByEmailAsync(registerDto.Email);
-        //        if (existingUser != null)
-        //        {
-        //            return BadRequest(new
-        //            {
-        //                title = "Registration Failed",
-        //                message = "Email is already in use."
-        //            });
-        //        }
-
-        //        var user = new ApplicationUser
-        //        {
-        //            FirstName = registerDto.FirstName,
-        //            LastName = registerDto.LastName,
-        //            UserName = registerDto.Email,
-        //            Email = registerDto.Email
-
-        //        };
-        //        var result = await _userManager.CreateAsync(user, registerDto.Password);
-        //        if (!result.Succeeded)
-        //{
-        //    var errors = string.Join(", ", result.Errors.Select(e => e.Description));
-        //    return BadRequest(new
-        //    {
-        //        title = "Registration Failed",
-        //        message = errors
-        //    });
-        //}
-
-        //        var confirmationToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-        //        Console.WriteLine($"[REGISTER] Confirmation token for {user.Email}:");
-        //        Console.WriteLine(confirmationToken);
-        //        //TODO: Implement email confirmation logic
-
-        //        return Ok(new
-        //        {
-        //            title = "Account Created!",
-        //            message = "User registered successfully. Please check your email for confirmation."
-        //        });
-
-
-        //    }
+        
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
@@ -82,49 +38,7 @@ namespace Slothsy.WebAPI.Controllers
 
             return Ok(new { title = "Registration Successful", message = result.Message, userId = result.UserId });
         }
-        //[HttpPost("login")]
-        //public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
-        //{
-        //    var user = await _userManager.FindByEmailAsync(loginDto.Email);
-        //    if (user == null)
-        //    {
-        //        return Unauthorized(new
-        //        {
-        //            title = "Login Failed",
-        //            message = "Invalid email or password."
-        //        });
-        //    }
-        //    if (!user.EmailConfirmed)
-        //    {
-        //        return Unauthorized(new
-        //        {
-        //            title = "Login Failed",
-        //            message = "Email not confirmed. Please check your email for confirmation."
-        //        });
-        //    }
-        //    var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
-        //    if (!result.Succeeded)
-        //    {
-        //        return Unauthorized(new
-        //        {
-        //            title = "Login Failed",
-        //            message = "Invalid email or password."
-        //        });
-        //    }
-        //    var roles = await _userManager.GetRolesAsync(user);
-        //    var response = await _tokenService.CreateToken(user);
-        //    var loginResponse = new LoginResponseDto
-        //    {
-        //        Title = "Login Successful",
-        //        Message = "You have logged in successfully.",
-        //        AccessToken = response.AccessToken,
-        //        RefreshToken = response.RefreshToken,
-        //        FirstName= response.FirstName
-        //    };
-
-        //    return Ok(loginResponse);
-
-        //}
+       
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)

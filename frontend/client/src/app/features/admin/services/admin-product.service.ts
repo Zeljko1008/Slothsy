@@ -16,7 +16,7 @@ import { CategoryForForm } from '../../../shared/models/categories-for-form';
 export class AdminProductService {
 
   private baseUrl= environment.apiBaseUrl;
-   baseImgUrl = 'https://localhost:7053/'; // Base URL for images
+   baseImgUrl = 'https://localhost:5001/'; // Base URL for images
 
   constructor(
     private http : HttpClient

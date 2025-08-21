@@ -10,6 +10,7 @@ import { Categories } from '../../../../shared/models/categories';
 import { CategoryTreeSidebarComponent } from '../../../../shared/ui/category-tree-sidebar/category-tree-sidebar.component';
 import { ProductColorVariant } from '../../../../shared/models/product-color-variant';
 import { ProductColorVariantService } from '../../../../core/services/product-color-variant.service';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-product-details',
@@ -24,7 +25,7 @@ export class ProductDetailsComponent implements OnInit {
   colorVariant: ProductColorVariant | null = null;
   variant: ProductVariant | null = null;
   mainImage: ProductVariantImage | null = null;
-  baseImgUrl = 'https://localhost:7053/'; // Base URL for images
+  baseImgUrl = environment.baseImgUrl;
 
    filteredOtherVariants: ProductColorVariant[] = [];
 
